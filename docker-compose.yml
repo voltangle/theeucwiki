@@ -1,0 +1,99 @@
+services:
+    db:
+        image: pastakhov/mysql:5.7
+        restart: always
+        environment:
+            - MYSQL_ROOT_HOST=${EUCR_MYSQL_ROOT_HOST}
+            - MYSQL_ROOT_PASSWORD=${EUCR_MYSQL_ROOT_PASSWORD}
+        volumes:
+            - ${EUCR_MYSQL_DATA}:/var/lib/mysql
+
+    proxy:
+        build:
+            context: ./nginx
+            dockerfile: Dockerfile
+        restart: always
+        depends_on:
+            - mediawiki
+            - restbase
+        ports:
+            - "8080:80"
+            - "80:80"
+
+    mediawiki:
+        build: 
+            context: ./mediawiki
+            dockerfile: Dockerfile
+        restart: always
+        tty: true
+        depends_on:
+            - db
+            - elasticsearch
+            - memcached
+            - parsoid
+            - restbase
+        volumes:
+            - ${EUCR_MW_UPLOADS}:/var/www/html/w/images
+            - ${EUCR_MW_CONF}:/mediawiki
+        environment:
+            - MW_SITE_SERVER=${EUCR_MW_SERVER}
+            - MW_SITE_NAME=euc.repair
+            - MW_SITE_LANG=en
+            - MW_DEFAULT_SKIN=citizen
+            - MW_ENABLE_UPLOADS=1
+            - MW_USE_INSTANT_COMMONS=0
+            - MW_ADMIN_USER=${EUCR_MW_ADMIN_USER}
+            - MW_ADMIN_PASS=${EUCR_MW_ADMIN_PASS}
+            - MW_DB_NAME=${EUCR_MW_DB_NAME}
+            - MW_DB_USER=${EUCR_MW_DB_USER}
+            - MW_DB_PASS=${EUCR_MW_DB_PASS}
+            - MW_DB_INSTALLDB_USER=root
+            - MW_DB_INSTALLDB_PASS=${EUCR_MYSQL_ROOT_PASSWORD}
+            - MW_AUTOUPDATE=true
+            - MW_PROXY_SERVERS=proxy
+            - MW_MAIN_CACHE_TYPE=CACHE_MEMCACHED
+            - MW_MEMCACHED_SERVERS=memcached:11211
+            - MW_SEARCH_TYPE=CirrusSearch
+            - MW_CIRRUS_SEARCH_SERVERS=elasticsearch
+            - MW_REST_DOMAIN=mediawiki
+            - MW_REST_PARSOID_URL=http://parsoid:8000
+            - MW_REST_RESTBASE_URL=http://restbase:7231
+            - MW_REST_RESTBASE_PROXY_PATH=/api/rest_
+            - MW_FLOW_NAMESPACES=NS_TALK,NS_USER_TALK
+            - PHP_LOG_ERRORS=On
+            - PHP_ERROR_REPORTING=E_ALL #Production Value: E_ALL & ~E_DEPRECATED & ~E_STRICT
+
+    memcached:
+        image: memcached
+        restart: always
+
+    parsoid:
+        image: pastakhov/parsoid:0.7.1
+        restart: always
+        environment:
+            - PARSOID_NUM_WORKERS=0
+            - PARSOID_DOMAIN_mediawiki=http://mediawiki/w/api.php
+
+    restbase:
+        image: pastakhov/restbase:0.16.9
+        restart: always
+        environment:
+            - RB_CONF_NUM_WORKERS=0
+            - RB_CONF_DOMAIN_mediawiki=http://mediawiki/w/api.php
+            - RB_CONF_PARSOID_HOST=http://parsoid:8000
+            - RB_CONF_BASE_URI_TEMPLATE=http://{domain}/api/rest_v1
+            - RB_CONF_API_URI_TEMPLATE=http://{domain}/w/api.php
+            - RB_CONF_LOGGING_LEVEL=info #trace
+            - RB_CONF_PDF_URI=http://pdf:3000
+
+    elasticsearch:
+        image: elasticsearch:7.10.1
+        environment:
+            - discovery.type=single-node
+        restart: always
+
+    pdf:
+        image: msokk/electron-render-service
+        restart: always
+        environment:
+            RENDERER_ACCESS_KEY: secret

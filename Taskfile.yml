@@ -1,0 +1,27 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  redeploy:
+    cmds:
+      - docker compose build
+      - docker compose down -v
+      - docker compose up --build --detach
+      - docker compose exec web php var/www/html/w/maintenance/run.php update --quick
+  stop: docker compose stop
+  teardown: docker compose down -v
+  web-bash: docker compose exec web /bin/bash
+  maintenance-update:
+    cmds:
+      - docker compose exec web echo "$PWD"
+      - docker compose exec web php var/www/html/w/maintenance/run.php update --quick
+  up: docker compose up --detach
+  start: docker compose start --detach
+  start-preserve: docker compose start
+  restart:
+    cmds:
+      - docker compose stop
+      - docker compose up --detach
+  logs: docker compose logs -f
+  clear-varnish: docker compose restart proxy

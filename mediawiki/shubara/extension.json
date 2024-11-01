@@ -1,0 +1,24 @@
+{
+	"name": "Shubara",
+	"author": "Voltangle",
+	"url": "https://github.com/voltangle/euc.repair",
+	"description": "Provides custom functionality and UI for the euc.repair website.",
+	"version": "1.0",
+	"license-name": "GPL-2.0-or-later",
+	"type": "other",
+    "AutoloadClasses": {
+		"Hooks": "src/Hooks.php"
+	},
+    "ResourceModules": {
+		"ext.shubara": {
+            "scripts": [],
+            "styles": [
+				"resources/ext.shubara.css"
+			]
+		}
+    },
+    "Hooks": {
+        "ParserFirstCallInit": "ShubaraNavCards::onParserFirstCallInit"
+    },
+	"manifest_version": 2
+}
