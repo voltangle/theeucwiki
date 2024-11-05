@@ -8,7 +8,7 @@ services:
         volumes:
             - ${EUCR_MYSQL_DATA}:/var/lib/mysql
 
-    proxy:
+    nginx:
         build:
             context: ./nginx
             dockerfile: Dockerfile
@@ -50,7 +50,7 @@ services:
             - MW_DB_INSTALLDB_USER=root
             - MW_DB_INSTALLDB_PASS=${EUCR_MYSQL_ROOT_PASSWORD}
             - MW_AUTOUPDATE=true
-            - MW_PROXY_SERVERS=proxy
+            - MW_PROXY_SERVERS=nginx
             - MW_MAIN_CACHE_TYPE=CACHE_MEMCACHED
             - MW_MEMCACHED_SERVERS=memcached:11211
             - MW_SEARCH_TYPE=CirrusSearch
