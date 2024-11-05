@@ -53,7 +53,7 @@ ENV MW_VERSION=REL1_41 \
     WWW_GROUP=www-data \
     APACHE_LOG_DIR=/var/log/apache2
 
-ENV CITIZEN_VERSION=v2.32.0
+ENV CITIZEN_VERSION=v2.33.0
 
 # logs should go to stdout / stderr
 RUN set -ex \
