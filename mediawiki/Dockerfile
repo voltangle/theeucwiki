@@ -235,7 +235,6 @@ COPY favicon.ico $MW_HOME/favicon.ico
 COPY logo*.png $MW_HOME/
 COPY icon.png $MW_HOME/icon.png
 COPY CustomSettings.php $MW_HOME/CustomSettings.php
-COPY varnish.vcl $MW_HOME/varnish.vcl
 
 CMD ["/run-apache.sh"]
 
