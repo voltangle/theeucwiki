@@ -285,7 +285,7 @@ wfLoadExtension('ElectronPdfService');
 wfLoadExtension( 'Popups' );
 
 ######################### TemplateStyles ##########################
-wfLoadExtension( 'TemplateStyles' );
+# wfLoadExtension( 'TemplateStyles' );
 
 ######################### Drafts ##########################
 # FIXME: Reenable
@@ -304,6 +304,7 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 
 ######################### BlogPage ######################### 
 wfLoadExtension( 'BlogPage' );
+
 ######################### Shubara ##########################
 wfLoadExtension( 'Shubara' );
 
