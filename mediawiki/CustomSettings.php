@@ -295,13 +295,15 @@ wfLoadExtension( 'TemplateStyles' );
 wfLoadExtension( 'RelatedArticles' );
 $wgRelatedArticlesFooterAllowedSkins = ['vector-2022', 'vector', 'citizen'];
 $wgRelatedArticlesUseCirrusSearch = true;
-$wgRelatedArticlesDescriptionSOurce = 'pagedescription';
+$wgRelatedArticlesDescriptionSource = 'pagedescription';
 
 
 ######################### Scribunto ##########################
 wfLoadExtension( 'Scribunto' );
 $wgScribuntoDefaultEngine = 'luastandalone';
 
+######################### BlogPage ######################### 
+wfLoadExtension( 'BlogPage' );
 ######################### Shubara ##########################
 wfLoadExtension( 'Shubara' );
 
