@@ -1,0 +1,100 @@
+.ext-shubara-navcards {
+    /* flex: 2; */
+    min-width: 280px;
+    display: flex;
+	flex-direction: row;
+	flex-flow: row wrap;
+	justify-content: space-between;
+    gap: 10px;
+    margin: 5px;
+}
+
+.ext-shubara-navcard {
+    flex: 1;
+    min-height: 110px;
+    min-width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #8080803d;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+    background-color: white;
+    transition: 0.1s ease-in-out;
+    background-size: cover;
+    background-color: #00000030;
+    background-blend-mode: overlay;
+}
+
+@media (hover: hover) {
+    .ext-shubara-navcard:hover {
+        transform: scale(1.03);
+    }
+}
+
+.ext-shubara-navcard:active {
+    transform: scale(0.99);
+}
+
+@media (max-width: 1120px) {
+    .ext-shubara-navcard {
+        min-width: 130px;
+    }
+}
+
+.mbci-nosfet {
+    background-image: url('/w/images/3/3c/Nosfet-bg.jpeg');
+    background-size: cover;
+    background-color: #00000030;
+    background-blend-mode: overlay;
+}
+.mbci-inmotion {
+    background-image: url('/w/images/7/73/Inmotion-bg.jpg');
+    background-size: cover;
+    background-color: #00000030;
+    background-blend-mode: overlay;
+}
+.mbci-kingsong {
+    background-image: url('/w/images/e/e7/Kingsong-bg.jpg');
+    background-size: cover;
+    background-position-y: 60%;
+    background-color: #00000030;
+    background-blend-mode: overlay;
+}
+
+.mbci-begode {
+    background-image: url('/w/images/1/12/Begode-bg.jpg');
+    background-size: cover;
+    background-color: #00000030;
+    background-blend-mode: overlay;
+    background-position: 100%;
+}
+
+.mbci-leaperkim {
+    background-image: url('/w/images/a/a3/Leaperkim-bg.jpg');
+    background-size: cover;
+    background-color: #00000030;
+    background-blend-mode: overlay;
+}
+
+.mbci-eb {
+    background-image: url('/w/images/c/ca/Extreme-bull-bg.jpg');
+    background-size: cover;
+    background-color: #00000030;
+    background-blend-mode: overlay;
+    background-position: center;
+}
+
+.mbci-ninebot {
+    background-image: url('/w/images/3/31/Ninebot-bg.jpg');
+    background-size: cover;
+    background-color: #00000030;
+    background-blend-mode: overlay;
+    background-position: 50% center;
+}
+
+@media (max-width: 1120px) {
+    .mbci-ninebot {
+        background-position: 50% 85%;
+    }
+}
