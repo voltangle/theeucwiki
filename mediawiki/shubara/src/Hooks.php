@@ -4,8 +4,8 @@ namespace MediaWiki\Extension\Shubara;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Hook\RawPageViewBeforeOutputHook;
-use MediaWiki\Parser as Parser;
-use MediaWiki\Parser\PPFrame as PPFrame;
+use Parser;
+use PPFrame;
 
 class Hooks implements ParserFirstCallInitHook {
     public function onParserFirstCallInit( $parser ) {
@@ -23,13 +23,13 @@ class Hooks implements ParserFirstCallInitHook {
     public function renderTagNavCard( $input, array $args, Parser $parser, PPFrame $frame ) {
         // $out = $parser->getOutput();
         // $out->addInlineStyle( $cssString );
-        $styleTag = generateRandomString(26);
+        $styleTag = $this->generateRandomString(26);
         $output .= "<div class=\"mw-ext-shubara-navcard-$styletag\">";
-        $output .= $input;
+        $output .= htmlspecialchars($input);
         $output .= '<p>';
         $output .= implode(" ", $args);
         $output .= '</p></div>';
-        return htmlspecialchars( $output );
+        return $output;
     }
 
     function generateRandomString($length = 10) {
