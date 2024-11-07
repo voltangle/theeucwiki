@@ -6,9 +6,12 @@
 	"version": "1.0",
 	"license-name": "GPL-2.0-or-later",
 	"type": "other",
-    "AutoloadClasses": {
-		"Hooks": "src/Hooks.php"
-	},
+    "requires": {
+        "MediaWiki": ">= 1.41.0"
+    },
+    "AutoloadNamespaces": {
+        "MediaWiki\\Extension\\Shubara\\": "src/"
+    },
     "ResourceModules": {
 		"ext.shubara": {
             "scripts": [],
@@ -17,8 +20,13 @@
 			]
 		}
     },
+    "HookHandlers": {
+        "ShubaraHooks": {
+            "class": "MediaWiki\\Extension\\Shubara\\Hooks"
+        }
+    },
     "Hooks": {
-        "ParserFirstCallInit": "ShubaraNavCards::onParserFirstCallInit"
+        "ParserFirstCallInit": "ShubaraHooks"
     },
 	"manifest_version": 2
 }
