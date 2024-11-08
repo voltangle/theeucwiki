@@ -14,9 +14,13 @@
     },
     "ResourceModules": {
 		"ext.shubara": {
-            "scripts": [],
+            "localBasePath": "resources/ext.shubara",
+            "remoteExtPath": "Shubara/resources/ext.shubara",
+            "scripts": [
+                "ext.shubara.js"
+            ],
             "styles": [
-				"resources/ext.shubara.css"
+				"ext.shubara.css"
 			]
 		}
     },
@@ -26,7 +30,8 @@
         }
     },
     "Hooks": {
-        "ParserFirstCallInit": "ShubaraHooks"
+        "ParserFirstCallInit": "ShubaraHooks",
+        "BeforePageDisplay": "ShubaraHooks"
     },
 	"manifest_version": 2
 }
