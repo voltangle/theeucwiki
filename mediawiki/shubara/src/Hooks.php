@@ -78,16 +78,6 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         // FIXME: Make it just a "red link" or smth
         if (!$title) { throw new InvalidArgumentException('Supplied page does not exist');}
         $pageURL = $title->getFullURL();
-        // FIXME: this is some NASTY code wtf
-        
-        /* $js = "(function() {
-  var nTimer = setInterval(function() {
-    if (window.jQuery) {
-      \$(\"#ext-shubara-$navCardID\").click(function(){window.location=\"$pageURL\"});
-      clearInterval(nTimer);
-    }
-  }, 100);
-})();"; */
         // we use vanilla JS here because this is in the head of the document, we aint having jquery here
         // TODO: make this work with jQuery
         $js = "document.getElementById(\"ext-shubara-$navCardID\").addEventListener(\"click\", function(){window.location=\"$pageURL\"})";
