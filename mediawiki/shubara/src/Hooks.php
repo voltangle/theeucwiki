@@ -37,47 +37,75 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         return htmlspecialchars( $input );
     }
 
-    // Render <navcard>
+    /**
+     *
+     * Render the navcard tag
+     *
+     * @param string $input What is supplied between the HTML tags
+     * @param array $args HTML tag attribute params. All of them are optional, but with
+     * caveats.
+     * Valid params:
+     * - page: a page name, with an optional namespace prefix.
+     * - title-img: Image that is shown above the background in the center. If both
+     * title-img and title-txt are present, none are rendered and instead an error is shown.
+     * - title-txt: Text that is shown above the background in the center. If both
+     * title-img and title-txt are present, none are rendered and instead an error is shown.
+     * - bg-img: Image that is shown as the background.
+     * - bg-tint%: How much the image is tinted (e.g. overlayed with black)
+     *  @param Parser $parser MW Parser
+     *  @param PPFrame $frame MW Frame
+     */
     public function renderTagNavCard($input, array $args, Parser $parser, PPFrame $frame) {
         $navCardID = $this->generateRandomString(20); // styles specific to this navcard
         $output = '';
 
-        // Argument retrieval
-        // FIXME: refactor without exceptions
-        if (!isset($args['page'])) {
-            throw new InvalidArgumentException('No page argument supplied');
-        }
-        if (!isset($args['title-image'])) {
-            throw new InvalidArgumentException('No title-image argument supplied');
+        if (isset($args['title-img']) xor isset($args['title-txt'])) {
+            return 'Error! No title-img or title-txt present, or both are there at the same time';
         }
         $page = $args['page'];
-        $titleImage = $args['title-image'];
+        $titleType = '';
+        $title = null;
+        if (isset($args['title-img'])) {
+            $title = $args['title-img'];
+            $titleType = 'img';
+        } else {
+            $title = $args['title-txt'];
+            $titleType = 'txt';
+        }
+        $bgImage = $args['bg-img'];
+        $bgTintPercent = $args['bg-tint%'];
 
         // Generate and apply CSS
-        $titleFile = $this->getDirectFileURL($titleImage);
-        if (!$titleFile) { throw new InvalidArgumentException('Title image does not exist');}
-        $css = "#ext-shubara-$navCardID { background-image: url(\"$titleFile\"); }";
+
+        $css = '';
+        if ($titleType == 'img') {
+            $titleFile = $this->getDirectFileURL($title);
+            if (!$titleFile) { return "Error! Title image $title does not exist."; }
+            $css .= "#ext-shubara-$navCardID { background-image: url(\"$titleFile\"); }";
+        }
         if ($parser->getOptions()->getIsPreview()) {
             // embed as <style> because previews can't show what gets
             // inserted inside <head>
             global $wgShowDebug; // https://www.mediawiki.org/wiki/Manual:$wgShowDebug
             // disabled for production to save a few bytes on page size
-            if ($wgShowDebug) {
-                $output .= "<!-- Begin Extension:Shubara (Preview mode) -->";
-            }
-            $output .= "<style>$css</style>";
-            if ($wgShowDebug) {
-                $output .= "<!-- End Extension:Shubara (Preview mode) -->";
+            if ($css !== '') {
+                if ($wgShowDebug) {
+                    $output .= "<!-- Begin Extension:Shubara (Preview mode) -->";
+                }
+                $output .= "<style>$css</style>";
+                if ($wgShowDebug) {
+                    $output .= "<!-- End Extension:Shubara (Preview mode) -->";
+                }
             }
         } else {
             $this->addHeadItem($parser, $css, 'css');
         }
 
         // Generate and apply JS
-        $title = Title::newFromText(trim($page));
+        $pageTitle = Title::newFromText(trim($page));
         // FIXME: Make it just a "red link" or smth
-        if (!$title) { throw new InvalidArgumentException('Supplied page does not exist');}
-        $pageURL = $title->getFullURL();
+        if (!$pageTitle) { throw new InvalidArgumentException('Supplied page does not exist');}
+        $pageURL = $pageTitle->getFullURL();
         // we use vanilla JS here because this is in the head of the document, we aint having jquery here
         // TODO: make this work with jQuery
         $js = "document.getElementById(\"ext-shubara-$navCardID\").addEventListener(\"click\", function(){window.location=\"$pageURL\"})";
