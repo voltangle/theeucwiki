@@ -50,6 +50,7 @@ $wgLogos = [
 $wgFavicon = "$wgScriptPath/favicon.ico";
 
 # Enable use of raw HTML within <html>
+# TODO: When going into production, KILL THIS WITH HAMMERS
 $wgRawHtml = true;
 
 ##### Short URLs

@@ -143,8 +143,8 @@ if [ ! -e "$MW_VOLUME/LocalSettings.php" ]; then
         "$MW_SITE_NAME" \
         "$MW_ADMIN_USER"
 
-    # Append inclusion of DockerSettings.php
-    echo "@include('DockerSettings.php');" >> "$MW_VOLUME/LocalSettings.php"
+    # Append inclusion of CustomSettings.php
+    echo "@include('CustomSettings.php');" >> "$MW_VOLUME/LocalSettings.php"
 fi
 
 if [ ! -e "$MW_HOME/LocalSettings.php" ]; then
