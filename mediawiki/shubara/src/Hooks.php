@@ -32,16 +32,27 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
 		$out->addModules( 'ext.shubara' );
 	}
 
-    // render <navcards>
+    /**
+     * Render the navcards tag
+     *
+     * @param string $input What is supplied between the HTML tags. This gets evaluated
+     * so it get spit out as normal wikitext
+     * @param array $args HTML tag attribute params. Ignored
+     * @param Parser $parser MediaWiki Parser object
+     * @param PPFrame $frame MediaWiki PPFrame object
+     */
     public function renderTagNavCards( $input, array $args, Parser $parser, PPFrame $frame ) {
-        return htmlspecialchars( $input );
+        $output = '<div class="ext-shubara-navcards">';
+        $output .= $parser->recursiveTagParse($input, $frame);
+        $output .= '</div>';
+        return $output;
     }
 
     /**
      *
      * Render the navcard tag
      *
-     * @param string $input What is supplied between the HTML tags
+     * @param string $input What is supplied between the HTML tags. Ignored
      * @param array $args HTML tag attribute params. All of them are optional, but with
      * caveats.
      * Valid params:
@@ -59,7 +70,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         $navCardID = $this->generateRandomString(20); // styles specific to this navcard
         $output = '';
 
-        if (isset($args['title-img']) xor isset($args['title-txt'])) {
+        if (!(isset($args['title-img']) xor isset($args['title-txt']))) {
             return 'Error! No title-img or title-txt present, or both are there at the same time';
         }
         $page = $args['page'];
@@ -78,17 +89,19 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         // Generate and apply CSS
 
         $css = '';
-        if ($titleType == 'img') {
-            $titleFile = $this->getDirectFileURL($title);
-            if (!$titleFile) { return "Error! Title image $title does not exist."; }
-            $css .= "#ext-shubara-$navCardID { background-image: url(\"$titleFile\"); }";
+        if ($bgImage != null) {
+            // FIXME: this returns the file with the "domain", it has to be only an
+            // explicit path
+            $bgFile = $this->getDirectFileURL($bgImage);
+            if (!$bgFile) { return "Error! Image $bgImage does not exist."; }
+            $css .= "#ext-shubara-$navCardID { background-image: url(\"$bgFile\"); }";
         }
         if ($parser->getOptions()->getIsPreview()) {
             // embed as <style> because previews can't show what gets
             // inserted inside <head>
             global $wgShowDebug; // https://www.mediawiki.org/wiki/Manual:$wgShowDebug
             // disabled for production to save a few bytes on page size
-            if ($css !== '') {
+            if ($css != '') {
                 if ($wgShowDebug) {
                     $output .= "<!-- Begin Extension:Shubara (Preview mode) -->";
                 }
@@ -111,8 +124,18 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         $js = "document.getElementById(\"ext-shubara-$navCardID\").addEventListener(\"click\", function(){window.location=\"$pageURL\"})";
         $this->addHeadItem($parser, $js, 'javascript');
 
+        // Generate the HTML
         $output .= "<button id=\"ext-shubara-$navCardID\" class=\"ext-shubara-navcard\">";
-        $output .= htmlspecialchars($input);
+        switch ($titleType) {
+            case 'img':
+                $titleFile = $this->getDirectFileURL($title);
+                if (!$titleFile) { return "Error! Title image $title does not exist."; }
+                $output .= "<img src=\"$titleFile\" />";
+                break;
+            case 'txt':
+                $output .= $title;
+                break;
+        }
         $output .= '</button>';
         return $output;
     }
