@@ -3,19 +3,19 @@
 version: '3'
 
 tasks:
-  redeploy:
+  full-redeploy:
     cmds:
       - docker compose build
       - docker compose down -v
       - docker compose up --build --detach
-      - docker compose exec web php var/www/html/w/maintenance/run.php update --quick
+  redeploy-mw: docker rollout mediawiki
   stop: docker compose stop
   teardown: docker compose down -v
-  web-bash: docker compose exec web /bin/bash
+  mw-bash: docker compose exec mediawiki /bin/bash
   maintenance-update:
     cmds:
-      - docker compose exec web echo "$PWD"
-      - docker compose exec web php var/www/html/w/maintenance/run.php update --quick
+      - docker compose exec mediawiki echo "$PWD"
+      - docker compose exec mediawiki php var/www/html/w/maintenance/run.php update --quick
   up: docker compose up --detach
   start: docker compose start --detach
   start-preserve: docker compose start
@@ -24,4 +24,3 @@ tasks:
       - docker compose stop
       - docker compose up --detach
   logs: docker compose logs -f
-  clear-varnish: docker compose restart proxy
