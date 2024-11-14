@@ -26,6 +26,12 @@
     background-blend-mode: overlay;
 }
 
+.ext-shubara-navcard img {
+    max-width: 100%;
+    max-height: 100px;
+    padding: 8px;
+}
+
 @media (hover: hover) {
     .ext-shubara-navcard:hover {
         transform: scale(1.03);
@@ -42,59 +48,3 @@
     }
 }
 
-.mbci-nosfet {
-    background-image: url('/w/images/3/3c/Nosfet-bg.jpeg');
-    background-size: cover;
-    background-color: #00000030;
-    background-blend-mode: overlay;
-}
-.mbci-inmotion {
-    background-image: url('/w/images/7/73/Inmotion-bg.jpg');
-    background-size: cover;
-    background-color: #00000030;
-    background-blend-mode: overlay;
-}
-.mbci-kingsong {
-    background-image: url('/w/images/e/e7/Kingsong-bg.jpg');
-    background-size: cover;
-    background-position-y: 60%;
-    background-color: #00000030;
-    background-blend-mode: overlay;
-}
-
-.mbci-begode {
-    background-image: url('/w/images/1/12/Begode-bg.jpg');
-    background-size: cover;
-    background-color: #00000030;
-    background-blend-mode: overlay;
-    background-position: 100%;
-}
-
-.mbci-leaperkim {
-    background-image: url('/w/images/a/a3/Leaperkim-bg.jpg');
-    background-size: cover;
-    background-color: #00000030;
-    background-blend-mode: overlay;
-}
-
-.mbci-eb {
-    background-image: url('/w/images/c/ca/Extreme-bull-bg.jpg');
-    background-size: cover;
-    background-color: #00000030;
-    background-blend-mode: overlay;
-    background-position: center;
-}
-
-.mbci-ninebot {
-    background-image: url('/w/images/3/31/Ninebot-bg.jpg');
-    background-size: cover;
-    background-color: #00000030;
-    background-blend-mode: overlay;
-    background-position: 50% center;
-}
-
-@media (max-width: 1120px) {
-    .mbci-ninebot {
-        background-position: 50% 85%;
-    }
-}
