@@ -35,6 +35,11 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
     /**
      * Render the navcards tag
      *
+     * Can cause some undefined behavior if used with anything else than a navcard tag
+     * inside, because it does additional processing to the input
+     * Right now, the only thing we do is removing all the newlines, so p tags don't
+     * get placed wrapping the navcard tags.
+     *
      * @param string $input What is supplied between the HTML tags. This gets evaluated
      * so it get spit out as normal wikitext
      * @param array $args HTML tag attribute params. Ignored
@@ -43,7 +48,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
      */
     public function renderTagNavCards( $input, array $args, Parser $parser, PPFrame $frame ) {
         $output = '<div class="ext-shubara-navcards">';
-        $output .= $parser->recursiveTagParse($input, $frame);
+        $output .= $parser->recursiveTagParse(str_replace("\n", '', $input), $frame);
         $output .= '</div>';
         return $output;
     }
@@ -117,7 +122,9 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         // Generate and apply JS
         $pageTitle = Title::newFromText(trim($page));
         // FIXME: Make it just a "red link" or smth
-        if (!$pageTitle) { throw new InvalidArgumentException('Supplied page does not exist');}
+        if (!is_object($pageTitle) || $pageTitle->exists()) {
+            return 'Supplied page does not exist';
+        }
         $pageURL = $pageTitle->getFullURL();
         // we use vanilla JS here because this is in the head of the document, we aint having jquery here
         // TODO: make this work with jQuery
@@ -128,19 +135,19 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         $output .= "<button id=\"ext-shubara-$navCardID\" class=\"ext-shubara-navcard\">";
         switch ($titleType) {
             case 'img':
-                $titleFile = $this->getDirectFileURL($title);
+                $titleFile = self::getDirectFileURL($title);
                 if (!$titleFile) { return "Error! Title image $title does not exist."; }
                 $output .= "<img src=\"$titleFile\" />";
                 break;
             case 'txt':
-                $output .= $title;
+                $output .= "<span>$title</span>";
                 break;
         }
         $output .= '</button>';
         return $output;
     }
 
-    function generateRandomString($length = 10) {
+    function generateRandomString($length = 10): string {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -153,7 +160,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
     }
 
     // made with help from the CSS extension
-    function addHeadItem(Parser $parser, string $data, string $type) {
+    function addHeadItem(Parser $parser, string $data, string $type): void {
         $title = Title::newFromText($data);
         $headItem = '<!-- Begin Extension:Shubara -->';
         // Encode data URI and append link tag

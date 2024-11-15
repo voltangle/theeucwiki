@@ -32,6 +32,21 @@
     padding: 8px;
 }
 
+.ext-shubara-navcard span {
+    color: white;
+    font-size: xxx-large;
+    font-weight: 550;
+    text-shadow: #00 1px 0 5px;
+    transition: font-weight 0.1s ease-in-out;
+    padding-left: 4px;
+    padding-right: 4px;
+    white-space: nowrap;
+}
+
+.ext-shubara-navcard:hover span {
+    font-weight: 700;
+}
+
 @media (hover: hover) {
     .ext-shubara-navcard:hover {
         transform: scale(1.03);

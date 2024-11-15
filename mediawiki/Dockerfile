@@ -201,7 +201,7 @@ RUN set -x; \
     && chmod a+x Scribunto/includes/Engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua
 
 #### Shubara extension
-COPY shubara/ $MW_HOME/extensions/Shubara
+COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 
 #### Run maintenance sripts
 # Increase value for run maintenance script before web service started
