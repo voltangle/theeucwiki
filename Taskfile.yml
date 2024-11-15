@@ -8,7 +8,10 @@ tasks:
       - docker compose build
       - docker compose down -v
       - docker compose up --build --detach
-  redeploy-mw: docker rollout mediawiki
+  redeploy-mw:
+    cmds:
+      - docker compose build mediawiki
+      - docker rollout mediawiki -t 120
   stop: docker compose stop
   teardown: docker compose down -v
   mw-bash: docker compose exec mediawiki /bin/bash
