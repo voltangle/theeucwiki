@@ -34,9 +34,9 @@ services:
             - ${EUCR_MW_CONF}:/mediawiki
         healthcheck:
             test: curl --fail http://mediawiki/wiki/Special:BlankPage || exit 1
-            interval: 30s
+            interval: 10s
             retries: 5
-            start_period: 2m
+            start_period: 2s
             timeout: 10s
         environment:
             # NGINX Proxy
