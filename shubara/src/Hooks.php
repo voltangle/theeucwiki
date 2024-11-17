@@ -66,6 +66,8 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
      * title-img and title-txt are present, none are rendered and instead an error is shown.
      * - title-txt: Text that is shown above the background in the center. If both
      * title-img and title-txt are present, none are rendered and instead an error is shown.
+     * - title-img-w: Width of the title image. Under the hood handled as a thumbnail.
+     * - title-img-h: Height of the title image. Under the hood handled as a thumbnail.
      * - bg-img: Image that is shown as the background.
      * - bg-tint%: How much the image is tinted (e.g. overlayed with black)
      *  @param Parser $parser MW Parser
@@ -89,6 +91,15 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
             $titleType = 'txt';
         }
         $bgImage = $args['bg-img'];
+        $titleWidth = $args['title-img-w'] ?? 200;
+        $titleHeight = $args['title-img-h'];
+        // TODO: this code stinks
+        if (!ctype_digit((string)$titleWidth)) {
+            return "Error! Title width $titleWidth is invalid, should be a number";
+        }
+        if ($titleHeight !== null && !(ctype_digit($titleHeight) && (int) $titleHeight > 0)) {
+            return "Error! Title height $titleHeight is invalid, should be a number";
+        }
         $bgTintPercent = $args['bg-tint%'];
 
         // Generate and apply CSS
@@ -97,7 +108,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         if ($bgImage != null) {
             // FIXME: this returns the file with the "domain", it has to be only an
             // explicit path
-            $bgFile = $this->getDirectFileURL($bgImage);
+            $bgFile = $this->getDirectFileURL($bgImage, 400);
             if (!$bgFile) { return "Error! Image $bgImage does not exist."; }
             $css .= "#ext-shubara-$navCardID { background-image: url(\"$bgFile\"); }";
         }
@@ -120,10 +131,9 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         }
 
         // Generate and apply JS
-        $pageTitle = Title::newFromText(trim($page));
-        // FIXME: Make it just a "red link" or smth
-        if (!is_object($pageTitle) || $pageTitle->exists()) {
-            return 'Supplied page does not exist';
+        $pageTitle = Title::newFromText($page);
+        if (!is_object($pageTitle)) {
+            return 'Supplied page does not exist or is invalid';
         }
         $pageURL = $pageTitle->getFullURL();
         // we use vanilla JS here because this is in the head of the document, we aint having jquery here
@@ -135,7 +145,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         $output .= "<button id=\"ext-shubara-$navCardID\" class=\"ext-shubara-navcard\">";
         switch ($titleType) {
             case 'img':
-                $titleFile = self::getDirectFileURL($title);
+                $titleFile = self::getDirectFileURL($title, $titleWidth, $titleHeight);
                 if (!$titleFile) { return "Error! Title image $title does not exist."; }
                 $output .= "<img src=\"$titleFile\" />";
                 break;
@@ -188,17 +198,36 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         }
     }
 
-    function getDirectFileURL(string $file) {
+    /*
+     * Returns a direct URL to a file with a specified name. Optionally can resize it
+     * to a thumbnail of specified size (see File::createThumb in MediaWiki docs) if the
+     * file is an image.
+     *
+     * @param string $file Filename to look for
+     * @param ?int $width Image thumbnail width.
+     * @param ?int $height Image thumbnail height.
+     *
+     * @return ?string File path or null in case of error.
+     */
+    function getDirectFileURL(
+            string $file,
+            ?int $width = null,
+            ?int $height = null
+    ): ?string {
         $fileTitle = Title::newFromText($file, NS_FILE);
         if (!($fileTitle && $fileTitle->exists())) {
-            return false;
+            return null;
         }
 
         $file = MediaWikiServices::getInstance()->getRepoGroup()->findFile($fileTitle);
         if ($file) {
-            return $file->getFullUrl();
+            if (!$width) {
+                return $file->getFullUrl();
+            } else {
+                return $file->createThumb($width, $height ?? -1);
+            }
         }
-        return false;
+        return null;
     }
 }
 ?>
