@@ -29,7 +29,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
 	}
 
     public function onBeforePageDisplay($out, $skin): void {
-		$out->addModules( 'ext.shubara' );
+		$out->addModuleStyles( 'ext.shubara.styles' );
 	}
 
     /**

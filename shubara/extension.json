@@ -13,15 +13,19 @@
         "MediaWiki\\Extension\\Shubara\\": "src/"
     },
     "ResourceModules": {
-		"ext.shubara": {
+		"ext.shubara.styles": {
+            "localBasePath": "resources/ext.shubara",
+            "remoteExtPath": "Shubara/resources/ext.shubara",
+            "styles": [
+				"ext.shubara.css"
+			]
+		},
+		"ext.shubara.js": {
             "localBasePath": "resources/ext.shubara",
             "remoteExtPath": "Shubara/resources/ext.shubara",
             "scripts": [
                 "ext.shubara.js"
-            ],
-            "styles": [
-				"ext.shubara.css"
-			]
+            ]
 		}
     },
     "HookHandlers": {
