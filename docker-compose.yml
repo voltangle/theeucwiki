@@ -7,13 +7,25 @@ services:
             - MYSQL_ROOT_PASSWORD=${EUCR_MYSQL_ROOT_PASSWORD}
         volumes:
             - ${EUCR_MYSQL_DATA}:/var/lib/mysql
+        healthcheck:
+            test: "/usr/bin/mysql --user=root --password=${EUCR_MYSQL_ROOT_PASSWORD} --execute \"SHOW DATABASES;\""
+            interval: 2s
+            timeout: 20s
+            retries: 10
 
     nginx-proxy:
-        image: nginxproxy/nginx-proxy:1.6
+        image: nginxproxy/nginx-proxy:1.6-alpine
         ports:
           - 80:80
         volumes:
           - /var/run/docker.sock:/tmp/docker.sock:ro
+        environment:
+          - SERVER_TOKENS=off
+        healthcheck:
+          test: ["CMD", "service", "nginx", "status"]
+          interval: 10s
+          timeout: 5s
+          retries: 5
 
     mediawiki:
         build: 
@@ -24,11 +36,16 @@ services:
         restart: unless-stopped
         tty: true
         depends_on:
-            - db
-            - elasticsearch
-            - memcached
-            - parsoid
-            - restbase
+            db:
+              condition: service_healthy
+            elasticsearch:
+              condition: service_started
+            memcached:
+              condition: service_started
+            parsoid:
+              condition: service_started
+            restbase:
+              condition: service_started
         volumes:
             - ${EUCR_MW_UPLOADS}:/var/www/html/w/images
             - ${EUCR_MW_CONF}:/mediawiki
@@ -36,7 +53,7 @@ services:
             test: curl --fail http://mediawiki/wiki/Special:BlankPage || exit 1
             interval: 10s
             retries: 5
-            start_period: 2s
+            start_period: 1s
             timeout: 10s
         environment:
             # NGINX Proxy
