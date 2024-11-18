@@ -77,7 +77,7 @@ services:
             - MW_PROXY_SERVERS=nginx
             - MW_MAIN_CACHE_TYPE=CACHE_MEMCACHED
             - MW_MEMCACHED_SERVERS=memcached:11211
-            - MW_SEARCH_TYPE=CirrusSearch
+            - MW_SEARCH_TYPE=null
             - MW_CIRRUS_SEARCH_SERVERS=elasticsearch
             - MW_REST_DOMAIN=mediawiki
             - MW_REST_PARSOID_URL=http://parsoid:8000
