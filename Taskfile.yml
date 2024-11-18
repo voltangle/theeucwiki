@@ -16,6 +16,7 @@ tasks:
   stop: docker compose stop
   teardown: docker compose down -v
   # TODO: make it work with any service
+  # TODO: make container indexes work too
   mw-bash: docker compose exec mediawiki /bin/bash
   maintenance-update:
     cmds:

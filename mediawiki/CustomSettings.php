@@ -128,7 +128,11 @@ wfLoadExtension( 'ImageMap' );
 wfLoadExtension( 'InputBox' );
 wfLoadExtension( 'Linter' );
 wfLoadExtension( 'LoginNotify' );
+
+### Math ###
 wfLoadExtension( 'Math' );
+$wgMathInternalRestbaseURL = getenv('MW_REST_RESTBASE_URL');
+
 wfLoadExtension( 'MultimediaViewer' );
 wfLoadExtension( 'Nuke' );
 wfLoadExtension( 'OATHAuth' );

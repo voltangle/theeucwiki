@@ -20,13 +20,13 @@ RUN set -x; \
         php-zip \
         php-memcached \
         php-pear \
-	python3 \
-	python3-pip \
+	    python3 \
+	    python3-pip \
         python3-pygments \
         imagemagick \
         netcat \
         git \
-	curl \
+	    curl \
         unzip \
         mysql-client \
         wget \
@@ -46,7 +46,7 @@ RUN set -x; \
 
 # When upgrading MediaWiki, change this version number
 # WARNING: If you change MW_HOME or MW_VOLUME, please also update them in docker-compose.yml
-ENV MW_VERSION=REL1_41 \
+ENV MW_VERSION=REL1_43 \
     MW_HOME=/var/www/html/w \
     MW_VOLUME=/mediawiki \
     WWW_USER=www-data \
@@ -143,12 +143,18 @@ RUN set -x; \
     cd $MW_HOME/extensions \
     && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CheckUser \
     && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/DisplayTitle \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CSS \
     && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Popups \
     # FIXME: Disabled until further notice
     # && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Drafts \
     && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/RelatedArticles \
     && git clone https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription.git ShortDescription 
+
+# CSS extension
+RUN set -x; \
+    cd $MW_HOME/extensions \
+    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CSS \
+    && cd CSS \
+    && composer install --no-dev
 
 # TemplateStyles extension
 RUN set -x; \
