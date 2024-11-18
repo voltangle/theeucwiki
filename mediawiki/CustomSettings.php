@@ -324,3 +324,5 @@ $wgGroupPermissions['*']['edit'] = false;
 
 # Prevent new user registrations except by sysops
 $wgGroupPermissions['*']['createaccount'] = false;
+
+$wgNamespacesWithSubpages[NS_MAIN] = true;
