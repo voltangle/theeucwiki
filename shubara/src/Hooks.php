@@ -108,7 +108,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         if ($bgImage != null) {
             // FIXME: this returns the file with the "domain", it has to be only an
             // explicit path
-            $bgFile = $this->getDirectFileURL($bgImage, 400);
+            $bgFile = $this->getDirectFileURL($bgImage, 600);
             if (!$bgFile) { return "Error! Image $bgImage does not exist."; }
             $css .= "#ext-shubara-$navCardID { background-image: url(\"$bgFile\"); }";
         }
