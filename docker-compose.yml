@@ -21,11 +21,11 @@ services:
           - /var/run/docker.sock:/tmp/docker.sock:ro
         environment:
           - SERVER_TOKENS=off
-        healthcheck:
-          test: ["CMD", "service", "nginx", "status"]
-          interval: 10s
-          timeout: 5s
-          retries: 5
+          # healthcheck:
+          #   test: "service nginx status"
+          #   interval: 10s
+          #   timeout: 5s
+          #   retries: 5
 
     autoheal:
         restart: always
