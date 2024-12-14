@@ -53,7 +53,8 @@ ENV MW_VERSION=REL1_43 \
     WWW_GROUP=www-data \
     APACHE_LOG_DIR=/var/log/apache2
 
-ENV CITIZEN_VERSION=v2.33.0
+ENV CITIZEN_VERSION=v2.39.2
+ENV TEMPLATESTYLESEXTENDER_VERSION=v1.2.0
 
 # logs should go to stdout / stderr
 RUN set -ex \
@@ -160,6 +161,7 @@ RUN set -x; \
 RUN set -x; \
     cd $MW_HOME/extensions \
     && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/TemplateStyles \
+    # && git clone --depth 1 -b $TEMPLATESTYLESEXTENDER_VERSION https://github.com/octfx/mediawiki-extensions-TemplateStylesExtender.git \
     && cd TemplateStyles \
     && composer install --no-dev
 
@@ -242,6 +244,7 @@ COPY favicon.ico $MW_HOME/favicon.ico
 COPY logo*.png $MW_HOME/
 COPY icon.png $MW_HOME/icon.png
 COPY CustomSettings.php $MW_HOME/CustomSettings.php
+COPY systempagelist.txt $MW_HOME/systempagelist.txt
 
 CMD ["/run-apache.sh"]
 

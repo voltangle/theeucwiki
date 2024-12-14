@@ -307,9 +307,6 @@ $wgRelatedArticlesDescriptionSource = 'pagedescription';
 wfLoadExtension( 'Scribunto' );
 $wgScribuntoDefaultEngine = 'luastandalone';
 
-######################### BlogPage ######################### 
-wfLoadExtension( 'BlogPage' );
-
 ######################### Shubara ##########################
 wfLoadExtension( 'Shubara' );
 

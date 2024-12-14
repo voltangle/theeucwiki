@@ -1,0 +1,6 @@
+Main_Page
+Category:Begode
+Category:LeaperKim
+Tools:LKLV
+MediaWiki:Common.css
+MediaWiki:Sidebar
