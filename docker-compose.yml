@@ -19,8 +19,8 @@ services:
           - 80:80
         volumes:
           - /var/run/docker.sock:/tmp/docker.sock:ro
-        environment:
-          - SERVER_TOKENS=off
+          - ./nginx.conf:/etc/nginx/conf.d/my_proxy.conf:ro
+          # environment:
           # healthcheck:
           #   test: "service nginx status"
           #   interval: 10s

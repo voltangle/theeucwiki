@@ -114,6 +114,14 @@ if ( $tmpProxy ) {
 //Use $wgSquidServersNoPurge if you don't want MediaWiki to purge modified pages
 //$wgSquidServersNoPurge = array('127.0.0.1');
 
+####################### Email #########################
+$wgEnableEmail = true;
+
+####################### Uploads #########################
+# Set this value if needed
+# $wgUploadSizeWarning
+$wgMaxUploadSize = 209715200; # 200 mebibytes
+
 ####################### Bundled extensions #########################
 wfLoadExtension( 'AbuseFilter' );
 wfLoadExtension( 'CategoryTree' );
@@ -309,6 +317,9 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 
 ######################### Shubara ##########################
 wfLoadExtension( 'Shubara' );
+
+######################### RSS ##########################
+wfLoadExtension( 'RSS' );
 
 ######################### Skins ######################### 
 
