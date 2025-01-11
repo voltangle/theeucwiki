@@ -23,8 +23,9 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
     */
 
     public function onParserFirstCallInit( $parser ) {
-        $parser->setHook( 'navcard', Hooks::renderTagNavCard(...) );
         $parser->setHook( 'navcards', Hooks::renderTagNavCards(...) );
+        $parser->setHook( 'navcard', Hooks::renderTagNavCard(...) );
+        $parser->setHook( 'ulnav', Hooks::renderTagUlNav(...) );
 		return true;
 	}
 
@@ -35,21 +36,71 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
     /**
      * Render the navcards tag
      *
-     * Can cause some undefined behavior if used with anything else than a navcard tag
-     * inside, because it does additional processing to the input
-     * Right now, the only thing we do is removing all the newlines, so p tags don't
-     * get placed wrapping the navcard tags.
+     * Can cause some undefined behavior if used with anything else than a navcard or
+     * ulnav tag inside, because it does additional processing to the input
      *
      * @param string $input What is supplied between the HTML tags. This gets evaluated
      * so it get spit out as normal wikitext
-     * @param array $args HTML tag attribute params. Ignored
+     * @param array $args HTML tag attribute params. Valid params:
+     * - out-mode: how it works. 'noreturn' by default. Valid values: noreturn, raw
+     * - flex: sets the flex CSS value
      * @param Parser $parser MediaWiki Parser object
      * @param PPFrame $frame MediaWiki PPFrame object
      */
     public function renderTagNavCards( $input, array $args, Parser $parser, PPFrame $frame ) {
-        $output = '<div class="ext-shubara-navcards">';
-        $output .= $parser->recursiveTagParse(str_replace("\n", '', $input), $frame);
+        $output = '<div class="ext-shubara-navcards"';
+        if (isset($args['flex']) && is_numeric(@$args['flex'])) {
+            $flex = @$args['flex'];
+            $output .= " style=\"flex: $flex;\"";
+        }
+        $output .= '>';
+
+        switch ($args['out-mode'] ?? 'noreturn') {
+            case 'raw': $output .= $parser->recursiveTagParse($input, $frame); break;
+            case 'noreturn':
+                $output .= $parser->recursiveTagParse(str_replace("\n", '', $input), $frame);
+                break;
+        }
+
         $output .= '</div>';
+        return $output;
+    }
+
+    /**
+    * Render the ulnav tag
+    *
+    * @param string $input What is supplied between the HTML tags. This gets evaluated
+    * so it get spit out as normal wikitext
+    * @param array $args HTML tag attribute params. Valid params:
+    * - title: title of the card. Displayed at the top
+    * - mode: how list items are displayed. 'col' by default. Valid values: col, chiplist
+    * - flex: sets the flex CSS value
+    * @param Parser $parser MediaWiki Parser object
+    * @param PPFrame $frame MediaWiki PPFrame object
+    */
+    public function renderTagUlNav($input, array $args, Parser $parser, PPFrame $frame) {
+        $output = '';
+        
+        $title = $args['title'] ?? null;
+        $mode = $args['mode'] ?? 'col';
+
+        $output .= '<div class="ext-shubara-ulnav';
+        switch ($mode) {
+            case 'col': $output .= ' ext-shubara-ulnav-col'; break;
+            case 'chiplist': $output .= ' ext-shubara-ulnav-chiplist'; break;
+        }
+        if ($title == null) { $output .= ' ext-shubara-notitle'; }
+        $output .= '"';
+        if (isset($args['flex']) && is_numeric(@$args['flex'])) {
+            $flex = @$args['flex'];
+            $output .= " style=\"flex: $flex;\"";
+        }
+        $output .= '>';
+
+        $output .= "<span>$title</span>";
+        $output .= $parser->recursiveTagParse($input, $frame);
+        $output .= '</div>';
+
         return $output;
     }
 
@@ -80,19 +131,19 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         if (!(isset($args['title-img']) xor isset($args['title-txt']))) {
             return 'Error! No title-img or title-txt present, or both are there at the same time';
         }
-        $page = $args['page'];
+        $page = @$args['page'];
         $titleType = '';
         $title = null;
         if (isset($args['title-img'])) {
-            $title = $args['title-img'];
+            $title = @$args['title-img'];
             $titleType = 'img';
         } else {
-            $title = $args['title-txt'];
+            $title = $args['title-txt'] ?? null;
             $titleType = 'txt';
         }
-        $bgImage = $args['bg-img'];
+        $bgImage = $args['bg-img'] ?? null;
         $titleWidth = $args['title-img-w'] ?? 200;
-        $titleHeight = $args['title-img-h'];
+        $titleHeight = $args['title-img-h'] ?? null;
         // TODO: this code stinks
         if (!ctype_digit((string)$titleWidth)) {
             return "Error! Title width $titleWidth is invalid, should be a number";
@@ -100,7 +151,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         if ($titleHeight !== null && !(ctype_digit($titleHeight) && (int) $titleHeight > 0)) {
             return "Error! Title height $titleHeight is invalid, should be a number";
         }
-        $bgTintPercent = $args['bg-tint%'];
+        $bgTintPercent = $args['bg-tint%'] ?? null;
 
         // Generate and apply CSS
 
@@ -130,12 +181,12 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
             $this->addHeadItem($parser, $css, 'css');
         }
 
-        // Generate and apply JS
         $pageTitle = Title::newFromText($page);
         if (!is_object($pageTitle)) {
             return 'Supplied page does not exist or is invalid';
         }
         $pageURL = $pageTitle->getFullURL();
+        // Generate and apply JS
         // we use vanilla JS here because this is in the head of the document, we aint having jquery here
         // TODO: make this work with jQuery
         $js = "document.getElementById(\"ext-shubara-$navCardID\").addEventListener(\"click\", function(){window.location=\"$pageURL\"})";

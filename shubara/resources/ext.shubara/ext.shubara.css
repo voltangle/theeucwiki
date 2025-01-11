@@ -1,12 +1,10 @@
 .ext-shubara-navcards {
-    /* flex: 2; */
     min-width: 280px;
     display: flex;
 	flex-direction: row;
 	flex-flow: row wrap;
 	justify-content: space-between;
     gap: 10px;
-    margin: 5px;
 }
 
 .ext-shubara-navcard {
@@ -64,3 +62,51 @@
     }
 }
 
+.ext-shubara-ulnav {
+    flex: 1;
+    min-width: 280px;
+    padding: 8px;
+    border-radius: 12px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+}
+
+.ext-shubara-ulnav span {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.ext-shubara-notitle ul {
+    margin: 0;
+}
+
+.ext-shubara-ulnav ul {
+    display: flex;
+    list-style: none;
+    list-style-position: outside;
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.ext-shubara-ulnav-col ul {
+    flex-direction: column;
+    column-gap: 20px;
+    justify-content: space-between;
+}
+
+.ext-shubara-ulnav-chiplist ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 8px;
+    justify-content: start;
+}
+
+.ext-shubara-ulnav ul li {
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 4px 0;
+    background: #F1F1F1;
+    border-radius: 8px;
+}
