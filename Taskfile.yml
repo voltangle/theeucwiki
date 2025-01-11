@@ -21,6 +21,7 @@ tasks:
       - docker compose exec mediawiki echo "$PWD"
       - docker compose exec mediawiki php var/www/html/w/maintenance/run.php update --quick
   up: docker compose up --detach
+  up-preserve: docker compose up
   start: docker compose start --detach
   start-preserve: docker compose start
   restart:

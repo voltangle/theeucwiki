@@ -1,5 +1,6 @@
 FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
+SHELL ["/bin/bash", "-c"]
 
 # Install requered packages
 RUN set -x; \
@@ -30,6 +31,7 @@ RUN set -x; \
         unzip \
         mysql-client \
         wget \
+        patch \
     && pear install mail net_smtp \
     && pip3 install pygments \
     && rm -rf /var/lib/apt/lists/* \
@@ -210,6 +212,14 @@ RUN set -x; \
 
 #### Shubara extension
 COPY --from=shubara ./ $MW_HOME/extensions/Shubara
+
+#### Apply patches
+# COPY patches $MW_HOME/patches
+# RUN set -x; \
+#     cd $MW_HOME \
+#     && ls \
+#     && patch -p1 < patches/*.patch
+
 
 #### Run maintenance sripts
 # Increase value for run maintenance script before web service started
