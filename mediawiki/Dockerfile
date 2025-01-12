@@ -55,7 +55,7 @@ ENV MW_VERSION=REL1_43 \
     WWW_GROUP=www-data \
     APACHE_LOG_DIR=/var/log/apache2
 
-ENV CITIZEN_VERSION=v2.39.2
+ENV CITIZEN_VERSION=v2.40.2
 ENV TEMPLATESTYLESEXTENDER_VERSION=v1.2.0
 
 # logs should go to stdout / stderr
@@ -221,25 +221,6 @@ COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 #     && patch -p1 < patches/*.patch
 
 
-#### Run maintenance sripts
-# Increase value for run maintenance script before web service started
-ENV MW_AUTOUPDATE=true \
-    MW_MAINTENANCE_UPDATE=3 \
-    MW_MAINTENANCE_CIRRUSSEARCH_UPDATECONFIG=1 \
-    MW_MAINTENANCE_CIRRUSSEARCH_FORCEINDEX=1 \
-    MW_MAINTENANCE_ULS_INDEXER=1 \
-    MW_SCRIPT_CLDR_REBUILD=1 \
-    MW_SITE_NAME=My\ MediaWiki\ Site \
-    MW_SITE_LANG=en \
-    MW_DEFAULT_SKIN=vector \
-    MW_MAIN_CACHE_TYPE=CACHE_ACCEL \
-    MW_REST_DOMAIN=localhost \
-    MW_REST_RESTBASE_PROXY_PATH=/api/rest_ \
-    MW_REST_RESTBASE_PORT=7231 \
-    MW_SHOW_EXCEPTION_DETAILS=true \
-    PHP_LOG_ERRORS=On \
-    PHP_ERROR_REPORTING=E_ALL
-
 EXPOSE 80
 
 COPY php.ini /etc/php/7.0/apache2/conf.d/mediawiki.ini
@@ -250,10 +231,10 @@ RUN set -x; ln -s /etc/apache2/sites-available/000-mediawiki.conf /etc/apache2/s
 COPY run-apache.sh /run-apache.sh
 RUN chmod -v +x /run-apache.sh
 
-COPY favicon.ico $MW_HOME/favicon.ico
+COPY favicon* $MW_HOME/
 COPY logo*.png $MW_HOME/
 COPY icon.png $MW_HOME/icon.png
-COPY CustomSettings.php $MW_HOME/CustomSettings.php
+COPY LocalSettings.php $MW_HOME/LocalSettings.php
 COPY systempagelist.txt $MW_HOME/systempagelist.txt
 
 CMD ["/run-apache.sh"]
