@@ -231,9 +231,7 @@ RUN set -x; ln -s /etc/apache2/sites-available/000-mediawiki.conf /etc/apache2/s
 COPY run-apache.sh /run-apache.sh
 RUN chmod -v +x /run-apache.sh
 
-COPY favicon* $MW_HOME/
-COPY logo*.png $MW_HOME/
-COPY icon.png $MW_HOME/icon.png
+COPY img/* $MW_HOME/
 COPY LocalSettings.php $MW_HOME/LocalSettings.php
 COPY systempagelist.txt $MW_HOME/systempagelist.txt
 

@@ -67,7 +67,7 @@
     min-width: 280px;
     padding: 8px;
     border-radius: 12px;
-    background: #FFFFFF;
+    background: white;
     box-shadow: 0 2px 2px rgba(0,0,0,0.2);
 }
 
@@ -109,4 +109,14 @@
     margin: 4px 0;
     background: #F1F1F1;
     border-radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .ext-shubara-ulnav {
+        background: black;
+    }
+
+    .ext-shubara-ulnav ul li {
+        background: hsl(0 0% 10% / 1);
+    }
 }
