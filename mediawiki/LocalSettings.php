@@ -20,17 +20,8 @@ $wgLogos = [
 // $wgFavicon = "$wgScriptPath/favicon.ico";
 $wgFavicon = "$wgScriptPath/favicon.png";
 
-// UPO means: this is also a user preference option
-
-$wgEnableEmail = true;
-$wgEnableUserEmail = true; # UPO
-
 $wgEmergencyContact = "";
 $wgPasswordSender = "";
-
-$wgEnotifUserTalk = false; # UPO
-$wgEnotifWatchlist = false; # UPO
-$wgEmailAuthentication = true;
 
 ## Database settings
 $wgDBtype = "mysql";
@@ -50,13 +41,6 @@ $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
 # This has no effect unless $wgSharedDB is also set.
 $wgSharedTables[] = "actor";
 
-## Shared memory settings
-$wgMainCacheType = CACHE_ACCEL;
-$wgMemCachedServers = [];
-
-## To enable image uploads, make sure the 'images' directory
-## is writable, then set this to true:
-$wgEnableUploads = false;
 $wgUseImageMagick = true;
 $wgImageMagickConvertCommand = "/usr/bin/convert";
 
@@ -67,9 +51,6 @@ $wgUseInstantCommons = false;
 # about this MediaWiki instance. The Wikimedia Foundation shares this data
 # with MediaWiki developers to help guide future development efforts.
 $wgPingback = true;
-
-# Site language code, should be one of the list in ./includes/languages/data/Names.php
-$wgLanguageCode = "en";
 
 # Time zone
 $wgLocaltimezone = "UTC";
@@ -105,9 +86,6 @@ $wgSitename = 'euc.repair';
 $wgMetaNamespace = "euc.repair";
 $wgServer = getenv('MW_SITE_SERVER');
 $wgEnableUploads = true;
-$wgUseInstantCommons = false;
-
-# Enable use of raw HTML within <html>
 # TODO: When going into production, KILL THIS WITH HAMMERS
 $wgRawHtml = true;
 
@@ -117,7 +95,6 @@ $wgArticlePath = '/wiki/$1';
 
 ##### Improve performance
 # https://www.mediawiki.org/wiki/Manual:$wgMainCacheType
-# Use Memcached, see https://www.mediawiki.org/wiki/Memcached
 $wgMainCacheType = CACHE_MEMCACHED;
 $wgParserCacheType = CACHE_MEMCACHED; # optional
 $wgMessageCacheType = CACHE_MEMCACHED; # optional
@@ -126,6 +103,7 @@ $wgSessionsInObjectCache = true; # optional
 $wgSessionCacheType = CACHE_MEMCACHED; # optional
 
 # Use Varnish accelerator
+// FIX: this stinks
 $tmpProxy = getenv( 'MW_PROXY_SERVERS' );
 if ( $tmpProxy ) {
     # https://www.mediawiki.org/wiki/Manual:Varnish_caching
@@ -152,6 +130,25 @@ if ( $tmpProxy ) {
 
 ####################### Email #########################
 $wgEnableEmail = true;
+$wgEnableUserEmail = true;
+
+$wgEnotifUserTalk = false;
+$wgEnotifWatchlist = false;
+$wgEnotifRevealEditorAddress = true;
+
+// This email setup is to be used with a locally-hosted mailcow instance. Technically
+// it can work with anything else, but I aint testin anything else bruh
+if (!str_contains($wgServer, 'localhost')) { // if running in prod
+    $wgEmailAuthentication = true;
+    $wgEmailConfirmToEdit = true;
+    $wgSMTP = [
+        'host' => 'localhost:8463', // random ass port for mailcow
+        'IDHost' => 'euc.repair',
+        'localhost' => 'euc.repair',
+        'port' => 587,
+    ];
+    $wgPasswordSender = 'noreply@euc.repair';
+}
 
 ####################### Uploads #########################
 # Set this value if needed
@@ -237,6 +234,7 @@ $wgTitleBlacklistSources = array(
 ### ConfirmEdit ###
 $wgTurnstileSiteKey = getenv('TURNSTILE_SITEKEY');
 $wgTurnstileSecretKey = getenv('TURNSTILE_SECRETKEY');
+
 ### SyntaxHighlight_GeSHi ###
 $wgPygmentizePath = '/usr/bin/pygmentize';
 
@@ -329,13 +327,14 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 
 ######################### Skins ######################### 
 
-$wgDefaultSkin = 'citizen';
 wfLoadSkin('Vector');
 wfLoadSkin('MinervaNeue');
 wfLoadSkin('Timeless');
 wfLoadSkin('MonoBook');
 wfLoadSkin('CologneBlue');
 wfLoadSkin('Citizen');
+
+$wgDefaultSkin = 'citizen';
 
 ######################### Permissions ######################### 
 
