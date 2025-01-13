@@ -127,7 +127,7 @@ if ( $tmpProxy ) {
 }
 //Use $wgSquidServersNoPurge if you don't want MediaWiki to purge modified pages
 //$wgSquidServersNoPurge = array('127.0.0.1');
-
+// This email setup is to be used with a locally-hosted mailcow instance
 ####################### Email #########################
 $wgEnableEmail = true;
 $wgEnableUserEmail = true;
@@ -162,6 +162,7 @@ wfLoadExtension('CategoryTree');
 wfLoadExtension('CheckUser');
 wfLoadExtension('Cite');
 wfLoadExtension('CiteThisPage');
+wfLoadExtension('CirrusSearch');
 wfLoadExtension('cldr');
 wfLoadExtension('CleanChanges');
 wfLoadExtension('CodeEditor'); 
@@ -175,6 +176,7 @@ wfLoadExtension('DisplayTitle');
 # FIXME: Reenable
 # wfLoadExtension( 'Drafts' );
 wfLoadExtension('Echo');
+wfLoadExtension('Elastica');
 wfLoadExtension('ElectronPdfService');
 # wfLoadExtension('Gadgets');
 wfLoadExtension('ImageMap');
@@ -299,23 +301,13 @@ if ( $tmpRestRestbaseUrl ) {
     $wgVisualEditorRestbaseURL = $wgVisualEditorFullRestbaseURL . 'v1/page/html/';
 }
 
-########################### Search Type ############################
-// TODO: bro i HAVE to make elasticsearch work here, stock MW search is straight ass
-switch( getenv( 'MW_SEARCH_TYPE' ) ) {
-    case 'CirrusSearch':
-        # https://www.mediawiki.org/wiki/Extension:CirrusSearch
-        wfLoadExtension( 'Elastica' );
-	wfLoadExtension( 'CirrusSearch' );
-	$wgDisableSearchUpdate = true;
-        $wgCirrusSearchServers =  explode( ',', getenv( 'MW_CIRRUS_SEARCH_SERVERS' ) );
-        if ( $flowNamespaces ) {
-            $wgFlowSearchServers = $wgCirrusSearchServers;
-        }
-        $wgSearchType = 'CirrusSearch';
-        break;
-    default:
-        $wgSearchType = null;
-}
+########################### Search ############################
+# https://www.mediawiki.org/wiki/Extension:CirrusSearch
+$wgSearchType = 'CirrusSearch';
+$wgDebugLogGroups['CirrusSearch'] = "$IP/cache/CirrusSearch.log";
+$wgCirrusSearchConnectionAttempts = 3;
+$wgCirrusSearchUseCompletionSuggester = 'build';
+$wgCirrusSearchServers =  explode(',', getenv('MW_CIRRUS_SEARCH_SERVERS'));
 
 ### RelatedArticles ###
 $wgRelatedArticlesFooterAllowedSkins = ['vector-2022', 'vector', 'citizen'];
@@ -338,10 +330,7 @@ $wgDefaultSkin = 'citizen';
 
 ######################### Permissions ######################### 
 
-# Disable anonymous editing
-$wgGroupPermissions['*']['edit'] = false;
-
-# Prevent new user registrations except by sysops
+$wgGroupPermissions['*']['edit'] = false; // Disable anonymous editing
 $wgGroupPermissions['*']['createaccount'] = true;
 
 $wgNamespacesWithSubpages[NS_MAIN] = true;

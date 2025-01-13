@@ -190,12 +190,14 @@ RUN set -x; \
     && cd VisualEditor \
     && git submodule update --init
 
-##### ElasticSearch extensions
+##### CirrusSearch extension
 RUN set -x; \
     cd $MW_HOME/extensions \
     && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CirrusSearch \
     && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Elastica \
     && cd Elastica \
+    && composer install --no-dev \
+    && cd ../CirrusSearch \
     && composer install --no-dev \
     && cd ..
 
@@ -234,6 +236,8 @@ RUN chmod -v +x /run-apache.sh
 COPY img/* $MW_HOME/
 COPY LocalSettings.php $MW_HOME/LocalSettings.php
 COPY systempagelist.txt $MW_HOME/systempagelist.txt
+COPY init_elastic.sh /
+RUN set -x; chmod +x /init_elastic.sh
 
 CMD ["/run-apache.sh"]
 

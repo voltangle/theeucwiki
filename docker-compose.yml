@@ -47,7 +47,7 @@ services:
             db:
               condition: service_healthy
             elasticsearch:
-              condition: service_started
+              condition: service_healthy
             memcached:
               condition: service_started
             parsoid:
@@ -112,13 +112,24 @@ services:
             - RB_CONF_PDF_URI=http://pdf:3000
 
     elasticsearch:
-        image: elasticsearch:7.10.1
+        image: docker-registry.wikimedia.org/repos/search-platform/cirrussearch-elasticsearch-image:v7.10.2-5 
         environment:
             - discovery.type=single-node
         restart: unless-stopped
+        volumes:
+            - esdata:/usr/share/elasticsearch/data
+        healthcheck:
+            test: curl -s http://localhost:9200 >/dev/null || exit 1
+            interval: 30s
+            timeout: 10s
+            retries: 50
 
     pdf:
         image: msokk/electron-render-service
         restart: unless-stopped
         environment:
             RENDERER_ACCESS_KEY: secret
+
+volumes:
+  esdata:
+    driver: local
