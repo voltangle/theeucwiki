@@ -342,6 +342,6 @@ $wgDefaultSkin = 'citizen';
 $wgGroupPermissions['*']['edit'] = false;
 
 # Prevent new user registrations except by sysops
-$wgGroupPermissions['*']['createaccount'] = false;
+$wgGroupPermissions['*']['createaccount'] = true;
 
 $wgNamespacesWithSubpages[NS_MAIN] = true;
