@@ -29,3 +29,4 @@ tasks:
       - docker compose stop
       - docker compose up --detach
   logs: docker compose logs -f
+  init-elastic: docker compose exec mediawiki /bin/sh ./init_elastic.sh
