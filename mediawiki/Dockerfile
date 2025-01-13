@@ -216,11 +216,11 @@ RUN set -x; \
 COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 
 #### Apply patches
-# COPY patches $MW_HOME/patches
-# RUN set -x; \
-#     cd $MW_HOME \
-#     && ls \
-#     && patch -p1 < patches/*.patch
+COPY patches $MW_HOME/patches
+RUN set -x; \
+    cd $MW_HOME \
+    && ls \
+    && patch -p1 < patches/*.patch
 
 
 EXPOSE 80
