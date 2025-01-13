@@ -128,3 +128,9 @@
         }
     }
 }
+.citizen-feature-pure-black-clientpref-1 .ext-shubara-ulnav {
+    background: #06080A;
+}
+.citizen-feature-pure-black-clientpref-1 .ext-shubara-ulnav ul li {
+    background: hsl(0 0% 13% / 1);
+}
