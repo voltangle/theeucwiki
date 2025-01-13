@@ -5,10 +5,6 @@
 
 # Configure the search index and populate it with content
 cd /var/www/html/w/
-until [ "`docker inspect -f {{.State.Health.Status}} elasticsearch`"=="healthy" ]; do
-    echo "Waiting for ElasticSearch to start...";
-    sleep 5;
-done;
 php extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php
 php extensions/CirrusSearch/maintenance/ForceSearchIndex.php --skipLinks --indexOnSkip
 php extensions/CirrusSearch/maintenance/ForceSearchIndex.php --skipParse

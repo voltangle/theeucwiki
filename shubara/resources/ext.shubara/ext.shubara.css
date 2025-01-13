@@ -111,12 +111,20 @@
     border-radius: 8px;
 }
 
-@media (prefers-color-scheme: dark) {
-    .ext-shubara-ulnav {
-        background: black;
-    }
-
-    .ext-shubara-ulnav ul li {
-        background: hsl(0 0% 10% / 1);
+.skin-theme-clientpref-night .ext-shubara-ulnav {
+    background: black;
+}
+.skin-theme-clientpref-night .ext-shubara-ulnav ul li {
+    background: hsl(0 0% 10% / 1);
+}
+.skin-theme-clientpref-os {
+    @media (prefers-color-scheme: dark) {
+        .ext-shubara-ulnav {
+            background: black;
+        }
+    
+        .ext-shubara-ulnav ul li {
+            background: hsl(0 0% 10% / 1);
+        }
     }
 }
