@@ -169,6 +169,9 @@ wfLoadExtension('cldr');
 wfLoadExtension('CleanChanges');
 wfLoadExtension('CodeEditor'); 
 wfLoadExtension('ConfirmEdit');
+if (getenv('USE_TURNSTILE') == 'yes') {
+    wfLoadExtension('ConfirmEdit/Turnstile');
+}
 wfLoadExtension('CSS');
 wfLoadExtension('DiscussionTools');
 wfLoadExtension('DisplayTitle');
@@ -231,6 +234,9 @@ $wgTitleBlacklistSources = array(
     ),
 );
 
+### ConfirmEdit ###
+$wgTurnstileSiteKey = getenv('TURNSTILE_SITEKEY');
+$wgTurnstileSecretKey = getenv('TURNSTILE_SECRETKEY');
 ### SyntaxHighlight_GeSHi ###
 $wgPygmentizePath = '/usr/bin/pygmentize';
 
