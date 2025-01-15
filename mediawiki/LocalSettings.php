@@ -162,7 +162,7 @@ wfLoadExtension('Echo');
 wfLoadExtension('Elastica');
 wfLoadExtension('ElectronPdfService');
 # wfLoadExtension('Gadgets');
-wfLoadExtension('GoogleLogin')
+wfLoadExtension('GoogleLogin');
 wfLoadExtension('ImageMap');
 wfLoadExtension('InputBox');
 wfLoadExtension('Interwiki');
