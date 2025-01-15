@@ -344,6 +344,7 @@ $wgHooks['SkinAddFooterLinks'][] = function($skin, $key, &$footerLinks) {
 
 $wgGroupPermissions['*']['edit'] = false; // Disable anonymous editing
 $wgGroupPermissions['*']['createaccount'] = true;
+$wgGroupPermissions['sysop']['interwiki'] = true;
 
 $wgNamespacesWithSubpages[NS_MAIN] = true;
 
