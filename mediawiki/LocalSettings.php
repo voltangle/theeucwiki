@@ -324,7 +324,7 @@ $wgNamespacesWithSubpages[NS_MAIN] = true;
 
 ######################### Debug ######################### 
 #
-if (!str_contains($wgServer, 'localhost')) { // if running in prod
-    $wgShowDebug = false;
-    $wgShowExceptionDetails = false;
+if (str_contains($wgServer, 'localhost')) { // if running locally
+    $wgShowDebug = true;
+    $wgShowExceptionDetails = true;
 }
