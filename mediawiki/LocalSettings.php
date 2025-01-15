@@ -123,6 +123,9 @@ $wgEnotifUserTalk = false;
 $wgEnotifWatchlist = false;
 $wgEnotifRevealEditorAddress = true;
 
+$wgPasswordSender = 'info@euc.repair';
+$wgNoReplyAddress = 'noreply@euc.repair';
+
 if (!str_contains($wgServer, 'localhost')) { // if running in prod
     $wgEmailAuthentication = true;
     $wgEmailConfirmToEdit = true;
@@ -134,7 +137,6 @@ if (!str_contains($wgServer, 'localhost')) { // if running in prod
         'username' => getenv('MAILJET_APIKEY'),
         'password' => getenv('MAILJET_SECRETKEY'),
     ];
-    $wgPasswordSender = 'noreply@euc.repair';
 }
 
 ####################### Uploads #########################
@@ -304,7 +306,7 @@ $wgRelatedArticlesDescriptionSource = 'pagedescription';
 ### Scribunto ###
 $wgScribuntoDefaultEngine = 'luastandalone';
 
-######################### Skins ######################### 
+######################### UI ######################### 
 
 wfLoadSkin('Vector');
 wfLoadSkin('MinervaNeue');
@@ -314,6 +316,23 @@ wfLoadSkin('CologneBlue');
 wfLoadSkin('Citizen');
 
 $wgDefaultSkin = 'citizen';
+
+$wgHooks['SkinAddFooterLinks'][] = function($skin, $key, &$footerLinks) {
+    if ($key === 'places') {
+        $footerLinks['github'] = Html::rawElement('a',
+            [
+                'href' => 'https://github.com/voltangle/euc.repair',
+                'rel' => 'noreferrer noopener'
+            ],
+        'GitHub');
+        $footerLinks['ko-fi'] = Html::rawElement('a',
+            [
+                'href' => 'https://ko-fi.com/eucrepair',
+                'rel' => 'noreferrer noopener'
+            ],
+        'Ko-fi');
+    }
+};
 
 ######################### Permissions ######################### 
 
