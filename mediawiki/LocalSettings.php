@@ -331,6 +331,12 @@ $wgHooks['SkinAddFooterLinks'][] = function($skin, $key, &$footerLinks) {
                 'rel' => 'noreferrer noopener'
             ],
         'Ko-fi');
+        $footerLinks['patreon'] = Html::rawElement('a',
+            [
+                'href' => 'https://www.patreon.com/c/eucrepair',
+                'rel' => 'noreferrer noopener'
+            ],
+        'Patreon');
     }
 };
 
