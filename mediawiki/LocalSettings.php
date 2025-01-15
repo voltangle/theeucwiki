@@ -20,9 +20,6 @@ $wgLogos = [
 // $wgFavicon = "$wgScriptPath/favicon.ico";
 $wgFavicon = "$wgScriptPath/favicon.png";
 
-$wgEmergencyContact = "";
-$wgPasswordSender = "";
-
 ## Database settings
 $wgDBtype = "mysql";
 $wgDBserver = "db";
@@ -53,9 +50,6 @@ $wgCacheDirectory = "/tmp";
 
 $wgSecretKey = getenv('MW_SECRETKEY');
 $wgUpgradeKey = getenv('MW_UPGRADEKEY');
-
-# Changing this will log out all existing sessions.
-$wgAuthenticationTokenVersion = "1";
 
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation
@@ -168,6 +162,7 @@ wfLoadExtension('Echo');
 wfLoadExtension('Elastica');
 wfLoadExtension('ElectronPdfService');
 # wfLoadExtension('Gadgets');
+wfLoadExtension('GoogleLogin')
 wfLoadExtension('ImageMap');
 wfLoadExtension('InputBox');
 wfLoadExtension('Interwiki');
@@ -348,8 +343,17 @@ $wgGroupPermissions['sysop']['interwiki'] = true;
 
 $wgNamespacesWithSubpages[NS_MAIN] = true;
 
+######################### Authentication ######################### 
+
+// Google
+$wgGLAppId = genenv('GOOGLE_LOGIN_APPID');
+$wgGLSecret = genenv('GOOGLE_LOGIN_SECRET');
+
+// Changing this will log out all existing sessions.
+$wgAuthenticationTokenVersion = "1";
+
 ######################### Debug ######################### 
-#
+
 if (str_contains($wgServer, 'localhost')) { // if running locally
     $wgShowDebug = true;
     $wgShowExceptionDetails = true;

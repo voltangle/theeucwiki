@@ -74,8 +74,6 @@ services:
             - MW_DB_NAME=${EUCR_MW_DB_NAME}
             - MW_DB_USER=${EUCR_MW_DB_USER}
             - MW_DB_PASS=${EUCR_MW_DB_PASS}
-            - MAILJET_APIKEY=${EUCR_MAILJET_APIKEY}
-            - MAILJET_SECRETKEY=${EUCR_MAILJET_SECRETKEY}
             - MW_AUTOUPDATE=true
             - MW_PROXY_SERVERS=nginx
             - MW_MEMCACHED_SERVERS=memcached:11211
@@ -89,6 +87,10 @@ services:
             - TURNSTILE_SITEKEY=${EUCR_TURNSTILE_SITEKEY}
             - TURNSTILE_SECRETKEY=${EUCR_TURNSTILE_SECRETKEY}
             - USE_TURNSTILE=${EUCR_USE_TURNSTILE}
+            - MAILJET_APIKEY=${EUCR_MAILJET_APIKEY}
+            - MAILJET_SECRETKEY=${EUCR_MAILJET_SECRETKEY}
+            - GOOGLE_LOGIN_APPID=${EUCR_GOOGLE_LOGIN_APPID}
+            - GOOGLE_LOGIN_SECRET=${EUCR_GOOGLE_LOGIN_SECRET}
 
     memcached:
         image: memcached

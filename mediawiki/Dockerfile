@@ -123,6 +123,14 @@ RUN set -x; \
     && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/WikiEditor \
     && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/RSS 
 
+# GoogleLogin
+RUN set -x; \
+    cd $MW_HOME/extensions \
+    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/GoogleLogin \
+    && cd GoogleLogin \
+    && composer install --no-dev \
+    && cd ..
+
 # OATHAuth
 RUN set -x; \
     cd $MW_HOME/extensions \
