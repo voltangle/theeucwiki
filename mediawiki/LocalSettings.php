@@ -346,8 +346,8 @@ $wgNamespacesWithSubpages[NS_MAIN] = true;
 ######################### Authentication ######################### 
 
 // Google
-$wgGLAppId = genenv('GOOGLE_LOGIN_APPID');
-$wgGLSecret = genenv('GOOGLE_LOGIN_SECRET');
+$wgGLAppId = getenv('GOOGLE_LOGIN_APPID');
+$wgGLSecret = getenv('GOOGLE_LOGIN_SECRET');
 
 // Changing this will log out all existing sessions.
 $wgAuthenticationTokenVersion = "1";
