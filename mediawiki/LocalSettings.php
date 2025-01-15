@@ -67,10 +67,6 @@ $wgRightsIcon = "";
 
 $wgDiff3 = "/usr/bin/diff3";
 
-if ( getenv( 'MW_SHOW_EXCEPTION_DETAILS' ) === 'true' ) {
-    $wgShowExceptionDetails = true;
-}
-
 ########################### Core Settings ##########################
 $wgLanguageCode = 'en';
 $wgSitename = 'euc.repair';
@@ -78,7 +74,7 @@ $wgMetaNamespace = "euc.repair";
 $wgServer = getenv('MW_SITE_SERVER');
 $wgEnableUploads = true;
 # TODO: When going into production, KILL THIS WITH HAMMERS
-$wgRawHtml = true;
+$wgRawHtml = false;
 
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
 $wgArticlePath = '/wiki/$1';
@@ -127,16 +123,16 @@ $wgEnotifUserTalk = false;
 $wgEnotifWatchlist = false;
 $wgEnotifRevealEditorAddress = true;
 
-// This email setup is to be used with a locally-hosted mailcow instance. Technically
-// it can work with anything else, but I aint testin anything else bruh
 if (!str_contains($wgServer, 'localhost')) { // if running in prod
     $wgEmailAuthentication = true;
     $wgEmailConfirmToEdit = true;
     $wgSMTP = [
-        'host' => 'localhost:8463', // random ass port for mailcow
-        'IDHost' => 'euc.repair',
+        'host' => 'in-v3.mailjet.com',
         'localhost' => 'euc.repair',
         'port' => 587,
+        'auth' => true,
+        'username' => getenv('MAILJET_APIKEY'),
+        'password' => getenv('MAILJET_SECRETKEY'),
     ];
     $wgPasswordSender = 'noreply@euc.repair';
 }
@@ -325,3 +321,10 @@ $wgGroupPermissions['*']['edit'] = false; // Disable anonymous editing
 $wgGroupPermissions['*']['createaccount'] = true;
 
 $wgNamespacesWithSubpages[NS_MAIN] = true;
+
+######################### Debug ######################### 
+#
+if (!str_contains($wgServer, 'localhost')) { // if running in prod
+    $wgShowDebug = false;
+    $wgShowExceptionDetails = false;
+}

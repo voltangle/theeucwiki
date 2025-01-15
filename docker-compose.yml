@@ -74,6 +74,8 @@ services:
             - MW_DB_NAME=${EUCR_MW_DB_NAME}
             - MW_DB_USER=${EUCR_MW_DB_USER}
             - MW_DB_PASS=${EUCR_MW_DB_PASS}
+            - MAILJET_APIKEY=${EUCR_MAILJET_APIKEY}
+            - MAILJET_SECRETKEY=${EUCR_MAILJET_SECRETKEY}
             - MW_AUTOUPDATE=true
             - MW_PROXY_SERVERS=nginx
             - MW_MEMCACHED_SERVERS=memcached:11211

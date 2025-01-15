@@ -1,7 +1,7 @@
 {
 	"name": "Shubara",
 	"author": "Voltangle",
-	"url": "https://github.com/voltangle/euc.repair",
+	"url": "https://github.com/ggoraa/euc.repair/tree/master/shubara",
 	"description": "Provides custom functionality and UI for the euc.repair website.",
 	"version": "0.2.1",
 	"license-name": "GPL-2.0-or-later",
