@@ -162,7 +162,7 @@ wfLoadExtension('Echo');
 wfLoadExtension('Elastica');
 wfLoadExtension('ElectronPdfService');
 # wfLoadExtension('Gadgets');
-wfLoadExtension('GoogleLogin');
+# wfLoadExtension('GoogleLogin');
 wfLoadExtension('ImageMap');
 wfLoadExtension('InputBox');
 wfLoadExtension('Interwiki');
@@ -349,7 +349,6 @@ $wgNamespacesWithSubpages[NS_MAIN] = true;
 $wgGLAppId = getenv('GOOGLE_LOGIN_APPID');
 $wgGLSecret = getenv('GOOGLE_LOGIN_SECRET');
 
-// Changing this will log out all existing sessions.
 $wgAuthenticationTokenVersion = "1";
 
 ######################### Debug ######################### 

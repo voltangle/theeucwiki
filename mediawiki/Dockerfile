@@ -65,17 +65,18 @@ RUN set -ex \
     && ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log" \
     && ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"
 
-##### MediaWiki Core setup
+##### MediaWiki Core download
 RUN set -x; \
     mkdir -p $MW_HOME \
     && git clone \
         --depth 1 \
         -b $MW_VERSION \
         https://gerrit.wikimedia.org/r/mediawiki/core.git \
-        $MW_HOME \
-    && cd $MW_HOME \
-    && composer install --no-dev \
-    && chown -R $WWW_USER:$WWW_GROUP images/
+        $MW_HOME
+
+COPY patches $MW_HOME/patches
+COPY patches/apply_patches.sh $MW_HOME/
+COPY ext/* /ext/
 
 ##### Bundled skins, see https://www.mediawiki.org/wiki/Bundled_extensions
 RUN set -x; \
@@ -91,153 +92,35 @@ RUN set -x; \
     cd $MW_HOME/skins \
     && git clone --depth 1 -b $CITIZEN_VERSION https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git Citizen
 
-
-#### Extensions without any actions required to be done after the fact
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CategoryTree \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Cite \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CiteThisPage \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CodeEditor \ 
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/ConfirmEdit \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/DiscussionTools \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Echo \
-  # && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Gadgets \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/ImageMap \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/InputBox \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Interwiki \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Linter \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/LoginNotify \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Math \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/MultimediaViewer \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Nuke \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/PageImages \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/ParserFunctions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/PdfHandler \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Poem \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/ReplaceText \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/SecureLinkFixer \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/SpamBlacklist \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/TextExtracts \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Thanks \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/TitleBlacklist \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/WikiEditor \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/RSS 
-
-# GoogleLogin
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/GoogleLogin \
-    && cd GoogleLogin \
-    && composer install --no-dev \
-    && cd ..
-
-# OATHAuth
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/OATHAuth \
-    && cd OATHAuth \
-    && composer install --no-dev \
-    && cd ..
-
-# AbuseFilter
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/AbuseFilter \
-    && cd AbuseFilter \
-    && composer install --no-dev \
-    && cd ..
-
-# SyntaxHighlight_GeSHi
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/SyntaxHighlight_GeSHi \
-    && cd SyntaxHighlight_GeSHi \
-    && composer install --no-dev \
-    && chmod a+x pygments/pygmentize \
-    && cd ..
-
-##### Commonly used extensions
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CheckUser \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/DisplayTitle \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Popups \
-    # FIXME: Disabled until further notice
-    # && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Drafts \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/RelatedArticles \
-    && git clone https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription.git ShortDescription 
-
-# CSS extension
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CSS \
-    && cd CSS \
-    && composer install --no-dev
-
-# TemplateStyles extension
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/TemplateStyles \
-    # && git clone --depth 1 -b $TEMPLATESTYLESEXTENDER_VERSION https://github.com/octfx/mediawiki-extensions-TemplateStylesExtender.git \
-    && cd TemplateStyles \
-    && composer install --no-dev
-
-# Flow extension
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Flow \
-    && cd Flow \
-    && composer install --no-dev
-
-### MediaWiki Language Extension Bundle
-# Translate
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Babel \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/cldr \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CleanChanges \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/UniversalLanguageSelector
-
-##### VisualEditor extension
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/VisualEditor \
-    && cd VisualEditor \
-    && git submodule update --init
-
-##### CirrusSearch extension
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/CirrusSearch \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Elastica \
-    && cd Elastica \
-    && composer install --no-dev \
-    && cd ../CirrusSearch \
-    && composer install --no-dev \
-    && cd ..
-
-##### ElectronPdfService extension
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/ElectronPdfService
-
-#### Scribunto extension
-RUN set -x; \
-    cd $MW_HOME/extensions \
-    && git clone --depth 1 -b $MW_VERSION https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Scribunto \
-    && chmod a+x Scribunto/includes/Engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua
+#### Download all extensions
+RUN chmod +x /ext/install.sh && /ext/install.sh download
+RUN cd $MW_HOME/extensions \
+    && git clone --depth 1 \
+    https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription.git \
+    ShortDescription
 
 #### Shubara extension
 COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 
-#### Apply patches
-COPY patches $MW_HOME/patches
+#### Apply pre-install patches
 RUN set -x; \
     cd $MW_HOME \
-    && ls \
-    && patch -p1 < patches/*.patch
+    && chmod +x apply_patches.sh \
+    && ./apply_patches.sh pre
 
+#### Install MediaWiki Core composer dependencies
+RUN set -x; \
+    cd $MW_HOME \
+    && composer install --no-dev \
+    && chown -R $WWW_USER:$WWW_GROUP images/
+
+#### Install dependencies and set up extensions
+RUN /ext/install.sh install
+
+#### Apply post-install patches
+RUN set -x; \
+    cd $MW_HOME \
+    && ./apply_patches.sh post
 
 EXPOSE 80
 
@@ -258,3 +141,4 @@ RUN set -x; chmod +x /init_elastic.sh
 CMD ["/run-apache.sh"]
 
 VOLUME ["$MW_HOME/images", "$MW_VOLUME"]
+
