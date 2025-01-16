@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.10
 ARG DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
 
@@ -25,7 +25,7 @@ RUN set -x; \
 	    python3-pip \
         python3-pygments \
         imagemagick \
-        netcat \
+        netcat-traditional \
         git \
 	    curl \
         unzip \
@@ -33,7 +33,8 @@ RUN set -x; \
         wget \
         patch \
     && pear install mail net_smtp \
-    && pip3 install pygments \
+    # TODO: this shit stinks
+    && pip3 install pygments --break-system-packages \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/cache/apt/archives/* \
     && a2enmod rewrite \
