@@ -1,0 +1,12 @@
+diff --color -ruN mediawiki2/extensions/GoogleLogin/composer.json mediawiki/extensions/GoogleLogin/composer.json
+--- mediawiki2/extensions/GoogleLogin/composer.json	2025-01-17 00:10:51
++++ mediawiki/extensions/GoogleLogin/composer.json	2025-01-17 00:11:45
+@@ -3,7 +3,7 @@
+ 	"description": "Allow users to login to MediaWiki with their Google Account",
+ 	"license": "MIT",
+ 	"require": {
+-		"google/apiclient": "^v2.16.0",
++		"google/apiclient": "v2.16.1",
+ 		"monolog/monolog": "^2.2.0"
+ 	},
+ 	"require-dev": {
