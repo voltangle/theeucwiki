@@ -30,7 +30,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
 	}
 
     public function onBeforePageDisplay($out, $skin): void {
-		$out->addModuleStyles( 'ext.shubara.styles' );
+		$out->addModuleStyles('ext.shubara.styles');
 	}
 
     /**
@@ -97,7 +97,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         }
         $output .= '>';
 
-        $output .= "<span>$title</span>";
+        $output .= "<h2>$title</h2>";
         $output .= $parser->recursiveTagParse($input, $frame);
         $output .= '</div>';
 
