@@ -20,13 +20,27 @@ if [ $1 = 'download' ]; then
 fi
 
 if [ $1 = 'install' ]; then
-    LIST=$(cat /ext/extensions.csv | grep 'composer' | sed 's/,[a-z]*//g');
+    LIST=$(cat /ext/extensions.csv | grep -v 'simple');
     # Run composer install for every extension that needs it
     for i in $LIST; do
-        cd $i
-        composer install --no-dev
+        EXT=$(sed 's/,[a-z]*//g' <<< $i)
+        METHOD=$(cut -d ',' -f 2 <<< $i)
+        cd $EXT
+        echo Installing $EXT
+
+        if [ $METHOD = 'composer' ]; then
+            composer install --no-dev
+        fi
+
+        # Additional actions for each extension that needs it
+        if [ $EXT = 'VisualEditor' ]; then
+            git submodule update --init
+        elif [ $EXT = 'Scribunto' ]; then
+            chmod a+x includes/Engines/LuaStandalone/binaries/lua5_1_5_linux_64_generic/lua
+        elif [ $EXT = 'SyntaxHighlight_GeSHi' ]; then
+            chmod a+x pygments/pygmentize
+        fi
         cd ..
     done
 fi
 
-# TODO: implement custom actions for select extensions

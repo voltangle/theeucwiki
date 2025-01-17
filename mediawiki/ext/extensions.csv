@@ -37,7 +37,7 @@ RelatedArticles,simple
 ReplaceText,simple
 RSS,simple
 SecureLinkFixer,simple
-Scribunto,composer
+Scribunto,other
 SpamBlacklist,simple
 SyntaxHighlight_GeSHi,composer
 TemplateStyles,composer
@@ -45,5 +45,5 @@ TextExtracts,simple
 Thanks,simple
 TitleBlacklist,simple
 UniversalLanguageSelector,composer
-VisualEditor,composer
+VisualEditor,other
 WikiEditor,simple
