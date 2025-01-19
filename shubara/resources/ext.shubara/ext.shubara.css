@@ -68,7 +68,7 @@
     min-width: 280px;
     padding: 8px;
     border-radius: 12px;
-    background: white;
+    background: var(--color-surface-1);
     box-shadow: 0 2px 2px rgba(0,0,0,0.2);
 }
 
@@ -108,30 +108,6 @@
     padding-left: 8px;
     padding-right: 8px;
     margin: 4px 0;
-    background: #F1F1F1;
+    background: var(--color-surface-2);
     border-radius: 8px;
-}
-
-.skin-theme-clientpref-night .ext-shubara-ulnav {
-    background: black;
-}
-.skin-theme-clientpref-night .ext-shubara-ulnav ul li {
-    background: hsl(0 0% 10% / 1);
-}
-.skin-theme-clientpref-os {
-    @media (prefers-color-scheme: dark) {
-        .ext-shubara-ulnav {
-            background: black;
-        }
-    
-        .ext-shubara-ulnav ul li {
-            background: hsl(0 0% 10% / 1);
-        }
-    }
-}
-.citizen-feature-pure-black-clientpref-1 .ext-shubara-ulnav {
-    background: #06080A;
-}
-.citizen-feature-pure-black-clientpref-1 .ext-shubara-ulnav ul li {
-    background: hsl(0 0% 13% / 1);
 }
