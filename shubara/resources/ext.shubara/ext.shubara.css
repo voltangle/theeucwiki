@@ -34,6 +34,7 @@
 .ext-shubara-navcard span {
     color: white;
     font-size: xxx-large;
+    font-family: 'Onest';
     font-weight: 550;
     text-shadow: #00 1px 0 5px;
     transition: font-weight 0.1s ease-in-out;
