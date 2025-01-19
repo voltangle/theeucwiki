@@ -27,6 +27,8 @@ $wgDBname = "mediawiki";
 $wgDBuser = "mwuser";
 $wgDBpassword = "";
 
+$wgAllowSiteCSSOnRestrictedPages = true;
+
 # MySQL specific settings
 $wgDBprefix = "";
 $wgDBssl = false;
@@ -136,7 +138,7 @@ if (!str_contains($wgServer, 'localhost')) { // if running in prod
 ####################### Uploads #########################
 # Set this value if needed
 # $wgUploadSizeWarning
-$wgMaxUploadSize = 209715200; # 200 mebibytes
+$wgMaxUploadSize = 1024 * 1024 * 200; # 200 mebibytes
 
 ####################### Extensions #########################
 wfLoadExtension('AbuseFilter');
