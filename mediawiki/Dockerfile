@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1-labs
+
 FROM ubuntu:24.10
 ARG DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
@@ -74,10 +76,6 @@ RUN set -x; \
         https://gerrit.wikimedia.org/r/mediawiki/core.git \
         $MW_HOME
 
-COPY patches $MW_HOME/patches
-COPY patches/apply_patches.sh $MW_HOME/
-COPY ext/* /ext/
-
 ##### Bundled skins, see https://www.mediawiki.org/wiki/Bundled_extensions
 RUN set -x; \
     cd $MW_HOME/skins \
@@ -92,6 +90,8 @@ RUN set -x; \
     cd $MW_HOME/skins \
     && git clone --depth 1 -b $CITIZEN_VERSION https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git Citizen
 
+COPY ext/* /ext/
+
 #### Download all extensions
 RUN chmod +x /ext/install.sh && /ext/install.sh download
 RUN cd $MW_HOME/extensions \
@@ -102,11 +102,14 @@ RUN cd $MW_HOME/extensions \
 #### Shubara extension
 COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 
+COPY patches/ $MW_HOME/patches/
+
 #### Apply pre-install patches
 RUN set -x; \
     cd $MW_HOME \
-    && chmod +x apply_patches.sh \
-    && ./apply_patches.sh pre
+    && chmod +x patches/apply_patches.sh \
+    && ./patches/apply_patches.sh pre || true \
+    && cat patches/pre/*
 
 #### Install MediaWiki Core composer dependencies
 RUN set -x; \
@@ -120,7 +123,8 @@ RUN /ext/install.sh install
 #### Apply post-install patches
 RUN set -x; \
     cd $MW_HOME \
-    && ./apply_patches.sh post
+    && ./patches/apply_patches.sh post || true \
+    && cat patches/post/*
 
 EXPOSE 80
 

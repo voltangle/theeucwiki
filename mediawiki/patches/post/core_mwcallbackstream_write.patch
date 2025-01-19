@@ -1,0 +1,12 @@
+diff --color -ruN mediawiki2/includes/http/MWCallbackStream.php mediawiki/includes/http/MWCallbackStream.php
+--- mediawiki2/includes/http/MWCallbackStream.php	2025-01-11 09:45:38
++++ mediawiki/includes/http/MWCallbackStream.php	2025-01-18 12:01:16
+@@ -47,7 +47,7 @@
+ 		$this->callback = $cb;
+ 	}
+ 
+-	public function write( $string ) {
++	public function write( string $string ) {
+ 		return call_user_func( $this->callback, $this, $string );
+ 	}
+ }

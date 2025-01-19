@@ -44,6 +44,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
      * @param array $args HTML tag attribute params. Valid params:
      * - out-mode: how it works. 'noreturn' by default. Valid values: noreturn, raw
      * - flex: sets the flex CSS value
+     * - no-min-width: unsets the min-width CSS style on the children
      * @param Parser $parser MediaWiki Parser object
      * @param PPFrame $frame MediaWiki PPFrame object
      */
@@ -54,6 +55,29 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
             $output .= " style=\"flex: $flex;\"";
         }
         $output .= '>';
+
+        if (isset($args['no-min-width'])) {
+            // i've set !important here just to be safe
+            $css = '.ext-shubara-navcard { min-width: unset !important; }';
+
+            if ($parser->getOptions()->getIsPreview()) {
+                // embed as <style> because previews can't show what gets
+                // inserted inside <head>
+                global $wgShowDebug; // https://www.mediawiki.org/wiki/Manual:$wgShowDebug
+                // disabled for production to save a few bytes on page size
+                if ($css != '') {
+                    if ($wgShowDebug) {
+                        $output .= "<!-- Begin Extension:Shubara (Preview mode) -->";
+                    }
+                    $output .= "<style>$css</style>";
+                    if ($wgShowDebug) {
+                        $output .= "<!-- End Extension:Shubara (Preview mode) -->";
+                    }
+                }
+            } else {
+                $this->addHeadItem($parser, $css, 'css');
+            }
+        }
 
         switch ($args['out-mode'] ?? 'noreturn') {
             case 'raw': $output .= $parser->recursiveTagParse($input, $frame); break;
@@ -125,7 +149,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
      *  @param PPFrame $frame MW Frame
      */
     public function renderTagNavCard($input, array $args, Parser $parser, PPFrame $frame) {
-        $navCardID = $this->generateRandomString(20); // styles specific to this navcard
+        $navCardID = $this->generateRandomString(10); // styles specific to this navcard
         $output = '';
 
         if (!(isset($args['title-img']) xor isset($args['title-txt']))) {
