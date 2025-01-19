@@ -28,6 +28,7 @@ $wgDBuser = "mwuser";
 $wgDBpassword = "";
 
 $wgAllowSiteCSSOnRestrictedPages = true;
+$wgMaxImageArea = false;
 
 # MySQL specific settings
 $wgDBprefix = "";
