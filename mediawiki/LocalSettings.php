@@ -255,6 +255,7 @@ $tmpRestParsoidUrl = getenv( 'MW_REST_PARSOID_URL' );
 
 // Enable by default for everybody
 $wgDefaultUserOptions['visualeditor-enable'] = 1;
+$wgDefaultUserOptions['visualeditor-editor'] = 'visualeditor';
 
 // TODO: check this out
 // Optional: Set VisualEditor as the default for anonymous users
@@ -348,6 +349,9 @@ $wgHooks['SkinAddFooterLinks'][] = function($skin, $key, &$footerLinks) {
 $wgGroupPermissions['*']['edit'] = false; // Disable anonymous editing
 $wgGroupPermissions['*']['createaccount'] = true;
 $wgGroupPermissions['sysop']['interwiki'] = true;
+// enable SpamBlacklist override for these
+$wgGroupPermissions['sysop']['sboverride'] = true;
+$wgGroupPermissions['bureacrat']['sboverride'] = true;
 
 $wgNamespacesWithSubpages[NS_MAIN] = true;
 
