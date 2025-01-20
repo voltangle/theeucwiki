@@ -160,7 +160,7 @@ wfLoadExtension('CSS');
 wfLoadExtension('DiscussionTools');
 wfLoadExtension('DisplayTitle');
 # FIXME: Reenable
-# wfLoadExtension( 'Drafts' );
+wfLoadExtension( 'Drafts' );
 wfLoadExtension('Echo');
 wfLoadExtension('Elastica');
 wfLoadExtension('ElectronPdfService');
@@ -203,11 +203,13 @@ $wgMathInternalRestbaseURL = getenv('MW_REST_RESTBASE_URL');
 ### DisplayTitle ###
 $wgAllowDisplayTitle = true;
 $wgRestrictDisplayTitle = false;
+
 ### SpamBlacklist ###
 $wgSpamBlacklistFiles = array(
    "https://meta.wikimedia.org/w/index.php?title=Spam_blacklist&action=raw&sb_ver=1",
    "https://en.wikipedia.org/w/index.php?title=MediaWiki:Spam-blacklist&action=raw&sb_ver=1"
 );
+
 ### TitleBlacklist ###
 $wgTitleBlacklistSources = array(
     array(
@@ -230,6 +232,9 @@ $wgPygmentizePath = '/usr/bin/pygmentize';
 ### CheckUser ###
 $wgGroupPermissions['sysop']['checkuser'] = true;
 $wgGroupPermissions['sysop']['checkuser-log'] = true;
+
+### Drafts ###
+$wgDraftsAutoSaveWait = 60;
 
 ### CleanChanges
 #$wgDefaultUserOptions['usenewrc'] = 1;
