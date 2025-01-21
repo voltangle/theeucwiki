@@ -1,5 +1,8 @@
 #!/bin/bash
 # Applies patches. Simple as that.
 
-find $MW_HOME/patches/$1/ -name '*.patch' -print0 | xargs -0 patch -p1
+set -x;
+set -e;
+
+find $MW_HOME/patches/$1/ -name '*.patch' -print0 | xargs -t -0 -L 1 -I {} sh -c 'patch -p1 < {}'
 

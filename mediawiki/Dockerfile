@@ -108,8 +108,7 @@ COPY patches/ $MW_HOME/patches/
 RUN set -x; \
     cd $MW_HOME \
     && chmod +x patches/apply_patches.sh \
-    && ./patches/apply_patches.sh pre || true \
-    && cat patches/pre/*
+    && ./patches/apply_patches.sh pre
 
 #### Install MediaWiki Core composer dependencies
 RUN set -x; \
@@ -123,8 +122,7 @@ RUN /ext/install.sh install
 #### Apply post-install patches
 RUN set -x; \
     cd $MW_HOME \
-    && ./patches/apply_patches.sh post || true \
-    && cat patches/post/*
+    && ./patches/apply_patches.sh post
 
 EXPOSE 80
 
