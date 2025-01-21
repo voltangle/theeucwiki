@@ -43,6 +43,9 @@ services:
             dockerfile: Dockerfile
         restart: unless-stopped
         tty: true
+        deploy:
+          mode: replicated
+          replicas: 2 # just to be safe, so if one suffers a "brown out", other one still works
         depends_on:
             db:
               condition: service_healthy

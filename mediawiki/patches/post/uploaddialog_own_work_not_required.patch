@@ -1,0 +1,11 @@
+diff --color -ruN mediawiki2/resources/src/mediawiki.ForeignStructuredUpload.BookletLayout/BookletLayout.js mediawiki/resources/src/mediawiki.ForeignStructuredUpload.BookletLayout/BookletLayout.js
+--- mediawiki2/resources/src/mediawiki.ForeignStructuredUpload.BookletLayout/BookletLayout.js	2025-01-11 09:45:28
++++ mediawiki/resources/src/mediawiki.ForeignStructuredUpload.BookletLayout/BookletLayout.js	2025-01-20 16:48:08
+@@ -216,7 +216,7 @@
+ 	mw.ForeignStructuredUpload.BookletLayout.prototype.onUploadFormChange = function () {
+ 		const file = this.selectFileWidget.getValue(),
+ 			ownWork = this.ownWorkCheckbox.isSelected(),
+-			valid = !!file && ownWork;
++			valid = !!file; // && ownWork
+ 		this.emit( 'uploadValid', valid );
+ 	};

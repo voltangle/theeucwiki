@@ -58,7 +58,7 @@ ENV MW_VERSION=REL1_43 \
     WWW_GROUP=www-data \
     APACHE_LOG_DIR=/var/log/apache2
 
-ENV CITIZEN_VERSION=v2.40.2
+ENV CITIZEN_VERSION=main
 ENV TEMPLATESTYLESEXTENDER_VERSION=v1.2.0
 
 # logs should go to stdout / stderr
