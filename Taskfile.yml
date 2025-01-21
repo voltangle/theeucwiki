@@ -32,4 +32,14 @@ tasks:
   logs: docker compose logs -f
   # Maintenance scripts
   init-elastic: docker compose exec mediawiki sh ./init_elastic.sh
+  init-sitemap:
+    cmds:
+      - task: mw-maintenance
+        vars: {
+          CLI_ARGS: generateSitemap --memory-limit=50M --fspath=/var/www/html/sitemap --identifier=euc.repair --urlpath=/sitemap/ --server=https://euc.repair --compress=yes --skip-redirects
+        }
+  init:
+    cmds:
+      - task: init-elastic
+      - task: init-sitemap
   mw-maintenance: docker compose exec -it -w /var/www/html/w/ mediawiki php maintenance/run.php -- {{.CLI_ARGS}}
