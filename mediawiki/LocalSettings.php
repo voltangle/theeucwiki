@@ -189,11 +189,12 @@ wfLoadExtension('ShortDescription');
 wfLoadExtension('Shubara');
 wfLoadExtension('SpamBlacklist');
 wfLoadExtension('SyntaxHighlight_GeSHi');
-# wfLoadExtension( 'TemplateStyles' );
+wfLoadExtension('TemplateStyles');
 wfLoadExtension('TextExtracts');
 wfLoadExtension('Thanks');
 wfLoadExtension('TitleBlacklist');
 wfLoadExtension('UniversalLanguageSelector');
+wfLoadExtension('UserMerge');
 wfLoadExtension('VisualEditor');
 wfLoadExtension('WikiEditor');
 
@@ -349,9 +350,13 @@ $wgHooks['SkinAddFooterLinks'][] = function($skin, $key, &$footerLinks) {
 $wgGroupPermissions['*']['edit'] = false; // Disable anonymous editing
 $wgGroupPermissions['*']['createaccount'] = true;
 $wgGroupPermissions['sysop']['interwiki'] = true;
-// enable SpamBlacklist override for these
-$wgGroupPermissions['sysop']['sboverride'] = true;
-$wgGroupPermissions['bureacrat']['sboverride'] = true;
+$wgGroupPermissions['sysop']['sboverride'] = true; // sb - SpamBlacklist
+$wgGroupPermissions['bureaucrat']['sboverride'] = true; // sb - SpamBlacklist
+$wgGroupPermissions['bureaucrat']['usermerge'] = true;
+$wgGroupPermissions['sysop']['deletelogentry'] = true;
+$wgGroupPermissions['sysop']['deleterevision'] = true;
+
+$wgBlockDisablesLogin = true;
 
 $wgNamespacesWithSubpages[NS_MAIN] = true;
 
