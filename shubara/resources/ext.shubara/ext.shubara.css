@@ -67,6 +67,7 @@
     flex: 1;
     min-width: 280px;
     padding: 8px;
+    text-align: center;
     border-radius: 12px;
     background: var(--color-surface-1);
     box-shadow: 0 2px 2px rgba(0,0,0,0.2);
@@ -100,7 +101,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     column-gap: 8px;
-    justify-content: start;
+    justify-content: center;
 }
 
 .ext-shubara-ulnav ul li {
