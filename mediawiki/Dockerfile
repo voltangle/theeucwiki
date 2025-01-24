@@ -99,9 +99,6 @@ RUN cd $MW_HOME/extensions \
     https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription.git \
     ShortDescription
 
-#### Shubara extension
-COPY --from=shubara ./ $MW_HOME/extensions/Shubara
-
 COPY patches/ $MW_HOME/patches/
 
 #### Apply pre-install patches
@@ -123,6 +120,16 @@ RUN /ext/install.sh install
 RUN set -x; \
     cd $MW_HOME \
     && ./patches/apply_patches.sh post
+
+#### Shubara extension
+#### There is no need to apply patches to it too, I'm literatelly developing it
+COPY --from=shubara ./ $MW_HOME/extensions/Shubara
+
+#### Clear out all build tools and stuff not required for MediaWiki to run
+RUN set -x; \
+    cd $MW_HOME \
+    && rm -r patches tests docs *.md COPYING CREDITS FAQ HISTORY INSTALL RELEASE-NOTES* \
+    SECURITY UPGRADE *.json *.yml *.js *.lock *sample phpunit.xml.dist
 
 EXPOSE 80
 
