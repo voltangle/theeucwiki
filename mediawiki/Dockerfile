@@ -133,7 +133,7 @@ RUN set -x; \
 
 EXPOSE 80
 
-COPY php.ini /etc/php/7.0/apache2/conf.d/mediawiki.ini
+COPY php.ini /etc/php/8.3/apache2/conf.d/mediawiki.ini
 
 COPY mediawiki.conf /etc/apache2/sites-available/000-mediawiki.conf
 RUN set -x; ln -s /etc/apache2/sites-available/000-mediawiki.conf /etc/apache2/sites-enabled/000-mediawiki.conf
