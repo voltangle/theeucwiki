@@ -129,7 +129,7 @@ COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 RUN set -x; \
     cd $MW_HOME \
     && rm -r patches tests docs *.md COPYING CREDITS FAQ HISTORY INSTALL RELEASE-NOTES* \
-    SECURITY UPGRADE *.json *.yml *.js *.lock *sample phpunit.xml.dist
+    SECURITY UPGRADE *.json *.yml *.js *sample phpunit.xml.dist
 
 EXPOSE 80
 
