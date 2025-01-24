@@ -6,17 +6,18 @@ use MediaWiki\Parser\PPFrame;
 
 /**
 * Render the ulnav tag
-*
-* @param string $input What is supplied between the HTML tags. This gets evaluated
-* so it get spit out as normal wikitext
-* @param array $args HTML tag attribute params. Valid params:
-* - title: title of the card. Displayed at the top
-* - mode: how list items are displayed. 'col' by default. Valid values: col, chiplist
-* - flex: sets the flex CSS value
-* @param Parser $parser MediaWiki Parser object
-* @param PPFrame $frame MediaWiki PPFrame object
 */
 class Ulnav {
+    /**
+     * @param string $input What is supplied between the HTML tags. This gets evaluated
+     * so it get spit out as normal wikitext
+     * @param array $args HTML tag attribute params. Valid params:
+     * - title: title of the card. Displayed at the top
+     * - mode: how list items are displayed. 'col' by default. Valid values: col, chiplist
+     * - flex: sets the flex CSS value
+     * @param Parser $parser MediaWiki Parser object
+     * @param PPFrame $frame MediaWiki PPFrame object
+     */
     public static function run($input, array $args, Parser $parser, PPFrame $frame) {
         $output = '';
         

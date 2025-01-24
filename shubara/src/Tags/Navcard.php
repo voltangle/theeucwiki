@@ -10,23 +10,25 @@ use MediaWiki\Title\Title;
  *
  * Render the navcard tag
  *
- * @param string $input What is supplied between the HTML tags. Ignored
- * @param array $args HTML tag attribute params. All of them are optional, but with
- * caveats.
- * Valid params:
- * - page: a page name, with an optional namespace prefix.
- * - title-img: Image that is shown above the background in the center. If both
- * title-img and title-txt are present, none are rendered and instead an error is shown.
- * - title-txt: Text that is shown above the background in the center. If both
- * title-img and title-txt are present, none are rendered and instead an error is shown.
- * - title-img-w: Width of the title image. Under the hood handled as a thumbnail.
- * - title-img-h: Height of the title image. Under the hood handled as a thumbnail.
- * - bg-img: Image that is shown as the background.
- * - bg-tint%: How much the image is tinted (e.g. overlayed with black)
- *  @param Parser $parser MW Parser
- *  @param PPFrame $frame MW Frame
  */
 class Navcard {
+    /**
+     * @param string $input What is supplied between the HTML tags. Ignored
+     * @param array $args HTML tag attribute params. All of them are optional, but with
+     * caveats.
+     * Valid params:
+     * - page: a page name, with an optional namespace prefix.
+     * - title-img: Image that is shown above the background in the center. If both
+     * title-img and title-txt are present, none are rendered and instead an error is shown.
+     * - title-txt: Text that is shown above the background in the center. If both
+     * title-img and title-txt are present, none are rendered and instead an error is shown.
+     * - title-img-w: Width of the title image. Under the hood handled as a thumbnail.
+     * - title-img-h: Height of the title image. Under the hood handled as a thumbnail.
+     * - bg-img: Image that is shown as the background.
+     * - bg-tint%: How much the image is tinted (e.g. overlayed with black)
+     *  @param Parser $parser MW Parser
+     *  @param PPFrame $frame MW Frame
+     */
     public static function run($input, array $args, Parser $parser, PPFrame $frame) {
         $navCardID = Utils::generateRandomString(10); // styles specific to this navcard
         $output = '';
