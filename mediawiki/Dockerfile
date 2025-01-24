@@ -143,7 +143,6 @@ RUN chmod -v +x /run-apache.sh
 
 COPY img/* $MW_HOME/
 COPY LocalSettings.php $MW_HOME/LocalSettings.php
-COPY systempagelist.txt $MW_HOME/systempagelist.txt
 COPY init_elastic.sh /
 RUN set -x; chmod +x /init_elastic.sh
 
