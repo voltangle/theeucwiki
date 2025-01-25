@@ -4,6 +4,7 @@ namespace MediaWiki\Extension\Shubara\Tags;
 use MediaWiki\Extension\Shubara\Utils;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\PPFrame;
+use MediaWiki\Html\Html;
 
 /**
  * Render the navcards tag
@@ -20,16 +21,23 @@ class Navcards {
      * - out-mode: how it works. 'noreturn' by default. Valid values: noreturn, raw
      * - flex: sets the flex CSS value
      * - no-min-width: unsets the min-width CSS style on the children
+     * - layout: the CSS layout to use. Valid values: flex, grid. Default: flex
      * @param Parser $parser MediaWiki Parser object
      * @param PPFrame $frame MediaWiki PPFrame object
      */
     public static function run( $input, array $args, Parser $parser, PPFrame $frame ) {
-        $output = '<div class="ext-shubara-navcards"';
+        $htmlAttributes = [
+            'class' => 'ext-shubara-navcards'
+        ];
         if (isset($args['flex']) && is_numeric(@$args['flex'])) {
             $flex = @$args['flex'];
-            $output .= " style=\"flex: $flex;\"";
+            $htmlAttributes['style'] = "flex: $flex;";
         }
-        $output .= '>';
+        $layout = $args['layout'] ?? 'flex';
+        if ($layout == 'flex' or $layout == 'grid') {
+            $htmlAttributes['class'] .= " ext-shubara-navcards-$layout";
+        }
+        $output = '';
 
         if (isset($args['no-min-width'])) {
             // i've set !important here just to be safe
@@ -61,7 +69,6 @@ class Navcards {
                 break;
         }
 
-        $output .= '</div>';
-        return $output;
+        return Html::rawElement('div', $htmlAttributes, $output);
     }
 }

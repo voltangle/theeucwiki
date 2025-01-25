@@ -1,10 +1,18 @@
 .ext-shubara-navcards {
     min-width: 280px;
+    gap: 10px;
+}
+
+.ext-shubara-navcards-flex {
     display: flex;
 	flex-direction: row;
 	flex-flow: row wrap;
 	justify-content: space-between;
-    gap: 10px;
+}
+
+.ext-shubara-navcards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .ext-shubara-navcard {
