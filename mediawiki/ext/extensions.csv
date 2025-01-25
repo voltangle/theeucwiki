@@ -1,4 +1,5 @@
 AbuseFilter,composer
+AdvancedSearch,simple
 Babel,composer
 CategoryTree,simple
 CheckUser,simple
@@ -11,6 +12,7 @@ CodeEditor,composer
 ConfirmEdit,simple
 CSS,composer
 Description2,simple
+Disambiguator,simple
 DiscussionTools,simple
 DisplayTitle,simple
 Drafts,composer
@@ -35,6 +37,7 @@ Poem,simple
 Popups,simple
 RelatedArticles,simple
 ReplaceText,simple
+RevisionSlider,simple
 RSS,simple
 SecureLinkFixer,simple
 Scribunto,other

@@ -143,6 +143,7 @@ $wgMaxUploadSize = 1024 * 1024 * 200; # 200 mebibytes
 
 ####################### Extensions #########################
 wfLoadExtension('AbuseFilter');
+wfLoadExtension('AdvancedSearch');
 wfLoadExtension('Babel');
 wfLoadExtension('CategoryTree');
 wfLoadExtension('CheckUser');
@@ -157,14 +158,14 @@ if (getenv('USE_TURNSTILE') == 'yes') {
     wfLoadExtension('ConfirmEdit/Turnstile');
 }
 wfLoadExtension('CSS');
+wfLoadExtension('Disambiguator');
 wfLoadExtension('DiscussionTools');
 wfLoadExtension('DisplayTitle');
-# FIXME: Reenable
-wfLoadExtension( 'Drafts' );
+wfLoadExtension('Drafts');
 wfLoadExtension('Echo');
 wfLoadExtension('Elastica');
 wfLoadExtension('ElectronPdfService');
-# wfLoadExtension('Gadgets');
+wfLoadExtension('Gadgets');
 # wfLoadExtension('GoogleLogin');
 wfLoadExtension('ImageMap');
 wfLoadExtension('InputBox');
@@ -182,6 +183,7 @@ wfLoadExtension('Poem');
 wfLoadExtension('Popups');
 wfLoadExtension('RelatedArticles');
 wfLoadExtension('ReplaceText');
+wfLoadExtension('RevisionSlider');
 wfLoadExtension('RSS');
 wfLoadExtension('SecureLinkFixer');
 wfLoadExtension('Scribunto');
@@ -189,6 +191,7 @@ wfLoadExtension('ShortDescription');
 wfLoadExtension('Shubara');
 wfLoadExtension('SpamBlacklist');
 wfLoadExtension('SyntaxHighlight_GeSHi');
+wfLoadExtension('TabberNeue');
 wfLoadExtension('TemplateStyles');
 wfLoadExtension('TextExtracts');
 wfLoadExtension('Thanks');
@@ -210,6 +213,9 @@ $wgSpamBlacklistFiles = array(
    "https://meta.wikimedia.org/w/index.php?title=Spam_blacklist&action=raw&sb_ver=1",
    "https://en.wikipedia.org/w/index.php?title=MediaWiki:Spam-blacklist&action=raw&sb_ver=1"
 );
+
+### Disambiguator ###
+$wgDisambiguatorNotifications = true;
 
 ### TitleBlacklist ###
 $wgTitleBlacklistSources = array(
