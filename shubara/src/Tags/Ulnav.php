@@ -37,7 +37,8 @@ class Ulnav {
         }
         $output .= '>';
     
-        $output .= "<h2>$title</h2>";
+        $parsedTitle = $parser->recursiveTagParse($title, $frame);
+        $output .= "<h2>$parsedTitle</h2>";
         $output .= $parser->recursiveTagParse($input, $frame);
         $output .= '</div>';
     
