@@ -22,9 +22,12 @@ class Navcards {
      * - flex: sets the flex CSS value
      * - no-min-width: unsets the min-width CSS style on the children
      * - layout: the CSS layout to use. Valid values: flex, grid. Default: flex
+     * - grid-cols: value inserted into grid-template-columns as the repat amount:
+     *      Default: 2
      * @param Parser $parser MediaWiki Parser object
      * @param PPFrame $frame MediaWiki PPFrame object
      */
+// TODO: implement grid-cols
     public static function run( $input, array $args, Parser $parser, PPFrame $frame ) {
         $htmlAttributes = [
             'class' => 'ext-shubara-navcards'
