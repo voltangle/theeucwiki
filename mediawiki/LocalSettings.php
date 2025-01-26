@@ -185,6 +185,7 @@ wfLoadExtension('RelatedArticles');
 wfLoadExtension('ReplaceText');
 wfLoadExtension('RevisionSlider');
 wfLoadExtension('RSS');
+wfLoadExtension('SandboxLink');
 wfLoadExtension('SecureLinkFixer');
 wfLoadExtension('Scribunto');
 wfLoadExtension('ShortDescription');
@@ -197,6 +198,7 @@ wfLoadExtension('TextExtracts');
 wfLoadExtension('Thanks');
 wfLoadExtension('TitleBlacklist');
 wfLoadExtension('UniversalLanguageSelector');
+wfLoadExtension('UploadWizard');
 wfLoadExtension('UserMerge');
 wfLoadExtension('VisualEditor');
 wfLoadExtension('WikiEditor');
@@ -235,6 +237,10 @@ $wgTurnstileSecretKey = getenv('TURNSTILE_SECRETKEY');
 
 ### SyntaxHighlight_GeSHi ###
 $wgPygmentizePath = '/usr/bin/pygmentize';
+
+### UploadWizard ###
+# TODO: configure
+# $wgUploadWizardConfig['licensing']['impor']
 
 ### CheckUser ###
 $wgGroupPermissions['sysop']['checkuser'] = true;

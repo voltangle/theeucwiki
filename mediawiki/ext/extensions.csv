@@ -39,6 +39,7 @@ RelatedArticles,simple
 ReplaceText,simple
 RevisionSlider,simple
 RSS,simple
+SandboxLink,simple
 SecureLinkFixer,simple
 Scribunto,other
 SpamBlacklist,simple
@@ -48,6 +49,7 @@ TextExtracts,simple
 Thanks,simple
 TitleBlacklist,simple
 UniversalLanguageSelector,composer
+UploadWizard,simple
 UserMerge,simple
 VisualEditor,other
 WikiEditor,simple
