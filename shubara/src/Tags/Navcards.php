@@ -24,46 +24,42 @@ class Navcards {
      * - layout: the CSS layout to use. Valid values: flex, grid. Default: flex
      * - grid-cols: value inserted into grid-template-columns as the repat amount:
      *      Default: 2
+     * - uniform-rows: whether if grid-auto-rows: 1fr is set
      * @param Parser $parser MediaWiki Parser object
      * @param PPFrame $frame MediaWiki PPFrame object
      */
 // TODO: implement grid-cols
     public static function run( $input, array $args, Parser $parser, PPFrame $frame ) {
-        $htmlAttributes = [
-            'class' => 'ext-shubara-navcards'
-        ];
-        if (isset($args['flex']) && is_numeric(@$args['flex'])) {
-            $flex = @$args['flex'];
-            $htmlAttributes['style'] = "flex: $flex;";
-        }
-        $layout = $args['layout'] ?? 'flex';
-        if ($layout == 'flex' or $layout == 'grid') {
-            $htmlAttributes['class'] .= " ext-shubara-navcards-$layout";
-        }
+        $id = Utils::generateRandomString();
+        $classes = ['ext-shubara-navcards'];
+        $styles = [];
         $output = '';
 
-        if (isset($args['no-min-width'])) {
-            // i've set !important here just to be safe
-            $css = '.ext-shubara-navcard { min-width: unset !important; }';
-
-            if ($parser->getOptions()->getIsPreview()) {
-                // embed as <style> because previews can't show what gets
-                // inserted inside <head>
-                global $wgShowDebug; // https://www.mediawiki.org/wiki/Manual:$wgShowDebug
-                // disabled for production to save a few bytes on page size
-                if ($css != '') {
-                    if ($wgShowDebug) {
-                        $output .= "<!-- Begin Extension:Shubara (Preview mode) -->";
-                    }
-                    $output .= "<style>$css</style>";
-                    if ($wgShowDebug) {
-                        $output .= "<!-- End Extension:Shubara (Preview mode) -->";
-                    }
-                }
-            } else {
-                Utils::addHeadItem($parser, $css, 'css');
-            }
+        if (isset($args['flex']) && is_numeric(@$args['flex'])) {
+            $flex = @$args['flex'];
+            array_push($styles, "flex: $flex;");
         }
+        if ($args['uniform-rows'] == 'yes') {
+            array_push($styles, 'grid-auto-rows: 1fr;');
+        }
+
+        $layout = $args['layout'] ?? 'flex';
+        if ($layout == 'flex' or $layout == 'grid') {
+            array_push($classes, "ext-shubara-navcards-$layout");
+        }
+
+        $rawStyles = ".ext-shubara-$id > * { min-width: unset !important; }";
+        $htmlAttributes = [
+            'class' => implode(' ', $classes),
+        ];
+        if (count($styles) != 0) {
+            $htmlAttributes['id'] = "ext-shubara-$id";
+            $rawStyles .= "#ext-shubara-$id {";
+            $rawStyles .= implode("\n", $styles);
+            $rawStyles .= '}';
+        }
+
+        Utils::embedStyle($rawStyles, $parser, $output);
 
         switch ($args['out-mode'] ?? 'noreturn') {
             case 'raw': $output .= $parser->recursiveTagParse($input, $frame); break;

@@ -9,7 +9,7 @@ services:
             - ${EUCR_MYSQL_DATA}:/var/lib/mysql
         healthcheck:
             test: "/usr/bin/mysql --user=root --password=${EUCR_MYSQL_ROOT_PASSWORD} --execute \"SHOW DATABASES;\""
-            interval: 2s
+            interval: 10s
             timeout: 20s
             retries: 10
 

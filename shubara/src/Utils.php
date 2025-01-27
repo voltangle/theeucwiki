@@ -8,7 +8,7 @@ use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\MediaWikiServices;
 
 class Utils {
-    public static function generateRandomString($length = 10): string {
+    public static function generateRandomString($length = 6): string {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -79,5 +79,60 @@ class Utils {
             }
         }
         return null;
+    }
+
+    /**
+     * ONLY CALL THIS FUNCTION WHEN INSIDE TAG CONTENTS
+     * Automatically embeds the style to the output or the <head> of the page, depending
+     * on the environment.
+     */
+    public static function embedStyle(string $css, Parser $parser, string &$content) {
+        if ($parser->getOptions()->getIsPreview()) {
+            // embed as <style> because previews can't show what gets
+            // inserted inside <head>
+            global $wgShowDebug; // https://www.mediawiki.org/wiki/Manual:$wgShowDebug
+            // disabled for production to save a few bytes on page size
+            if ($css != '') {
+                if ($wgShowDebug) {
+                    $content .= "<!-- Begin Extension:Shubara (Preview mode) -->";
+                }
+                $content .= "<style>$css</style>";
+                if ($wgShowDebug) {
+                    $content .= "<!-- End Extension:Shubara (Preview mode) -->";
+                }
+            }
+        } else {
+            Utils::addHeadItem($parser, $css, 'css');
+        }
+    }
+
+    /**
+     * Increases or decreases the brightness of a color by a percentage of the current brightness.
+     *
+     * @param   string  $hexCode        Supported formats: `#FFF`, `#FFFFFF`, `FFF`, `FFFFFF`
+     * @param   float   $adjustPercent  A number between -1 and 1. E.g. 0.3 = 30% lighter; -0.4 = 40% darker.
+     *
+     * @return  string
+     *
+     * @author  maliayas
+     * https://stackoverflow.com/a/54393956
+     */
+    public static function adjustBrightness($hexCode, $adjustPercent) {
+        $hexCode = ltrim($hexCode, '#');
+    
+        if (strlen($hexCode) == 3) {
+            $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
+        }
+    
+        $hexCode = array_map('hexdec', str_split($hexCode, 2));
+    
+        foreach ($hexCode as & $color) {
+            $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
+            $adjustAmount = ceil($adjustableLimit * $adjustPercent);
+    
+            $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
+        }
+    
+        return '#' . implode($hexCode);
     }
 }

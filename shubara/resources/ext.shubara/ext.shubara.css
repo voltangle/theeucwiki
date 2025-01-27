@@ -141,3 +141,17 @@
     background: var(--color-surface-2);
     border-radius: 8px;
 }
+
+.ext-shubara-imagechip {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+}
+
+.ext-shubara-imagechip img {
+    display: block;
+    max-height: 24px;
+    width: auto;
+}
