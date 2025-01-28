@@ -1,0 +1,11 @@
+#!/bin/bash
+
+RUN_JOBS="$MW_HOME/maintenance/run.php"
+
+# Job types that need to be run ASAP no matter how many of them are in the queue
+# Those jobs should be very "cheap" to run
+php $RUN_JOBS runJobs --maxtime=3600 --type="enotifNotify"
+# Everything else, limit the number of jobs on each batch
+# The --wait parameter will pause the execution here until new jobs are added,
+# to avoid running the loop without anything to do
+php $RUN_JOBS runJobs --maxtime=3600 --wait --maxjobs=20

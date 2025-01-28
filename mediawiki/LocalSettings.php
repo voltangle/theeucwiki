@@ -70,8 +70,8 @@ $wgSitename = 'euc.repair';
 $wgMetaNamespace = "euc.repair";
 $wgServer = getenv('MW_SITE_SERVER');
 $wgEnableUploads = true;
-# TODO: When going into production, KILL THIS WITH HAMMERS
-$wgRawHtml = false;
+
+$wgJobRunRate = 0;
 
 ## https://www.mediawiki.org/wiki/Manual:Short_URL
 $wgArticlePath = '/wiki/$1';

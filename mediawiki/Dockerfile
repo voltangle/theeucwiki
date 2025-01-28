@@ -34,6 +34,7 @@ RUN set -x; \
         mysql-client \
         wget \
         patch \
+        cron \
     && pear install mail net_smtp \
     # TODO: this shit stinks
     && pip3 install pygments --break-system-packages \
@@ -128,11 +129,20 @@ RUN set -x; \
 #### There is no need to apply patches to it too, I'm literatelly developing it
 COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 
+#### Setup services
+COPY cron/crontab $MW_HOME/
+COPY cron/mwjobrunner /usr/local/bin/mwjobrunner
+RUN set -x; \
+    cd $MW_HOME \
+    && touch /var/log/cron.log \
+    && cat crontab >> /etc/crontab
+    
+
 #### Clear out all build tools and stuff not required for MediaWiki to run
 RUN set -x; \
     cd $MW_HOME \
     && rm -r patches tests docs *.md COPYING CREDITS FAQ HISTORY INSTALL RELEASE-NOTES* \
-    SECURITY UPGRADE *.json *.yml *.js *sample phpunit.xml.dist
+    SECURITY UPGRADE *.json *.yml *.js *sample phpunit.xml.dist crontab
 
 EXPOSE 80
 

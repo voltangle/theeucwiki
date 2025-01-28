@@ -1,0 +1,3 @@
+### MEDIAWIKI ###
+# At every minute, run jobs
+* * * * * /usr/local/bin/mwjobrunner

@@ -15,6 +15,9 @@ cd $MW_HOME
 # context after restarting the container.  httpd won't start correctly
 # if it thinks it is already running.
 
+# start cron
+cron && tail -f /var/log/cron.log &
+
 ############### Run Apache ###############
 rm -rf /run/apache2/*
 
