@@ -6,6 +6,8 @@ use MediaWiki\Parser\PPFrame;
 use MediaWiki\Html\Html;
 use MediaWiki\Extension\Shubara\Utils;
 
+define("HEX_COLOR_REGEX", '/^#(?:[0-9a-fA-F]{3}){1,2}$/');
+
 /**
 * Render the imagechip tag
 */
@@ -15,7 +17,8 @@ class Imagechip {
      * @param string $input What is supplied between the HTML tags. This gets evaluated
      * so it get spit out as normal wikitext
      * @param array $args HTML tag attribute params. Valid params:
-     * - background-color: a CSS color for the card. #DEADBE by default
+     * - background-color: a hex color for the card. #DEADBE by default
+     * - txt-color: a hex color for the text. white (#FFFFFF) by default
      * - href: where the button redirects
      * - target: link type, internal or external
      * - flex: sets the flex CSS value
@@ -36,29 +39,20 @@ class Imagechip {
         // it will work. I will have to add some sanitization later on
         $backgroundColor = $args['background-color'] ?? '#DEADBE';
         array_push($styles, "background-color: $backgroundColor;");
-        // list($r1, $g1, $b1) = Utils::hexColorToRgb($backgroundColor);
-        // $content .= "$r1, $g1, $b1 ";
-        // $hsv = Utils::rgbToHsv($r1, $g1, $b1);
-        // $content .= implode(',', $hsv);
-        // $content .= ' ';
-        // $hsv['s'] *= 100.0;
-        // $hsv['v'] *= 100.0;
-        // $hsv['v'] += 40;
-        // $content .= implode(',', $hsv);
-        // $content .= ' ';
-        // list($r2, $g2, $b2) = $borderColorRgb = Utils::hsvToRgb($hsv['h'], $hsv['s'], $hsv['v']);
-        // $content .= "$r2, $g2, $b2 ";
-        // $borderColor = Utils::rgbToHexColor($r2, $g2, $b2);
-        // $content .= $borderColor;
-        $borderColor = Utils::adjustBrightness($backgroundColor, 0.5);
+        $borderColor = Utils::adjustBrightness($backgroundColor, 0.2);
         array_push($styles, "border: 4px solid $borderColor;");
+        $txtColor = $args['txt-color'];
+        $txtColorValid = preg_match(HEX_COLOR_REGEX, $txtColor);
+        if ($txtColor != null && $txtColorValid) {
+            array_push($styles, "color: $txtColor");
+        }
     
         if (isset($args['flex']) && is_numeric(@$args['flex'])) {
             $flex = @$args['flex'];
             array_push($styles, "flex: $flex;");
         }
 
-        $rawStyles = implode("\n", $styles);
+        $rawStyles = implode('', $styles);
         Utils::embedStyle("#ext-shubara-$id { $rawStyles }", $parser, $content);
     
         $content .= $parser->recursiveTagParse($input, $frame);

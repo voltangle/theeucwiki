@@ -22,8 +22,11 @@ class Navcards {
      * - flex: sets the flex CSS value
      * - no-min-width: unsets the min-width CSS style on the children
      * - layout: the CSS layout to use. Valid values: flex, grid. Default: flex
-     * - grid-cols: value inserted into grid-template-columns as the repat amount:
+     * - grid-cols: value inserted into grid-template-columns as the repeat amount. If
+     *   changed from the default value, grid-autohscroll is automatically unset.
      *      Default: 2
+     * - grid-autohscroll: whether if the grid converts to a scrollable container when
+     *   becoming too small. Default: yes
      * - uniform-rows: whether if grid-auto-rows: 1fr is set
      * @param Parser $parser MediaWiki Parser object
      * @param PPFrame $frame MediaWiki PPFrame object
@@ -43,20 +46,35 @@ class Navcards {
             array_push($styles, 'grid-auto-rows: 1fr;');
         }
 
+        $gridAutoHScroll = $args['grid-autohscroll'] ?? 'yes';
+        if (isset($args['grid-cols']) && is_numeric(@$args['grid-cols'])) {
+            $gridCols = @$args['grid-cols'];
+            $gridAutoHScroll = 'no';
+            array_push($styles, "grid-template-columns: repeat($gridCols, 1fr);");
+        }
+
         $layout = $args['layout'] ?? 'flex';
         if ($layout == 'flex' or $layout == 'grid') {
             array_push($classes, "ext-shubara-navcards-$layout");
         }
+        if ($gridAutoHScroll == 'yes' && $layout == 'grid') {
+            array_push($classes, 'ext-shubara-navcards-grid-autohscroll');
+        }
 
-        $rawStyles = ".ext-shubara-$id > * { min-width: unset !important; }";
+        $rawStyles = '';
+        if ($args['no-min-width'] == 'yes') {
+            $rawStyles .= "#ext-shubara-$id > * { min-width: unset !important; }";
+        }
         $htmlAttributes = [
             'class' => implode(' ', $classes),
         ];
         if (count($styles) != 0) {
-            $htmlAttributes['id'] = "ext-shubara-$id";
             $rawStyles .= "#ext-shubara-$id {";
             $rawStyles .= implode("\n", $styles);
             $rawStyles .= '}';
+        }
+        if (count($styles) != 0 or $args['no-min-width'] == 'yes') {
+            $htmlAttributes['id'] = "ext-shubara-$id";
         }
 
         Utils::embedStyle($rawStyles, $parser, $output);

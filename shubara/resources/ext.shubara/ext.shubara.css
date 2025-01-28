@@ -19,8 +19,9 @@
  * the grid-cols attribute is to be implemented, this code has to be thrown in the
  * fucking trash, where it belongs */
 @media (max-width: 600px) {
-    .ext-shubara-navcards-grid {
+    .ext-shubara-navcards-grid-autohscroll {
         display: flex;
+        flex-direction: row;
         overflow: scroll;
     }
 }
@@ -148,6 +149,12 @@
     justify-content: center;
     align-items: center;
     border-radius: 12px;
+    padding: 8px;
+    gap: 4px;
+    font-family: 'Onest';
+    font-size: larger;
+    font-weight: 600;
+    color: white;
 }
 
 .ext-shubara-imagechip img {
