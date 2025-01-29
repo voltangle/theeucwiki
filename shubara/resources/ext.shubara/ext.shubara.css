@@ -35,7 +35,6 @@
     align-items: center;
     border-radius: 8px;
     background-color: white;
-    transition: 0.1s ease-in-out;
     background-size: cover;
     background-position: center;
     background-color: #00000030;
@@ -64,13 +63,18 @@
     font-weight: 700;
 }
 
+.ext-shubara-button {
+    transition: 0.1s ease-in-out;
+    cursor: pointer;
+}
+
 @media (hover: hover) {
-    .ext-shubara-navcard:hover {
+    .ext-shubara-button:hover {
         transform: scale(1.03);
     }
 }
 
-.ext-shubara-navcard:active {
+.ext-shubara-button:active {
     transform: scale(0.99);
 }
 
@@ -165,7 +169,6 @@
     font-size: larger;
     font-weight: 600;
     color: var(--color-emphasized);
-    cursor: pointer;
 }
 
 .ext-shubara-imagechip * {

@@ -28,10 +28,12 @@ class Navcards {
      * - grid-autohscroll: whether if the grid converts to a scrollable container when
      *   becoming too small. Default: yes
      * - uniform-rows: whether if grid-auto-rows: 1fr is set
+     * - collapsible: whether if it's wrapped with a details HTML tag. Default: no
+     * - title: Only used together with collapsible. Adds a summary HTML tag with the
+     * given title.
      * @param Parser $parser MediaWiki Parser object
      * @param PPFrame $frame MediaWiki PPFrame object
      */
-// TODO: implement grid-cols
     public static function run( $input, array $args, Parser $parser, PPFrame $frame ) {
         $id = Utils::generateRandomString();
         $classes = ['ext-shubara-navcards'];
@@ -86,6 +88,18 @@ class Navcards {
                 break;
         }
 
-        return Html::rawElement('div', $htmlAttributes, $output);
+        $collapsible = $args['collapsible'] ?? 'no';
+        if ($collapsible == 'yes') {
+            $detailsContent = Html::rawElement('div', $htmlAttributes, $output);
+            if (isset($args['title'])) {
+                $title = htmlspecialchars(@$args['title']);
+                $detailsContent = "<summary>$title</summary>" . $detailsContent;
+            }
+            $content = "<details>$detailsContent</details>";
+        } else {
+            $content = Html::rawElement('div', $htmlAttributes, $output);
+        }
+
+        return $content;
     }
 }

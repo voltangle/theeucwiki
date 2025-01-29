@@ -98,7 +98,7 @@ class Navcard {
         Utils::addHeadItem($parser, $js, 'javascript');
     
         // Generate the HTML
-        $output .= "<button id=\"ext-shubara-$navCardID\" class=\"ext-shubara-navcard\">";
+        $output .= "<button id=\"ext-shubara-$navCardID\" class=\"ext-shubara-navcard ext-shubara-button\">";
         switch ($titleType) {
             case 'img':
                 $titleFile = Utils::getDirectFileURL($title, $titleWidth, $titleHeight);

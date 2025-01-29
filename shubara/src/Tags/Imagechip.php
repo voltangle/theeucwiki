@@ -33,9 +33,9 @@ class Imagechip {
      */
     public static function run($input, array $args, Parser $parser, PPFrame $frame) {
         $id = Utils::generateRandomString();
-        $href = @$args["href"];
+        $href = htmlspecialchars(@$args["href"]);
         $htmlAttributes = [
-            'class' => 'ext-shubara-imagechip',
+            'class' => 'ext-shubara-imagechip ext-shubara-button',
             'id' => "ext-shubara-$id",
         ];
         $styles = [];

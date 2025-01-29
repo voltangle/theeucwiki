@@ -32,7 +32,7 @@ class Ulnav {
         if ($title == null) { $output .= ' ext-shubara-notitle'; }
         $output .= '"';
         if (isset($args['flex']) && is_numeric(@$args['flex'])) {
-            $flex = @$args['flex'];
+            $flex = htmlspecialchars(@$args['flex']);
             $output .= " style=\"flex: $flex;\"";
         }
         $output .= '>';
