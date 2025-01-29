@@ -164,7 +164,7 @@
     font-family: 'Onest';
     font-size: larger;
     font-weight: 600;
-    color: white;
+    color: var(--color-emphasized);
 }
 
 .ext-shubara-imagechip img {
