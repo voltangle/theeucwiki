@@ -165,6 +165,12 @@
     font-size: larger;
     font-weight: 600;
     color: var(--color-emphasized);
+    cursor: pointer;
+}
+
+.ext-shubara-imagechip * {
+    pointer-events: none;
+    cursor: default;
 }
 
 .ext-shubara-imagechip img {

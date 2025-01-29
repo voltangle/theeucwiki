@@ -33,6 +33,7 @@ class Imagechip {
      */
     public static function run($input, array $args, Parser $parser, PPFrame $frame) {
         $id = Utils::generateRandomString();
+        $href = @$args["href"];
         $htmlAttributes = [
             'class' => 'ext-shubara-imagechip',
             'id' => "ext-shubara-$id",
@@ -83,9 +84,15 @@ class Imagechip {
                 Utils::embedStyle($style, $parser, $content);
             }
         }
+
+        // TODO: make this work with jQuery
+        $js = "document.getElementById(\"ext-shubara-$id\").addEventListener(\"click\", function(){window.location=\"$href\"})";
+        Utils::addHeadItem($parser, $js, 'javascript');
     
         $content .= $parser->recursiveTagParse($input, $frame);
 
-        return Html::rawElement('div', $htmlAttributes, $content);
+        $tag = Html::rawElement('div', $htmlAttributes, $content);
+    
+        return $tag;
     }
 }
