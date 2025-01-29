@@ -6,13 +6,14 @@ use MediaWiki\Parser\PPFrame;
 use MediaWiki\Html\Html;
 use MediaWiki\Extension\Shubara\Utils;
 
-define("HEX_COLOR_REGEX", '/^#(?:[0-9a-fA-F]{3}){1,2}$/');
+define("HEX_COLOR_REGEX", '/^#(?:[0-9a-fA-F]{3}){1,2}$/g');
 
 /**
 * Render the imagechip tag
 */
 // NOTE: Ideally, this guy should be not a tag extension, but a parser hook, because it
 // takes wikitext input in multiple args, and a parser hook syntax will work better imo
+// BUG: background-color does not work
 class Imagechip {
     /**
      * @param string $input What is supplied between the HTML tags. This gets evaluated
@@ -40,10 +41,9 @@ class Imagechip {
         $content = '';
         
         $mode = $args['mode'] ?? 'col';
-        // BUG: this is a GLARING SECURITY ISSUE you can just slap any CSS in there and
-        // it will work. I will have to add some sanitization later on
         $backgroundColor = @$args['background-color'];
-        if ($backgroundColor != null) {
+        $backgroundColorValid = preg_match($HEX_COLOR_REGEX, $backgroundColor);
+        if ($backgroundColor != null && $backgroundColorValid == 1) {
             array_push($styles, "background-color: $backgroundColor;");
             $borderColor = Utils::adjustBrightness($backgroundColor, 0.2);
             array_push($styles, "border: 4px solid $borderColor;");
@@ -54,8 +54,10 @@ class Imagechip {
             array_push($styles, "flex: $flex;");
         }
 
-        $rawStyles = implode('', $styles);
-        Utils::embedStyle("#ext-shubara-$id { $rawStyles }", $parser, $content);
+        if (count($styles) != 0) {
+            $rawStyles = implode('', $styles);
+            Utils::embedStyle("#ext-shubara-$id { $rawStyles }", $parser, $content);
+        }
 
         $contentLight = @$args['content-light'];
         $contentDark = @$args['content-dark'];
