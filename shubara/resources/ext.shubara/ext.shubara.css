@@ -143,6 +143,14 @@
     border-radius: 8px;
 }
 
+.ext-shubara-imagechip-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
 .ext-shubara-imagechip {
     display: flex;
     flex-direction: row;

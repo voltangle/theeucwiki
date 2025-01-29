@@ -42,7 +42,7 @@ class Navcards {
             $flex = @$args['flex'];
             array_push($styles, "flex: $flex;");
         }
-        if ($args['uniform-rows'] == 'yes') {
+        if (@$args['uniform-rows'] == 'yes') {
             array_push($styles, 'grid-auto-rows: 1fr;');
         }
 
@@ -62,7 +62,7 @@ class Navcards {
         }
 
         $rawStyles = '';
-        if ($args['no-min-width'] == 'yes') {
+        if (@$args['no-min-width'] == 'yes') {
             $rawStyles .= "#ext-shubara-$id > * { min-width: unset !important; }";
         }
         $htmlAttributes = [
