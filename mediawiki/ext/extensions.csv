@@ -10,6 +10,7 @@ cldr,composer
 CleanChanges,composer
 CodeEditor,composer
 ConfirmEdit,simple
+CreateRedirect,simple
 CSS,composer
 Description2,simple
 Disambiguator,simple
@@ -35,6 +36,7 @@ ParserFunctions,simple
 PdfHandler,simple
 Poem,simple
 Popups,simple
+RedirectManager,simple
 RelatedArticles,simple
 ReplaceText,simple
 RevisionSlider,simple

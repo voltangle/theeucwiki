@@ -5,6 +5,24 @@ set -e;
 
 cd $MW_HOME/extensions
 
+NON_WMGERRIT_EXTS=(
+    "https://github.com/edwardspec/mediawiki-moderation.git"
+    "https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription.git"
+    "https://github.com/StarCitizenTools/mediawiki-extensions-TabberNeue.git"
+)
+
+NON_WMGERRIT_EXTS_NAMES=(
+    "Moderation"
+    "ShortDescription"
+    "TabberNeue"
+)
+
+NON_WMGERRIT_EXTS_BRANCHES=(
+    "master"
+    "main"
+    "main"
+)
+
 if [ $1 = 'download' ]; then
     # Download all extensions
     LIST=$(cat /ext/extensions.csv | grep ',');
@@ -16,6 +34,13 @@ if [ $1 = 'download' ]; then
             BRANCH=$(cut -d ',' -f 3 <<< $i)
             git clone --depth 1 -b $BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/$EXT
         fi
+    done
+    LENGTH=${#NON_WMGERRIT_EXTS[@]}
+    LENGTH=$(($LENGTH-1))
+    for i in $(seq 0 $LENGTH); do
+        git clone --depth 1 -b ${NON_WMGERRIT_EXTS_BRANCHES[$i]} \
+            ${NON_WMGERRIT_EXTS[$i]} \
+            ${NON_WMGERRIT_EXTS_NAMES[$i]}
     done
 fi
 

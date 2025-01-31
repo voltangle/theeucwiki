@@ -157,6 +157,7 @@ wfLoadExtension('ConfirmEdit');
 if (getenv('USE_TURNSTILE') == 'yes') {
     wfLoadExtension('ConfirmEdit/Turnstile');
 }
+wfLoadExtension('CreateRedirect');
 wfLoadExtension('CSS');
 wfLoadExtension('Disambiguator');
 wfLoadExtension('DiscussionTools');
@@ -173,6 +174,7 @@ wfLoadExtension('Interwiki');
 wfLoadExtension('Linter');
 wfLoadExtension('LoginNotify');
 wfLoadExtension('Math');
+wfLoadExtension('Moderation');
 wfLoadExtension('MultimediaViewer');
 wfLoadExtension('Nuke');
 wfLoadExtension('OATHAuth');
@@ -181,6 +183,7 @@ wfLoadExtension('ParserFunctions');
 wfLoadExtension('PdfHandler');
 wfLoadExtension('Poem');
 wfLoadExtension('Popups');
+wfLoadExtension('RedirectManager');
 wfLoadExtension('RelatedArticles');
 wfLoadExtension('ReplaceText');
 wfLoadExtension('RevisionSlider');
@@ -323,6 +326,8 @@ $wgRelatedArticlesDescriptionSource = 'pagedescription';
 ### Scribunto ###
 $wgScribuntoDefaultEngine = 'luastandalone';
 
+### Moderation ###
+
 ######################### UI ######################### 
 
 wfLoadSkin('Vector');
@@ -367,6 +372,10 @@ $wgGroupPermissions['bureaucrat']['sboverride'] = true; // sb - SpamBlacklist
 $wgGroupPermissions['bureaucrat']['usermerge'] = true;
 $wgGroupPermissions['sysop']['deletelogentry'] = true;
 $wgGroupPermissions['sysop']['deleterevision'] = true;
+$wgGroupPermissions['automoderated']['skip-move-moderation'] = false;
+$wgGroupPermissions['sysop']['skip-move-moderation'] = true;
+$wgAddGroups['moderator'][] = 'automoderated';
+$wgRemoveGroups['moderator'][] = 'automoderated';
 
 $wgBlockDisablesLogin = true;
 

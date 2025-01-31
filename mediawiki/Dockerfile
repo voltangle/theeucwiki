@@ -95,13 +95,6 @@ COPY ext/* /ext/
 
 #### Download all extensions
 RUN chmod +x /ext/install.sh && /ext/install.sh download
-RUN cd $MW_HOME/extensions \
-    && git clone --depth 1 \
-    https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription.git \
-    ShortDescription \
-    && git clone --depth 1 \
-    https://github.com/StarCitizenTools/mediawiki-extensions-TabberNeue.git \
-    TabberNeue
 
 COPY patches/ $MW_HOME/patches/
 
