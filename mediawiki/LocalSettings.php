@@ -346,6 +346,15 @@ $wgHooks['TranslatePostInitGroups'][] = function (&$list, &$deps, &$autoload) {
 	return true;
 };
 
+$wgHooks['TranslatePostInitGroups'][] = function (&$list, &$deps, &$autoload) {
+	$id = 'wiki-sitenotice';
+	$mg = new WikiMessageGroup($id, 'sitenotice-messages');
+	$mg->setLabel('Sitenotice');
+	$mg->setDescription('Message used in the sitenotice of this wiki.');
+	$list[$id] = $mg;
+	return true;
+};
+
 ######################### UI ######################### 
 
 wfLoadSkin('Vector');
