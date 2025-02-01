@@ -126,7 +126,8 @@ COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 COPY cron/crontab $MW_HOME/
 COPY cron/mwjobrunner /usr/local/bin/mwjobrunner
 RUN set -x; \
-    cd $MW_HOME \
+    chmod +x /usr/local/bin/mwjobrunner \
+    && cd $MW_HOME \
     && touch /var/log/cron.log \
     && cat crontab >> /etc/crontab
     
