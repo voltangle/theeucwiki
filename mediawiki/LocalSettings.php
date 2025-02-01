@@ -328,6 +328,24 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 $wgTranslateDocumentationLanguageCode = 'qqq';
 $wgExtraLanguageNames['qqq'] = 'Message documentation'; # No linguistic content. Used for documenting messages
 
+$wgHooks['TranslatePostInitGroups'][] = function (&$list, &$deps, &$autoload) {
+	$id = 'wiki-mainpage';
+	$mg = new WikiMessageGroup($id, 'mainpage-messages');
+	$mg->setLabel('MainPage');
+	$mg->setDescription('Messages used in the main page of this wiki.');
+	$list[$id] = $mg;
+	return true;
+};
+
+$wgHooks['TranslatePostInitGroups'][] = function (&$list, &$deps, &$autoload) {
+	$id = 'wiki-sidebar';
+	$mg = new WikiMessageGroup($id, 'sidebar-messages');
+	$mg->setLabel('Sidebar');
+	$mg->setDescription('Messages used in the sidebar of this wiki.');
+	$list[$id] = $mg;
+	return true;
+};
+
 ######################### UI ######################### 
 
 wfLoadSkin('Vector');
