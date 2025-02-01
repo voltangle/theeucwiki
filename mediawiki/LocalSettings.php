@@ -200,6 +200,7 @@ wfLoadExtension('TemplateStyles');
 wfLoadExtension('TextExtracts');
 wfLoadExtension('Thanks');
 wfLoadExtension('TitleBlacklist');
+wfLoadExtension('Translate');
 wfLoadExtension('UniversalLanguageSelector');
 wfLoadExtension('UploadWizard');
 wfLoadExtension('UserMerge');
@@ -253,7 +254,9 @@ $wgGroupPermissions['sysop']['checkuser-log'] = true;
 $wgDraftsAutoSaveWait = 60;
 
 ### CleanChanges
-#$wgDefaultUserOptions['usenewrc'] = 1;
+$wgCCTrailerFilter = true;
+$wgCCUserFilter = false;
+$wgDefaultUserOptions['usenewrc'] = 1;
 
 ### WikiEditor ###
 # Enables use of WikiEditor by default but still allows users to disable it in preferences
@@ -272,11 +275,6 @@ $tmpRestParsoidUrl = getenv( 'MW_REST_PARSOID_URL' );
 // Enable by default for everybody
 $wgDefaultUserOptions['visualeditor-enable'] = 1;
 $wgDefaultUserOptions['visualeditor-editor'] = 'visualeditor';
-
-// TODO: check this out
-// Optional: Set VisualEditor as the default for anonymous users
-// otherwise they will have to switch to VE
-// $wgDefaultUserOptions['visualeditor-editor'] = "visualeditor";
 
 // Don't allow users to disable it
 $wgHiddenPrefs[] = 'visualeditor-enable';
@@ -326,7 +324,9 @@ $wgRelatedArticlesDescriptionSource = 'pagedescription';
 ### Scribunto ###
 $wgScribuntoDefaultEngine = 'luastandalone';
 
-### Moderation ###
+### Translate ###
+$wgTranslateDocumentationLanguageCode = 'qqq';
+$wgExtraLanguageNames['qqq'] = 'Message documentation'; # No linguistic content. Used for documenting messages
 
 ######################### UI ######################### 
 
@@ -376,6 +376,14 @@ $wgGroupPermissions['automoderated']['skip-move-moderation'] = false;
 $wgGroupPermissions['sysop']['skip-move-moderation'] = true;
 $wgAddGroups['moderator'][] = 'automoderated';
 $wgRemoveGroups['moderator'][] = 'automoderated';
+$wgGroupPermissions['user']['translate'] = true;
+$wgGroupPermissions['user']['translate-messagereview'] = true;
+$wgGroupPermissions['user']['translate-groupreview'] = true;
+$wgGroupPermissions['user']['translate-import'] = true;
+$wgGroupPermissions['translator']['translate'] = true;
+$wgGroupPermissions['translator']['skipcaptcha'] = true; // T36182: needed with ConfirmEdit
+$wgGroupPermissions['sysop']['pagetranslation'] = true;
+$wgGroupPermissions['sysop']['translate-manage'] = true;
 
 $wgBlockDisablesLogin = true;
 

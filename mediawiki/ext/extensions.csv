@@ -1,12 +1,12 @@
 AbuseFilter,composer
 AdvancedSearch,simple
-Babel,composer
+Babel,composer,2024.07
 CategoryTree,simple
 CheckUser,simple
 Cite,simple
 CiteThisPage,simple
 CirrusSearch,composer
-cldr,composer
+cldr,composer,2024.07
 CleanChanges,composer
 CodeEditor,composer
 ConfirmEdit,simple
@@ -50,7 +50,8 @@ TemplateStyles,composer
 TextExtracts,simple
 Thanks,simple
 TitleBlacklist,simple
-UniversalLanguageSelector,composer
+Translate,simple,2024.07
+UniversalLanguageSelector,composer,2024.07
 UploadWizard,simple
 UserMerge,simple
 VisualEditor,other
