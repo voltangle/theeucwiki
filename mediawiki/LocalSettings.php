@@ -194,6 +194,7 @@ wfLoadExtension('Scribunto');
 wfLoadExtension('ShortDescription');
 wfLoadExtension('Shubara');
 wfLoadExtension('SpamBlacklist');
+wfLoadExtension('StopForumSpam');
 wfLoadExtension('SyntaxHighlight_GeSHi');
 wfLoadExtension('TabberNeue');
 wfLoadExtension('TemplateStyles');
@@ -220,6 +221,9 @@ $wgSpamBlacklistFiles = array(
    "https://en.wikipedia.org/w/index.php?title=MediaWiki:Spam-blacklist&action=raw&sb_ver=1"
 );
 
+### StopForumSpam ###
+$wgSFSIPListLocation = getenv('MW_HOME') . '/stopforumspam.txt';
+
 ### Disambiguator ###
 $wgDisambiguatorNotifications = true;
 
@@ -245,6 +249,7 @@ $wgPygmentizePath = '/usr/bin/pygmentize';
 ### UploadWizard ###
 # TODO: configure
 # $wgUploadWizardConfig['licensing']['impor']
+$wgUploadWizardConfig['tutorial']['skip'] = true;
 
 ### CheckUser ###
 $wgGroupPermissions['sysop']['checkuser'] = true;
@@ -425,6 +430,8 @@ $wgGLSecret = getenv('GOOGLE_LOGIN_SECRET');
 $wgAuthenticationTokenVersion = "1";
 
 ######################### Debug ######################### 
+
+$wgDebugLogGroups['StopForumSpam'] = '/var/log/mediawiki/stopforumspam.log';
 
 if (str_contains($wgServer, 'localhost')) { // if running locally
     $wgShowDebug = true;

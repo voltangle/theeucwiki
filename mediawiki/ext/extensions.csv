@@ -45,6 +45,7 @@ SandboxLink,simple
 SecureLinkFixer,simple
 Scribunto,other
 SpamBlacklist,simple
+StopForumSpam,simple
 SyntaxHighlight_GeSHi,composer
 TemplateStyles,composer
 TextExtracts,simple

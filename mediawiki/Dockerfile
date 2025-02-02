@@ -124,13 +124,20 @@ COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 
 #### Setup services
 COPY cron/crontab $MW_HOME/
-COPY cron/mwjobrunner /usr/local/bin/mwjobrunner
+COPY --exclude=cron/crontab cron/* /usr/local/bin/
 RUN set -x; \
     chmod +x /usr/local/bin/mwjobrunner \
+    && chmod +x /usr/local/bin/stopforumspam-refresh \
     && cd $MW_HOME \
     && touch /var/log/cron.log \
     && cat crontab >> /etc/crontab
-    
+
+#### Download StopForumSpam list
+RUN set -x; \
+    cd $MW_HOME \
+    && curl -O https://www.stopforumspam.com/downloads/listed_ip_30_all.zip \
+    && unzip listed_ip_30_all.zip \
+    && mv listed_ip_30_all.txt stopforumspam.txt
 
 #### Clear out all build tools and stuff not required for MediaWiki to run
 RUN set -x; \
