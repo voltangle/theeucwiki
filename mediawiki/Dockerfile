@@ -156,6 +156,7 @@ COPY run-apache.sh /run-apache.sh
 RUN chmod -v +x /run-apache.sh
 
 COPY img/* $MW_HOME/
+COPY logo.svg $MW_HOME/
 COPY LocalSettings.php $MW_HOME/LocalSettings.php
 COPY init_elastic.sh /
 RUN set -x; chmod +x /init_elastic.sh
