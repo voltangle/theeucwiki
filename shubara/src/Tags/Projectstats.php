@@ -22,9 +22,9 @@ class Projectstats {
             + SiteStats::pagesInNs(12)
             + SiteStats::pagesInNs(14);
 
-        $usersBox = self::makeBox('Users', $users);
-        $editsBox = self::makeBox('Edits', $edits);
-        $pagesBox = self::makeBox('Pages', $pages);
+        $usersBox = self::makeBox(\wfMessage('shubara-projectstats-users')->parse(), $users);
+        $editsBox = self::makeBox(\wfMessage('shubara-projectstats-edits')->parse(), $edits);
+        $pagesBox = self::makeBox(\wfMessage('shubara-projectstats-pages')->parse(), $pages);
         return Html::rawElement('div', ['class' => 'ext-shubara-projectstats'], $usersBox . $editsBox . $pagesBox);
     }
 

@@ -28,6 +28,9 @@
             ]
 		}
     },
+    "MessagesDirs": {
+        "Shubara": ["i18n"]
+    },
     "HookHandlers": {
         "ShubaraHooks": {
             "class": "MediaWiki\\Extension\\Shubara\\Hooks"
