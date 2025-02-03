@@ -1,3 +1,6 @@
+/* FIXME: This file is too long. It has to be broken up and then delivered on-demand
+ * as a resource module, only if the required tag/parser hook is used. */
+
 .ext-shubara-navcards {
     min-width: 280px;
     gap: 10px;
@@ -180,4 +183,34 @@
     display: block;
     max-height: 24px;
     width: auto;
+}
+
+.ext-shubara-projectstats {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: space-around;
+}
+
+.ext-shubara-projectstats-label { margin: 0; }
+
+.ext-shubara-projectstats-amount {
+    margin: 0;
+    font-size: xxx-large;
+    line-height: 1;
+}
+
+.ext-shubara-projectstats > div {
+    position: relative;
+    flex-grow: 1;
+}
+
+.ext-shubara-projectstats > div:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: 15%;
+    width: 2px;
+    height: 70%;
+    background-color: var(--color-surface-2);
 }
