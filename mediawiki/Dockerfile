@@ -59,7 +59,8 @@ ENV MW_VERSION=REL1_43 \
     WWW_GROUP=www-data \
     APACHE_LOG_DIR=/var/log/apache2
 
-ENV CITIZEN_VERSION=main
+# basically 3.0.0-alpha
+ENV CITIZEN_VERSION=32e78ff279156ea8dfdeb615430211354922954e
 ENV TEMPLATESTYLESEXTENDER_VERSION=v1.2.0
 
 # logs should go to stdout / stderr
@@ -89,7 +90,13 @@ RUN set -x; \
 ##### Citizen skin
 RUN set -x; \
     cd $MW_HOME/skins \
-    && git clone --depth 1 -b $CITIZEN_VERSION https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git Citizen
+    # && git clone --depth 1 -b $CITIZEN_VERSION https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git Citizen
+    # Revert back to original download method once 3.0.0 fully releases and I will not
+    # need to use a commit hash. https://stackoverflow.com/a/3489576
+    && mkdir Citizen && cd Citizen \
+    && git init && git remote add origin https://github.com/StarCitizenTools/mediawiki-skins-Citizen.git \
+    && git fetch origin $CITIZEN_VERSION \
+    && git reset --hard FETCH_HEAD
 
 COPY ext/* /ext/
 
