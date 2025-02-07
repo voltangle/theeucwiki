@@ -12,11 +12,11 @@ class Utils {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
-    
+
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[random_int(0, $charactersLength - 1)];
         }
-    
+
         return $randomString;
     }
 
@@ -25,20 +25,20 @@ class Utils {
         $title = Title::newFromText($data);
         $headItem = '<!-- Begin Extension:Shubara -->';
         // Encode data URI and append link tag
-		$dataPrefix = "data:text/$type;charset=UTF-8;base64,";
-		$url = $dataPrefix . base64_encode( $data );
+        $dataPrefix = "data:text/$type;charset=UTF-8;base64,";
+        $url = $dataPrefix . base64_encode( $data );
 
         switch ($type) {
-            case "javascript":
-                // $headItem .= Html::linkedScript( $url );
-                // Do it like this instead of Html::linkedScript so I can add the defer
-                $headItem .= Html::element('script', ['src' => $url, 'defer' => 'defer']);
-                break;
-            case "css": $headItem .= Html::linkedStyle( $url ); break;
-            default: throw new InvalidArgumentException("Unexpected type, expected javascript or css, got $type");
+        case "javascript":
+            // $headItem .= Html::linkedScript( $url );
+            // Do it like this instead of Html::linkedScript so I can add the defer
+            $headItem .= Html::element('script', ['src' => $url, 'defer' => 'defer']);
+            break;
+        case "css": $headItem .= Html::linkedStyle( $url ); break;
+        default: throw new InvalidArgumentException("Unexpected type, expected javascript or css, got $type");
         }
         $headItem .= '<!-- End Extension:Shubara -->';
-		$parser->getOutput()->addHeadItem( $headItem );
+        $parser->getOutput()->addHeadItem( $headItem );
     }
 
     public static function runWithExtension(string $ext, callback $callback) {
@@ -61,13 +61,13 @@ class Utils {
      * @return ?string File path or null in case of error.
      */
     public static function getDirectFileURL(
-            string $file,
-            ?int $width = null,
-            ?int $height = null
+        string $file,
+        ?int $width = null,
+        ?int $height = null
     ): ?string {
-        $fileTitle = Title::newFromText($file, NS_FILE);
-        if (!($fileTitle && $fileTitle->exists())) {
-            return null;
+    $fileTitle = Title::newFromText($file, NS_FILE);
+    if (!($fileTitle && $fileTitle->exists())) {
+        return null;
         }
 
         $file = MediaWikiServices::getInstance()->getRepoGroup()->findFile($fileTitle);
@@ -119,20 +119,43 @@ class Utils {
      */
     public static function adjustBrightness($hexCode, $adjustPercent) {
         $hexCode = ltrim($hexCode, '#');
-    
+
         if (strlen($hexCode) == 3) {
             $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
         }
-    
+
         $hexCode = array_map('hexdec', str_split($hexCode, 2));
-    
+
         foreach ($hexCode as & $color) {
             $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
             $adjustAmount = ceil($adjustableLimit * $adjustPercent);
-    
+
             $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
         }
-    
+
         return '#' . implode($hexCode);
+    }
+
+    /**
+     * Converts an array of values in form [0] => "name=value"
+     * into a real associative array in form [name] => value
+     * If no = is provided, true is assumed like this: [name] => true
+     *
+     * @param array string $options
+     * @return array $results
+     */
+    public static function extractOptions( array $options ) {
+        $results = [];
+        foreach ( $options as $option ) {
+            $pair = array_map( 'trim', explode( '=', $option, 2 ) );
+            if ( count( $pair ) === 2 ) {
+                $results[ $pair[0] ] = $pair[1];
+            }
+            // aint needed, but could be needed some time after
+            // if ( count( $pair ) === 1 ) {
+            //     $results[ $pair[0] ] = true;
+            // }
+        }
+        return $results;
     }
 }

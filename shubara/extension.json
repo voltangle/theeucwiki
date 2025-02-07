@@ -12,6 +12,9 @@
     "AutoloadNamespaces": {
         "MediaWiki\\Extension\\Shubara\\": "src/"
     },
+    "ExtensionMessagesFiles": {
+        "ShubaraMagic": "Shubara.i18n.php"
+    },
     "ResourceModules": {
 		"ext.shubara.styles": {
             "localBasePath": "resources/ext.shubara",
