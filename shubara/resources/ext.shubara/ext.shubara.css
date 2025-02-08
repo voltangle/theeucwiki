@@ -222,7 +222,6 @@
     float: right;
     clear: right;
     margin-left: var(--space-lg);
-    margin-bottom: var(--space-lg);
     width: 100%;
     max-width: 400px;
 }
@@ -230,15 +229,65 @@
 .ext-shubara-infobox summary {
     color: var(--color-subtle);
     padding: var(--space-sm);
+    user-select: none;
 }
 
-.ext-shubara-infobox h3 .mw-editsection {
+.ext-shubara-infobox .mw-editsection {
     display: none;
 }
 
-.ext-shubara-infobox > div {
+.ext-shubara-infobox > .content {
+    position: relative;
     padding: 0 var(--space-sm);
     padding-bottom: var(--space-sm);
+}
+
+.ext-shubara-infobox .hero {
+    position: relative;
+    max-height: 600px;
+    margin-bottom: -3rem;
+    transition-timing-function: var(--transition-timing-function-ease);
+    transition-duration: var(--transition-duration-medium);
+    transition-property: margin-bottom;
+}
+
+.ext-shubara-infobox .hero:hover {
+    margin-bottom: 0;
+}
+
+/* hero image */
+.ext-shubara-infobox .hero img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    border-radius: 12px 12px 0 0;
+    object-fit: cover;
+    object-position: 50% 25%;
+    transition-timing-function: var(--transition-timing-function-ease);
+    transition-duration: var(--transition-duration-medium);
+    transition-property: max-height;
+}
+
+.ext-shubara-infobox .hero img:hover {
+    max-height: 600px;
+}
+
+.ext-shubara-infobox .hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50%;
+    background-image: linear-gradient(to bottom, transparent, var(--color-surface-1) 100%);
+    pointer-events: none;
+    transition-timing-function: var(--transition-timing-function-ease);
+    transition-duration: var(--transition-duration-medium);
+    transition-property: opacity;
+}
+
+.ext-shubara-infobox .hero:hover::after {
+    opacity: 0;
 }
 
 .ext-shubara-infobox-list {
@@ -255,4 +304,13 @@
 .ext-shubara-infobox-list div div:nth-child(2) {
     font-size: large;
     color: var(--color-emphasized);
+}
+
+.ext-shubara-infobox header h3 {
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
+.ext-shubara-infobox header p {
+    margin-top: 0;
 }

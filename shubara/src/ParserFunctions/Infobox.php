@@ -12,12 +12,33 @@ use MediaWiki\Extension\Shubara\Utils;
 class Infobox {
     public static function main(Parser $parser) {
         $content = '';
-        $functionArgs = func_get_args();
-        $args = Utils::extractOptions(array_slice($functionArgs, 1));
+        $functionArgs = array_slice(func_get_args(), 1);
+        $args = Utils::extractOptions($functionArgs);
         $title = $args['title'] ?? 'No title';
-        $input = array_slice($functionArgs, count($args));
+        $heroImage = @$args['heroImg'];
+
+        $flatArgs = [];
+        foreach ($args as $key => $value) {
+            $flat = "$key=$value";
+            // if it's actually an argument and not wikitext
+            if (preg_match('/[\w]+=[\w .]+/', $flat) == 1) {
+                array_push($flatArgs, "$key=$value");
+            }
+        }
+        $input = array_diff($functionArgs, $flatArgs);
 
         $summary = Html::rawElement('summary', [], "Overview: $title");
+        $heroImgContent = '';
+        if ($heroImage != null) {
+            // 392 = 400 - (4 * 2), or infobox width - borders
+            $heroImgContent = $parser->recursiveTagParseFully("[[File:$heroImage|392px]]");
+            $heroImgContent = substr($heroImgContent, 3); // cut off the <p>
+            $heroImgContent = substr($heroImgContent, 0, strlen($heroImgContent) - 4); // and the </p>
+            $heroImgContent = Html::rawElement('div', ['class' => 'hero'], $heroImgContent);
+        }
+        $heading = array_shift($input);;
+        $content .= Html::rawElement('header', [], $parser->recursiveTagParseFully($heading));
+
         foreach ($input as &$wikitext) {
             $content .= $parser->recursiveTagParseFully($wikitext);
         }
@@ -26,7 +47,7 @@ class Infobox {
             Html::rawElement('details', [
                 'class' => 'ext-shubara-infobox',
                 'open' => ''
-            ], $summary . Html::rawElement('div', [], $content)),
+            ], $summary . $heroImgContent . Html::rawElement('div', ['class' => 'content'], $content)),
             'isHTML' => true
         ];
     }
