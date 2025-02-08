@@ -230,6 +230,7 @@
     color: var(--color-subtle);
     padding: var(--space-sm);
     user-select: none;
+    cursor: pointer;
 }
 
 .ext-shubara-infobox .mw-editsection {
