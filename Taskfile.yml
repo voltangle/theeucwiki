@@ -36,7 +36,7 @@ tasks:
     cmds:
       - task: mw-maintenance
         vars: {
-          CLI_ARGS: generateSitemap --memory-limit=50M --fspath=/var/www/html/sitemap --identifier=euc.repair --urlpath=/sitemap/ --server=https://euc.repair --compress=yes --skip-redirects
+          CLI_ARGS: generateSitemap --memory-limit=50M --fspath=/var/www/html/sitemap --identifier=monowheel.wiki --urlpath=/sitemap/ --server=https://euc.repair --compress=yes --skip-redirects
         }
   init:
     cmds:
