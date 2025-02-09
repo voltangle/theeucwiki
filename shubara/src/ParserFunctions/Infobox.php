@@ -21,6 +21,7 @@ class Infobox {
         foreach ($args as $key => $value) {
             $flat = "$key=$value";
             // if it's actually an argument and not wikitext
+            // BUG: it can include normal wikitext that has a single equals sign
             if (preg_match('/[\w]+=[\w .]+/', $flat) == 1) {
                 array_push($flatArgs, "$key=$value");
             }

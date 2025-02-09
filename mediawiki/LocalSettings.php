@@ -66,8 +66,8 @@ $wgDiff3 = "/usr/bin/diff3";
 
 ########################### Core Settings ##########################
 $wgLanguageCode = 'en';
-$wgSitename = 'euc.repair';
-$wgMetaNamespace = "euc.repair";
+$wgSitename = 'monowheel.wiki';
+$wgMetaNamespace = "The EUC Wiki";
 $wgServer = getenv('MW_SITE_SERVER');
 $wgEnableUploads = true;
 
@@ -120,15 +120,15 @@ $wgEnotifUserTalk = false;
 $wgEnotifWatchlist = false;
 $wgEnotifRevealEditorAddress = true;
 
-$wgPasswordSender = 'info@euc.repair';
-$wgNoReplyAddress = 'noreply@euc.repair';
+$wgPasswordSender = 'info@monowheel.wiki';
+$wgNoReplyAddress = 'noreply@monowheel.wiki';
 
 if (!str_contains($wgServer, 'localhost')) { // if running in prod
     $wgEmailAuthentication = true;
     $wgEmailConfirmToEdit = true;
     $wgSMTP = [
         'host' => 'in-v3.mailjet.com',
-        'localhost' => 'euc.repair',
+        'localhost' => 'monowheel.wiki',
         'port' => 587,
         'auth' => true,
         'username' => getenv('MAILJET_APIKEY'),
