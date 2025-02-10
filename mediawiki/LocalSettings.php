@@ -66,7 +66,7 @@ $wgDiff3 = "/usr/bin/diff3";
 
 ########################### Core Settings ##########################
 $wgLanguageCode = 'en';
-$wgSitename = 'monowheel.wiki';
+$wgSitename = 'The EUC Wiki';
 $wgMetaNamespace = "The EUC Wiki";
 $wgServer = getenv('MW_SITE_SERVER');
 $wgEnableUploads = true;
