@@ -159,6 +159,7 @@ if (getenv('USE_TURNSTILE') == 'yes') {
 }
 wfLoadExtension('CreateRedirect');
 wfLoadExtension('CSS');
+wfLoadExtension('Description2');
 wfLoadExtension('Disambiguator');
 wfLoadExtension('DiscussionTools');
 wfLoadExtension('DisplayTitle');
@@ -207,6 +208,9 @@ wfLoadExtension('UploadWizard');
 wfLoadExtension('UserMerge');
 wfLoadExtension('VisualEditor');
 wfLoadExtension('WikiEditor');
+
+### Description2 ###
+$wgEnableMetaDescriptionFunctions = true;
 
 ### Math ###
 $wgMathInternalRestbaseURL = getenv('MW_REST_RESTBASE_URL');
