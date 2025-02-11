@@ -211,6 +211,7 @@ wfLoadExtension('WikiEditor');
 
 ### Description2 ###
 $wgEnableMetaDescriptionFunctions = true;
+$wgDescriptionRemoveElements[] = '.ext-shubara-infobox';
 
 ### Math ###
 $wgMathInternalRestbaseURL = getenv('MW_REST_RESTBASE_URL');

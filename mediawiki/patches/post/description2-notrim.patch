@@ -1,0 +1,15 @@
+diff --color -ruN mediawiki2/extensions/Description2/includes/RemexDescriptionProvider.php mediawiki/extensions/Description2/includes/RemexDescriptionProvider.php
+--- mediawiki2/extensions/Description2/includes/RemexDescriptionProvider.php	2025-02-11 18:30:46
++++ mediawiki/extensions/Description2/includes/RemexDescriptionProvider.php	2025-02-11 18:31:07
+@@ -113,11 +113,6 @@
+ 			}
+ 		};
+ 
+-		// Preserve only the first section
+-		if ( preg_match( '/^.*?(?=<h[1-6]\b(?! id="mw-toc-heading"))/s', $text, $matches ) ) {
+-			$text = $matches[0];
+-		}
+-
+ 		$serializer = new Serializer( $formatter );
+ 		$treeBuilder = new TreeBuilder( $serializer );
+ 		$dispatcher = new Dispatcher( $treeBuilder );
