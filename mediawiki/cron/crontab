@@ -1,5 +1,7 @@
 ### MEDIAWIKI ###
 
+# At every minute, create a "healtcheck" file for cron
+* * * * * root /usr/local/bin/mw/wearealive
 # At every minute, run jobs
 * * * * * root /usr/local/bin/mw/jobrunner
 # At 04:00 each day, update StopForumSpam lists

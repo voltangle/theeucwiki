@@ -1,2 +1,5 @@
+#!/bin/bash
+
 php $MW_HOME/maintenance/run.php initSiteStats --update --active
 
+touch /tmp/mw/sitestats

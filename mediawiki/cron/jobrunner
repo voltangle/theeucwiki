@@ -9,3 +9,5 @@ php $RUN_JOBS runJobs --maxtime=3600 --type="enotifNotify"
 # The --wait parameter will pause the execution here until new jobs are added,
 # to avoid running the loop without anything to do
 php $RUN_JOBS runJobs --maxtime=3600 --wait --maxjobs=20
+
+touch /tmp/mw/jobrunner
