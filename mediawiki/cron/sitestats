@@ -1,0 +1,2 @@
+php $MW_HOME/maintenance/run.php initSiteStats --update --active
+

@@ -1,6 +1,8 @@
 ### MEDIAWIKI ###
 
 # At every minute, run jobs
-* * * * * root /usr/local/bin/mwjobrunner
-# At 04:00, update StopForumSpam lists
-0 4 * * * root /usr/local/bin/stopforumspam-refresh
+* * * * * root /usr/local/bin/mw/jobrunner
+# At 04:00 each day, update StopForumSpam lists
+0 4 * * * root /usr/local/bin/mw/stopforumspam-refresh
+# At 04:00 each day, refresh site statistics
+0 4 * * * root /usr/local/bin/mw/sitestats

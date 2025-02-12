@@ -131,10 +131,9 @@ COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 
 #### Setup services
 COPY cron/crontab $MW_HOME/
-COPY --exclude=cron/crontab cron/* /usr/local/bin/
+COPY --exclude=cron/crontab cron/* /usr/local/bin/mw/
 RUN set -x; \
-    chmod +x /usr/local/bin/mwjobrunner \
-    && chmod +x /usr/local/bin/stopforumspam-refresh \
+    chmod -R +x /usr/local/bin/mw/ \
     && cd $MW_HOME \
     && touch /var/log/cron.log \
     && cat crontab >> /etc/crontab
