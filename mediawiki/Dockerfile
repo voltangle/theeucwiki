@@ -134,6 +134,7 @@ COPY cron/crontab $MW_HOME/
 COPY --exclude=cron/crontab cron/* /usr/local/bin/mw/
 RUN set -x; \
     chmod -R +x /usr/local/bin/mw/ \
+    && mkdir /tmp/mw \
     && cd $MW_HOME \
     && touch /var/log/cron.log \
     && cat crontab >> /etc/crontab
