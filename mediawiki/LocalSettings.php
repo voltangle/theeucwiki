@@ -172,6 +172,7 @@ wfLoadExtension('Disambiguator');
 wfLoadExtension('DiscussionTools');
 wfLoadExtension('DisplayTitle');
 wfLoadExtension('Drafts');
+wfLoadExtension('DynamicPageList3');
 wfLoadExtension('Echo');
 wfLoadExtension('Elastica');
 wfLoadExtension('ElectronPdfService');
@@ -423,7 +424,8 @@ $wgGroupPermissions['translator']['skipcaptcha'] = true; // T36182: needed with 
 $wgGroupPermissions['sysop']['pagetranslation'] = true;
 $wgGroupPermissions['sysop']['translate-manage'] = true;
 
-$wgNamespaceProtection[NS_NEWS] = ['bureaucrat'];
+$wgNamespaceProtection[NS_NEWS] = ['edit-news'];
+$wgGroupPermissions['bureaucrat']['edit-news'] = true;
 
 $wgBlockDisablesLogin = true;
 
