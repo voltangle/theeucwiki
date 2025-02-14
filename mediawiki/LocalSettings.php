@@ -423,7 +423,7 @@ $wgGroupPermissions['translator']['skipcaptcha'] = true; // T36182: needed with 
 $wgGroupPermissions['sysop']['pagetranslation'] = true;
 $wgGroupPermissions['sysop']['translate-manage'] = true;
 
-$wgNamespaceProtection(NS_NEWS) = ['bureaucrat'];
+$wgNamespaceProtection[NS_NEWS] = ['bureaucrat'];
 
 $wgBlockDisablesLogin = true;
 
