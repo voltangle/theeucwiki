@@ -109,9 +109,17 @@ if ( $tmpProxy ) {
         }
     };
 }
+
+define("NS_NEWS", 3000);
+define("NS_NEWS_TALK", 3001);
+
+// This should be migrated over to Shubara and have some nice UI and wrapping and shit
+$wgExtraNamespaces[NS_NEWS] = "News";
+$wgExtraNamespaces[NS_NEWS_TALK] = "News_talk";
+
 //Use $wgSquidServersNoPurge if you don't want MediaWiki to purge modified pages
 //$wgSquidServersNoPurge = array('127.0.0.1');
-// This email setup is to be used with a locally-hosted mailcow instance
+
 ####################### Email #########################
 $wgEnableEmail = true;
 $wgEnableUserEmail = true;
@@ -188,7 +196,6 @@ wfLoadExtension('RedirectManager');
 wfLoadExtension('RelatedArticles');
 wfLoadExtension('ReplaceText');
 wfLoadExtension('RevisionSlider');
-wfLoadExtension('RSS');
 wfLoadExtension('SandboxLink');
 wfLoadExtension('SecureLinkFixer');
 wfLoadExtension('Scribunto');
@@ -219,12 +226,6 @@ $wgMathInternalRestbaseURL = getenv('MW_REST_RESTBASE_URL');
 ### DisplayTitle ###
 $wgAllowDisplayTitle = true;
 $wgRestrictDisplayTitle = false;
-
-### SpamBlacklist ###
-$wgSpamBlacklistFiles = array(
-   "https://meta.wikimedia.org/w/index.php?title=Spam_blacklist&action=raw&sb_ver=1",
-   "https://en.wikipedia.org/w/index.php?title=MediaWiki:Spam-blacklist&action=raw&sb_ver=1"
-);
 
 ### StopForumSpam ###
 $wgSFSIPListLocation = getenv('MW_HOME') . '/stopforumspam.txt';
@@ -421,6 +422,8 @@ $wgGroupPermissions['translator']['translate'] = true;
 $wgGroupPermissions['translator']['skipcaptcha'] = true; // T36182: needed with ConfirmEdit
 $wgGroupPermissions['sysop']['pagetranslation'] = true;
 $wgGroupPermissions['sysop']['translate-manage'] = true;
+
+$wgNamespaceProtection(NS_NEWS) = ['bureaucrat'];
 
 $wgBlockDisablesLogin = true;
 

@@ -9,18 +9,21 @@ NON_WMGERRIT_EXTS=(
     "https://github.com/edwardspec/mediawiki-moderation.git"
     "https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription.git"
     "https://github.com/StarCitizenTools/mediawiki-extensions-TabberNeue.git"
+    "https://github.com/Universal-Omega/DynamicPageList3.git"
 )
 
 NON_WMGERRIT_EXTS_NAMES=(
     "Moderation"
     "ShortDescription"
     "TabberNeue"
+    "DynamicPageList3"
 )
 
 NON_WMGERRIT_EXTS_BRANCHES=(
     "master"
     "main"
     "main"
+    "REL1_43"
 )
 
 if [ $1 = 'download' ]; then
