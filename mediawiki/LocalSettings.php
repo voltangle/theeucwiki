@@ -67,7 +67,7 @@ $wgDiff3 = "/usr/bin/diff3";
 ########################### Core Settings ##########################
 $wgLanguageCode = 'en';
 $wgSitename = 'The EUC Wiki';
-$wgMetaNamespace = "TheEUCWiki";
+$wgMetaNamespace = "The_EUC_Wiki";
 $wgServer = getenv('MW_SITE_SERVER');
 $wgEnableUploads = true;
 
