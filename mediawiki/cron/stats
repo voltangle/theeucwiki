@@ -1,0 +1,6 @@
+#!/bin/bash
+
+php $MW_HOME/maintenance/run.php initSiteStats --update --active
+php $MW_HOME/maintenance/run.php initEditCount --background
+
+touch /tmp/mw/stats

@@ -82,7 +82,7 @@ $wgArticlePath = '/wiki/$1';
 $wgMainCacheType = CACHE_MEMCACHED;
 $wgParserCacheType = CACHE_MEMCACHED; # optional
 $wgMessageCacheType = CACHE_MEMCACHED; # optional
-$wgMemCachedServers = explode( ',', getenv( 'MW_MEMCACHED_SERVERS' ) );
+$wgMemCachedServers = explode(',', getenv('MW_MEMCACHED_SERVERS'));
 $wgSessionsInObjectCache = true; # optional
 $wgSessionCacheType = CACHE_MEMCACHED; # optional
 

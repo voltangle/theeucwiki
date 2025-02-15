@@ -7,4 +7,4 @@
 # At 04:00 each day, update StopForumSpam lists
 0 4 * * * root /usr/local/bin/mw/stopforumspam-refresh
 # At 04:00 each day, refresh site statistics
-0 4 * * * root /usr/local/bin/mw/sitestats
+0 4 * * * root /usr/local/bin/mw/stats
