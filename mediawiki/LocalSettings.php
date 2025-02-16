@@ -4,6 +4,8 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	exit;
 }
 
+define('NS_NEWS', 3000);
+
 // https://www.mediawiki.org/wiki/Manual:Short_URL
 $wgScriptPath = "/w";
 
@@ -110,12 +112,8 @@ if ( $tmpProxy ) {
     };
 }
 
-define("NS_NEWS", 3000);
-define("NS_NEWS_TALK", 3001);
-
 // This should be migrated over to Shubara and have some nice UI and wrapping and shit
 $wgExtraNamespaces[NS_NEWS] = "News";
-$wgExtraNamespaces[NS_NEWS_TALK] = "News_talk";
 
 //Use $wgSquidServersNoPurge if you don't want MediaWiki to purge modified pages
 //$wgSquidServersNoPurge = array('127.0.0.1');
