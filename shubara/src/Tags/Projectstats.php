@@ -7,7 +7,6 @@ use MediaWiki\Html\Html;
 use MediaWiki\Extension\Shubara\Utils;
 use MediaWiki\SiteStats\SiteStats;
 use MediaWiki\Output\OutputPage;
-use OOUI;
 
 /**
 * Render the sitestats tag

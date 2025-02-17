@@ -312,6 +312,9 @@
 
     div div:nth-child(1) {
         color: var(--color-subtle);
+        line-height: 1;
+        margin-bottom: 4px;
+        margin-top: 4px;
     }
     
     div div:nth-child(2) {
