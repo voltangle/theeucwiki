@@ -46,7 +46,8 @@ class Infobox {
 
         return [
             Html::rawElement('details', [
-                'class' => 'ext-shubara-infobox',
+                // noexcerpt is there so Popups doesn't extract it
+                'class' => 'ext-shubara-infobox noexcerpt',
                 'open' => ''
             ], $summary . $heroImgContent . Html::rawElement('div', ['class' => 'content'], $content)),
             'isHTML' => true
