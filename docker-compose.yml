@@ -65,6 +65,7 @@ services:
             # NGINX Proxy
             - VIRTUAL_HOST=${EUCR_MW_NGINXP_VIRTHOST}
             - VIRTUAL_PORT=80
+            - CERT_NAME=sitecert
             # MediaWiki
             - MW_SECRETKEY=${EUCR_MW_SECRETKEY}
             - MW_UPGRADEKEY=${EUCR_MW_UPGRADEKEY}
