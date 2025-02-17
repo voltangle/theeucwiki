@@ -20,12 +20,7 @@ services:
         volumes:
           - /var/run/docker.sock:/tmp/docker.sock:ro
           - ./nginx.conf:/etc/nginx/conf.d/my_proxy.conf:ro
-          # environment:
-          # healthcheck:
-          #   test: "service nginx status"
-          #   interval: 10s
-          #   timeout: 5s
-          #   retries: 5
+          - ${EUCR_NGINXP_CERTS}:/etc/nginx/certs:ro
 
     autoheal:
         restart: always
