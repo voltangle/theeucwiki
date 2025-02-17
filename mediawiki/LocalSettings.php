@@ -289,6 +289,9 @@ $wgDefaultUserOptions['visualeditor-editor'] = 'visualeditor';
 // Don't allow users to disable it
 $wgHiddenPrefs[] = 'visualeditor-enable';
 
+$wgVisualEditorAvailableNamespaces['Help'] = true;
+$wgVisualEditorAvailableNamespaces['Project'] = true;
+
 // OPTIONAL: Enable VisualEditor's experimental code features
 #$wgDefaultUserOptions['visualeditor-enable-experimental'] = 1;
 

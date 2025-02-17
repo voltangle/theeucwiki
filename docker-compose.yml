@@ -17,6 +17,7 @@ services:
         image: nginxproxy/nginx-proxy:1.6-alpine
         ports:
           - 80:80
+          - 443:443
         volumes:
           - /var/run/docker.sock:/tmp/docker.sock:ro
           - ./nginx.conf:/etc/nginx/conf.d/my_proxy.conf:ro
