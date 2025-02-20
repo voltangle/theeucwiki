@@ -14,7 +14,8 @@ use MediaWiki\Output\OutputPage;
 // TODO: also add icons. I didn't do them from the start because they refuse to change color
 class Projectstats {
     public static function run($input, array $args, Parser $parser, PPFrame $frame) {
-        $users = SiteStats::activeUsers();
+        $bots = SiteStats::numberingroup('bot');
+        $users = SiteStats::users() - $bots;
         $edits = SiteStats::edits();
         // in Main, Help, and Category namespaces
         $pages = SiteStats::pagesInNs(0)

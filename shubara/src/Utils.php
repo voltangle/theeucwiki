@@ -66,8 +66,8 @@ class Utils {
         ?int $height = null
     ): ?string {
     $fileTitle = Title::newFromText($file, NS_FILE);
-    if (!($fileTitle && $fileTitle->exists())) {
-        return null;
+        if (!($fileTitle && $fileTitle->exists())) {
+            return null;
         }
 
         $file = MediaWikiServices::getInstance()->getRepoGroup()->findFile($fileTitle);
