@@ -226,6 +226,11 @@ $wgMathInternalRestbaseURL = getenv('MW_REST_RESTBASE_URL');
 ### DiscordNotifications ###
 $wgDiscordIncomingWebhookUrl = getenv('DISCORD_WEBHOOK_URL');
 $wgDiscordNotificationWikiUrl = "https:$wgServer/w/";
+$wgDiscordExcludeConditions = [
+	'groups' => [
+		'bot',
+	]
+];
 
 ### DisplayTitle ###
 $wgAllowDisplayTitle = true;
