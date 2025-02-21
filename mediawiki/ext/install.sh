@@ -10,6 +10,7 @@ NON_WMGERRIT_EXTS=(
     "https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription.git"
     "https://github.com/StarCitizenTools/mediawiki-extensions-TabberNeue.git"
     "https://github.com/Universal-Omega/DynamicPageList3.git"
+    "https://github.com/Universal-Omega/DiscordNotifications.git"
 )
 
 NON_WMGERRIT_EXTS_NAMES=(
@@ -17,6 +18,7 @@ NON_WMGERRIT_EXTS_NAMES=(
     "ShortDescription"
     "TabberNeue"
     "DynamicPageList3"
+    "DiscordNotifications"
 )
 
 NON_WMGERRIT_EXTS_BRANCHES=(
@@ -24,6 +26,7 @@ NON_WMGERRIT_EXTS_BRANCHES=(
     "main"
     "main"
     "REL1_43"
+    "REL1_40"
 )
 
 if [ $1 = 'download' ]; then

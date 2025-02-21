@@ -167,6 +167,7 @@ wfLoadExtension('CreateRedirect');
 wfLoadExtension('CSS');
 wfLoadExtension('Description2');
 wfLoadExtension('Disambiguator');
+wfLoadExtension('DiscordNotifications');
 wfLoadExtension('DiscussionTools');
 wfLoadExtension('DisplayTitle');
 wfLoadExtension('Drafts');
@@ -221,6 +222,10 @@ $wgDescriptionRemoveElements[] = '.ext-shubara-infobox';
 
 ### Math ###
 $wgMathInternalRestbaseURL = getenv('MW_REST_RESTBASE_URL');
+
+### DiscordNotifications ###
+$wgDiscordIncomingWebhookUrl = getenv('DISCORD_WEBHOOK_URL');
+$wgDiscordNotificationWikiUrl = "https:$wgServer/w/";
 
 ### DisplayTitle ###
 $wgAllowDisplayTitle = true;
