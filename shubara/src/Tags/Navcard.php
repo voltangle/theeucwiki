@@ -5,6 +5,7 @@ use MediaWiki\Extension\Shubara\Utils;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\PPFrame;
 use MediaWiki\Title\Title;
+use MediaWiki\Context\RequestContext;
 
 /**
  *
@@ -62,10 +63,22 @@ class Navcard {
     
         $css = '';
         if ($bgImage != null) {
-            // FIXME: this returns the file with the "domain", it has to be only an
-            // explicit path
             $bgFile = Utils::getDirectFileURL($bgImage, 600);
             if (!$bgFile) { return "Error! Image $bgImage does not exist."; }
+            // FIXME: For SOME fucking reason, Gecko (Firefox) has trouble understanding
+            // what an ABSOLUTE FUCKING PATH IS, and if there is no domain, it just fucking
+            // refuses to load images. I'm so fucking dumbfounded I can't even explain
+            // As a temporary fix, I am adding the domain to the path too with this
+            // hacky-ass job of a patch. Please don't kill me with hammers
+            // Tested on Firefox 135 on macOS Sonoma, platform does not matter, it also
+            // happens on Android, so its an engine problem (definitely), should try
+            // removing later, just to try my fucking luck
+            // extremely common mozilla L right there fellas
+            $context = RequestContext::getMain();
+            $config = $context->getConfig();
+            $serverUrl = $config->get('Server');
+            $protocol = $context->getRequest()->getProtocol();
+            $bgFile = $protocol . ':' . $serverUrl . '/' . $bgFile;
             $css .= "#ext-shubara-$navCardID { background-image: url(\"$bgFile\"); }";
         }
         if ($parser->getOptions()->getIsPreview()) {
