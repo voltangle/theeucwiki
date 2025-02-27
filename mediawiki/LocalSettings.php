@@ -185,6 +185,7 @@ wfLoadExtension('LoginNotify');
 wfLoadExtension('Math');
 wfLoadExtension('Moderation');
 wfLoadExtension('MultimediaViewer');
+wfLoadExtension('Network');
 wfLoadExtension('Nuke');
 wfLoadExtension('OATHAuth');
 wfLoadExtension('PageImages');
@@ -434,6 +435,7 @@ $wgGroupPermissions['translator']['translate'] = true;
 $wgGroupPermissions['translator']['skipcaptcha'] = true; // T36182: needed with ConfirmEdit
 $wgGroupPermissions['sysop']['pagetranslation'] = true;
 $wgGroupPermissions['sysop']['translate-manage'] = true;
+$wgGroupPermissions['*']['apihighlimits'] = true;
 
 $wgNamespaceProtection[NS_NEWS] = ['edit-news'];
 $wgGroupPermissions['bureaucrat']['edit-news'] = true;

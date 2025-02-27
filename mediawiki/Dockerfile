@@ -150,7 +150,8 @@ RUN set -x; \
 RUN set -x; \
     cd $MW_HOME \
     && rm -r patches tests docs *.md COPYING CREDITS FAQ HISTORY INSTALL RELEASE-NOTES* \
-    SECURITY UPGRADE *.json *.yml *.js *sample phpunit.xml.dist crontab
+    SECURITY UPGRADE *.yml *.js *sample phpunit.xml.dist crontab jsdoc.json \
+    package-lock.json package.json
 
 EXPOSE 80
 

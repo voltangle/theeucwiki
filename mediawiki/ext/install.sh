@@ -74,5 +74,9 @@ if [ $1 = 'install' ]; then
         fi
         cd ..
     done
+
+    cd $MW_HOME
+    COMPOSER=composer.local.json composer require --no-update professional-wiki/network:~2.0
+    composer update professional-wiki/network --no-dev -o
 fi
 
