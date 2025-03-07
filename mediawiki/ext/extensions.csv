@@ -25,6 +25,7 @@ GoogleLogin,composer
 ImageMap,simple
 InputBox,simple
 Interwiki,simple
+JsonConfig,simple
 Linter,simple
 LoginNotify,simple
 Math,simple

@@ -42,9 +42,6 @@ $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
 # Shared database table
 # This has no effect unless $wgSharedDB is also set.
 $wgSharedTables[] = "actor";
-$wgUseImageMagick = true;
-$wgImageMagickConvertCommand = "/usr/bin/convert";
-$wgUseInstantCommons = true;
 
 # Periodically send a pingback to https://www.mediawiki.org/ with basic data
 # about this MediaWiki instance. The Wikimedia Foundation shares this data
@@ -71,7 +68,6 @@ $wgLanguageCode = 'en';
 $wgSitename = 'The EUC Wiki';
 $wgMetaNamespace = "The_EUC_Wiki";
 $wgServer = getenv('MW_SITE_SERVER');
-$wgEnableUploads = true;
 
 $wgJobRunRate = 0;
 
@@ -145,7 +141,15 @@ if (!str_contains($wgServer, 'localhost')) { // if running in prod
 ####################### Uploads #########################
 # Set this value if needed
 # $wgUploadSizeWarning
+$wgEnableUploads = true;
 $wgMaxUploadSize = 1024 * 1024 * 200; # 200 mebibytes
+
+$wgUseImageMagick = true;
+$wgImageMagickConvertCommand = "/usr/bin/convert";
+$wgUseInstantCommons = true;
+
+$wgFileExtensions[] = 'svg';
+$wgSVGNativeRendering = true;
 
 ####################### Extensions #########################
 wfLoadExtension('AbuseFilter');
@@ -180,6 +184,7 @@ wfLoadExtension('Gadgets');
 wfLoadExtension('ImageMap');
 wfLoadExtension('InputBox');
 wfLoadExtension('Interwiki');
+wfLoadExtension('JsonConfig');
 wfLoadExtension('Linter');
 wfLoadExtension('LoginNotify');
 wfLoadExtension('Math');
@@ -393,19 +398,19 @@ $wgHooks['SkinAddFooterLinks'][] = function($skin, $key, &$footerLinks) {
     if ($key === 'places') {
         $footerLinks['github'] = Html::rawElement('a',
             [
-                'href' => 'https://github.com/voltangle/euc.repair',
+                'href' => 'https://github.com/voltangle/theeucwiki',
                 'rel' => 'noreferrer noopener'
             ],
         'GitHub');
         $footerLinks['ko-fi'] = Html::rawElement('a',
             [
-                'href' => 'https://ko-fi.com/eucrepair',
+                'href' => 'https://ko-fi.com/theeucwiki',
                 'rel' => 'noreferrer noopener'
             ],
         'Ko-fi');
         $footerLinks['patreon'] = Html::rawElement('a',
             [
-                'href' => 'https://www.patreon.com/c/eucrepair',
+                'href' => 'https://www.patreon.com/theeucwiki',
                 'rel' => 'noreferrer noopener'
             ],
         'Patreon');
