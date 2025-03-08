@@ -3,7 +3,7 @@ namespace MediaWiki\Extension\Shubara;
 
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Hook\BeforePageDisplayHook;
-use MediaWiki\Parser\Parser\SFH_OBJECT_ARGS;
+use MediaWiki\Parser\Parser\SFH_NO_HASH;
 use MediaWiki\Extension\Shubara\Tags\Navcards;
 use MediaWiki\Extension\Shubara\Tags\Navcard;
 use MediaWiki\Extension\Shubara\Tags\Ulnav;
@@ -20,8 +20,8 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         $parser->setHook('imagechip', Imagechip::run(...));
         $parser->setHook('projectstats', Projectstats::run(...));
         $parser->setHook('newslist', NewsList::run(...));
-        $parser->setFunctionHook('infobox', Infobox::main(...));
-        $parser->setFunctionHook('infobox-list', Infobox::list(...));
+        $parser->setFunctionHook('infobox', Infobox::main(...), SFH_NO_HASH);
+        $parser->setFunctionHook('infobox-list', Infobox::list(...), SFH_NO_HASH);
 		return true;
 	}
 

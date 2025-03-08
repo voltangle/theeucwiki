@@ -288,13 +288,25 @@
     .hero:hover::after {
         opacity: 0;
     }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header a {
+        background-color: var(--color-surface-3);
+        padding: 8px;
+        border-radius: 8px;
+    }
     
-    header h3 {
+    header div h3 {
         margin-top: 12px;
         margin-bottom: 0;
     }
     
-    header p {
+    header div p {
         margin-top: 0;
     }
     
@@ -303,6 +315,19 @@
     }
 }
 
+/*
+.ext-shubara-infobox:not([open]) {
+    summary a {
+        display: initial;
+    }
+}
+
+.ext-shubara-infobox[open] {
+    summary a {
+        display: none;
+    }
+}
+*/
     
 .ext-shubara-infobox-list {
     display: grid;

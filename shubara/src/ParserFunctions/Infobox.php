@@ -4,6 +4,8 @@ namespace MediaWiki\Extension\Shubara\ParserFunctions;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\PPFrame;
 use MediaWiki\Html\Html;
+use MediaWiki\Page\PageReference;
+use MediaWiki\Title\Title;
 use MediaWiki\Extension\Shubara\Utils;
 
 /**
@@ -28,7 +30,8 @@ class Infobox {
         }
         $input = array_diff($functionArgs, $flatArgs);
 
-        $summary = Html::rawElement('summary', [], "Overview: $title");
+        $summary = Html::rawElement('summary', [],
+            Html::rawElement('div')"Overview: $title");
         $heroImgContent = '';
         if ($heroImage != null) {
             // 392 = 400 - (4 * 2), or infobox width - borders
@@ -37,8 +40,15 @@ class Infobox {
             $heroImgContent = substr($heroImgContent, 0, strlen($heroImgContent) - 4); // and the </p>
             $heroImgContent = Html::rawElement('div', ['class' => 'hero'], $heroImgContent);
         }
-        $heading = array_shift($input);;
-        $content .= Html::rawElement('header', [], $parser->recursiveTagParseFully($heading));
+        $categoryPage = Title::makeTitle(14, // 14 - category ns id
+            Title::newFromPageReference($parser->getPage())->getText());
+        $categoryPageLink = $categoryPage->getFullURL();
+        $heading = array_shift($input);
+
+        $content .= Html::rawElement('header', [],
+            Html::rawElement('div', [],
+            $parser->recursiveTagParseFully($heading)) .
+            Html::rawElement('a', ['href' => $categoryPageLink], 'Related articles'));
 
         foreach ($input as &$wikitext) {
             $content .= $parser->recursiveTagParseFully($wikitext);
