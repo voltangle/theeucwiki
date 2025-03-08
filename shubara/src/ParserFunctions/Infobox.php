@@ -30,8 +30,7 @@ class Infobox {
         }
         $input = array_diff($functionArgs, $flatArgs);
 
-        $summary = Html::rawElement('summary', [],
-            Html::rawElement('div')"Overview: $title");
+        $summary = Html::rawElement('summary', [], "Overview: $title");
         $heroImgContent = '';
         if ($heroImage != null) {
             // 392 = 400 - (4 * 2), or infobox width - borders
