@@ -2,6 +2,8 @@
 
 set -e
 
+trap "exit" SIGINT SIGTERM
+
 # TODO: Check if this is needed for first startup
 # it turns out that this line right here is the reason why it took AGES for the mediawiki
 # container to start up, and removing it made it BLAZINGLY fast (please don't kill me).

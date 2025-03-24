@@ -5,5 +5,3 @@ curl -O https://www.stopforumspam.com/downloads/listed_ip_30_all.zip
 unzip listed_ip_30_all.zip
 mv listed_ip_30_all.txt stopforumspam.txt
 php maintenance/run.php $MW_HOME/extensions/StopForumSpam/maintenance/updateDenyList
-
-touch /tmp/mw/stopforumspam-refresh

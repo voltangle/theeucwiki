@@ -1,0 +1,46 @@
+jobs:
+  - name: mediawiki
+    command: /run-apache.sh
+    shell: /bin/bash
+    schedule: "@reboot"
+    captureStdout: true
+    captureStderr: true
+    onFailure:
+      report:
+        shell:
+          shell: /bin/bash
+          command: kill -s SIGINT 1
+
+  - name: jobrunner
+    command: /usr/local/bin/mw/jobrunner
+    shell: /bin/bash
+    schedule: "* * * * *"
+    captureStdout: true
+    captureStderr: true
+    onFailure:
+      report:
+        shell:
+          shell: /bin/bash
+          command: kill -s SIGINT 1
+  - name: stopforumspam-refresh
+    command: /usr/local/bin/mw/stopforumspam-refresh
+    shell: /bin/bash
+    schedule: "0 4 * * *"
+    captureStdout: true
+    captureStderr: true
+    onFailure:
+      report:
+        shell:
+          shell: /bin/bash
+          command: kill -s SIGINT 1
+  - name: stats
+    command: /usr/local/bin/mw/stats
+    shell: /bin/bash
+    schedule: "0 4 * * *"
+    captureStdout: true
+    captureStderr: true
+    onFailure:
+      report:
+        shell:
+          shell: /bin/bash
+          command: kill -s SIGINT 1
