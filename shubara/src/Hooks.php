@@ -11,6 +11,7 @@ use MediaWiki\Extension\Shubara\Tags\Imagechip;
 use MediaWiki\Extension\Shubara\Tags\Projectstats;
 use MediaWiki\Extension\Shubara\Tags\NewsList;
 use MediaWiki\Extension\Shubara\ParserFunctions\Infobox;
+use MediaWiki\Extension\Shubara\ParserFunctions\Messagebox;
 
 class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
     public function onParserFirstCallInit($parser) {
@@ -22,6 +23,7 @@ class Hooks implements ParserFirstCallInitHook, BeforePageDisplayHook {
         $parser->setHook('newslist', NewsList::run(...));
         $parser->setFunctionHook('infobox', Infobox::main(...), SFH_NO_HASH);
         $parser->setFunctionHook('infobox-list', Infobox::list(...), SFH_NO_HASH);
+        $parser->setFunctionHook('messagebox', Messagebox::main(...), SFH_NO_HASH);
 		return true;
 	}
 
