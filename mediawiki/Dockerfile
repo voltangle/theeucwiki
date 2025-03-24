@@ -38,6 +38,7 @@ RUN set -x; \
     && pear install mail net_smtp \
     # TODO: this shit stinks
     && pip3 install pygments --break-system-packages \
+    && pip3 install yacron --break-system-packages \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /var/cache/apt/archives/* \
     && a2enmod rewrite \
@@ -130,14 +131,13 @@ RUN set -x; \
 COPY --from=shubara ./ $MW_HOME/extensions/Shubara
 
 #### Setup services
-COPY cron/crontab $MW_HOME/
-COPY --exclude=cron/crontab cron/* /usr/local/bin/mw/
+COPY cron/crontab.yaml $MW_HOME/
+COPY --exclude=cron/crontab.yaml cron/* /usr/local/bin/mw/
 RUN set -x; \
     chmod -R +x /usr/local/bin/mw/ \
     && mkdir /tmp/mw \
     && cd $MW_HOME \
-    && touch /var/log/cron.log \
-    && cat crontab >> /etc/crontab
+    && cat crontab.yaml >> /etc/crontab.yaml
 
 #### Download StopForumSpam list
 RUN set -x; \
@@ -150,7 +150,7 @@ RUN set -x; \
 RUN set -x; \
     cd $MW_HOME \
     && rm -r patches tests docs *.md COPYING CREDITS FAQ HISTORY INSTALL RELEASE-NOTES* \
-    SECURITY UPGRADE *.json *.yml *.js *sample phpunit.xml.dist crontab
+    SECURITY UPGRADE *.json *.yml *.js *sample phpunit.xml.dist crontab.yaml
 
 EXPOSE 80
 
@@ -168,7 +168,8 @@ COPY LocalSettings.php $MW_HOME/LocalSettings.php
 COPY init_elastic.sh /
 RUN set -x; chmod +x /init_elastic.sh
 
-CMD ["/run-apache.sh"]
+# CMD ["/run-apache.sh"]
+ENTRYPOINT yacron -c /etc/crontab.yaml
 
 VOLUME ["$MW_HOME/images", "$MW_VOLUME"]
 

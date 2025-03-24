@@ -7,5 +7,3 @@ RUN_JOBS="$MW_HOME/maintenance/run.php"
 php $RUN_JOBS runJobs --maxtime=3600 --type="enotifNotify"
 # Everything else, limit the number of jobs on each batch
 php $RUN_JOBS runJobs --maxtime=3600 --maxjobs=40
-
-touch /tmp/mw/jobrunner
