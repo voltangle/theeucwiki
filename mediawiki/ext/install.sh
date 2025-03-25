@@ -26,7 +26,7 @@ NON_WMGERRIT_EXTS_BRANCHES=(
     "main"
     "main"
     "REL1_43"
-    "REL1_40"
+    "master"
 )
 
 if [ $1 = 'download' ]; then
