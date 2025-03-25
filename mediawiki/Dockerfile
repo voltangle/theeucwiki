@@ -35,6 +35,7 @@ RUN set -x; \
         wget \
         patch \
         cron \
+        ffmpeg \
     && pear install mail net_smtp \
     # TODO: this shit stinks
     && pip3 install pygments --break-system-packages \

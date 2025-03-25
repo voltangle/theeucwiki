@@ -51,6 +51,7 @@ SyntaxHighlight_GeSHi,composer
 TemplateStyles,composer
 TextExtracts,simple
 Thanks,simple
+TimedMediaHandler,composer
 TitleBlacklist,simple
 Translate,simple,2024.07
 UniversalLanguageSelector,composer,2024.07

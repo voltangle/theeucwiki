@@ -149,6 +149,9 @@ $wgImageMagickConvertCommand = "/usr/bin/convert";
 $wgUseInstantCommons = true;
 
 $wgFileExtensions[] = 'svg';
+$wgFileExtensions[] = 'mp4';
+$wgFileExtensions[] = 'mov';
+$wgFileExtensions[] = 'mkv';
 $wgSVGNativeRendering = true;
 
 ####################### Extensions #########################
@@ -213,6 +216,7 @@ wfLoadExtension('TabberNeue');
 wfLoadExtension('TemplateStyles');
 wfLoadExtension('TextExtracts');
 wfLoadExtension('Thanks');
+wfLoadExtension('TimedMediaHandler');
 wfLoadExtension('TitleBlacklist');
 wfLoadExtension('Translate');
 wfLoadExtension('UniversalLanguageSelector');
@@ -224,6 +228,9 @@ wfLoadExtension('WikiEditor');
 ### Description2 ###
 $wgEnableMetaDescriptionFunctions = true;
 $wgDescriptionRemoveElements[] = '.ext-shubara-infobox';
+
+### TimedMediaHandler ###
+$wgFFmpegLocation = '/usr/bin/ffmpeg';
 
 ### Math ###
 $wgMathInternalRestbaseURL = getenv('MW_REST_RESTBASE_URL');
