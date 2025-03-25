@@ -5,6 +5,8 @@ jobs:
     schedule: "@reboot"
     captureStdout: true
     captureStderr: true
+    failsWhen:
+      producesStderr: false
     onFailure:
       report:
         shell:
@@ -17,6 +19,8 @@ jobs:
     schedule: "* * * * *"
     captureStdout: true
     captureStderr: true
+    failsWhen:
+      producesStderr: false
     onFailure:
       report:
         shell:
@@ -28,6 +32,8 @@ jobs:
     schedule: "0 4 * * *"
     captureStdout: true
     captureStderr: true
+    failsWhen:
+      producesStderr: false
     onFailure:
       report:
         shell:
