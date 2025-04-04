@@ -209,6 +209,7 @@ wfLoadExtension('SecureLinkFixer');
 wfLoadExtension('Scribunto');
 wfLoadExtension('ShortDescription');
 wfLoadExtension('Shubara');
+wfLoadExtension('Shubara/AreWeLegalYet');
 wfLoadExtension('SpamBlacklist');
 wfLoadExtension('StopForumSpam');
 wfLoadExtension('SyntaxHighlight_GeSHi');
