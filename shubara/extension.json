@@ -2,7 +2,7 @@
 	"name": "Shubara",
 	"author": "Voltangle",
 	"url": "https://github.com/ggoraa/euc.repair/tree/master/shubara",
-	"description": "Provides custom functionality and UI for the euc.repair website.",
+	"description": "Provides custom functionality and UI for The EUC Wiki.",
 	"version": "0.3.0",
 	"license-name": "MIT",
 	"type": "other",
