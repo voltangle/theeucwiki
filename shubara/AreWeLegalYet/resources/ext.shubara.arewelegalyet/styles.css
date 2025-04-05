@@ -1,1 +1,5 @@
-#map { height: calc(100vh - 200px); }
+#map { height: calc(100vh - 260px); }
+
+h1 {
+    margin-top: 0px;
+}

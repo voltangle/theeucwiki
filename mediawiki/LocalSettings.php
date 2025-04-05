@@ -470,4 +470,9 @@ $wgDebugLogGroups['StopForumSpam'] = '/var/log/mediawiki/stopforumspam.log';
 if (str_contains($wgServer, 'localhost')) { // if running locally
     $wgShowDebug = true;
     $wgShowExceptionDetails = true;
+    $wgCacheDirectory = "/tmp";
+    $wgMainCacheType = CACHE_NONE;
+    $wgParserCacheType = CACHE_NONE; # optional
+    $wgMessageCacheType = CACHE_NONE; # optional
+    $wgSessionCacheType = CACHE_NONE; # optional
 }
