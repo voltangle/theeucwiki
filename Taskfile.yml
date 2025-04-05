@@ -43,3 +43,4 @@ tasks:
       - task: init-elastic
       - task: init-sitemap
   mw-maintenance: docker compose exec -it -w /var/www/html/w/ mediawiki php maintenance/run.php -- {{.CLI_ARGS}}
+  download-map: curl -o map.osm.pbf https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf

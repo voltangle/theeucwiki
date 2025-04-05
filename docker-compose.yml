@@ -135,6 +135,12 @@ services:
         environment:
             RENDERER_ACCESS_KEY: secret
 
+            # Reenable if a dedicated tile server will be needed and/or possible
+            # tileserver:
+            #     image: overv/openstreetmap-tile-server
+            #     volumes: ${EUCR_TILESERVER_DATA}:/data/database
+            #     command: "run"
+
 volumes:
   esdata:
     driver: local
