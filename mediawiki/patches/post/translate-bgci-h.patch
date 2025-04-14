@@ -1,0 +1,53 @@
+diff --color -ruN mediawiki/extensions/Translate/resources/css/ext.translate.editor.less mediawiki2/extensions/Translate/resources/css/ext.translate.editor.less
+--- mediawiki/extensions/Translate/resources/css/ext.translate.editor.less	2025-04-14 23:19:23
++++ mediawiki2/extensions/Translate/resources/css/ext.translate.editor.less	2025-04-14 23:37:54
+@@ -350,12 +350,12 @@
+ 
+ 	&:hover {
+ 		cursor: @cursor-base--hover;
+-		background-color: @background-color-interactive--hover;
++		background-color: #EEEEEE;
+ 		border-left-color: @border-color-progressive--hover;
+ 	}
+ 
+ 	&:active {
+-		background-color: @background-color-interactive--active;
++		background-color: #EEEEEE;
+ 		border-left-color: @border-color-progressive--active;
+ 	}
+ }
+@@ -514,11 +514,11 @@
+ 
+ 		&:hover {
+ 			cursor: @cursor-base--hover;
+-			background: @background-color-interactive-subtle--hover;
++			background: #EEEEEE;
+ 		}
+ 
+ 		&:active {
+-			background: @background-color-interactive-subtle--active;
++			background: #EEEEEE;
+ 		}
+ 	}
+ 
+diff --color -ruN mediawiki/extensions/Translate/resources/css/ext.translate.messagetable.less mediawiki2/extensions/Translate/resources/css/ext.translate.messagetable.less
+--- mediawiki/extensions/Translate/resources/css/ext.translate.messagetable.less	2025-04-14 23:19:23
++++ mediawiki2/extensions/Translate/resources/css/ext.translate.messagetable.less	2025-04-14 23:21:07
+@@ -58,7 +58,7 @@
+ }
+ 
+ .tux-message-item:hover {
+-	background-color: @background-color-interactive--hover;
++	background-color: #EEEEEE;
+ }
+ 
+ .tux-list-status span,
+@@ -172,7 +172,7 @@
+ }
+ 
+ .tux-action-bar button:hover {
+-	background-color: @background-color-interactive--hover;
++	background-color: #EEEEEE;
+ }
+ 
+ .tux-action-bar button:active,
