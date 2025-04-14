@@ -55,6 +55,7 @@ services:
               condition: service_started
         volumes:
             - ${EUCR_MW_UPLOADS}:/var/www/html/w/images
+            - ${EUCR_MW_BORDERS}:/var/www/html/w/borders
         healthcheck:
             test: curl --fail http://mediawiki/wiki/Special:BlankPage || exit 1
             interval: 10s
