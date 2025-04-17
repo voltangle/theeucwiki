@@ -1,0 +1,13 @@
+diff --color -ruN mediawiki/includes/skins/Skin.php mediawiki2/includes/skins/Skin.php
+--- mediawiki/includes/skins/Skin.php	2025-01-11 09:42:42
++++ mediawiki2/includes/skins/Skin.php	2025-04-17 13:42:32
+@@ -406,7 +406,8 @@
+ 			$out->addMeta(
+ 				'viewport',
+ 				'width=device-width, initial-scale=1.0, ' .
+-				'user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0'
++				'user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0, ' .
++				'viewport-fit=cover'
+ 			);
+ 		} else {
+ 			// Force the desktop experience on an iPad by resizing the mobile viewport to
