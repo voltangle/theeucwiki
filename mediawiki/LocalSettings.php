@@ -211,6 +211,7 @@ wfLoadExtension('SecureLinkFixer');
 wfLoadExtension('Scribunto');
 wfLoadExtension('ShortDescription');
 wfLoadExtension('Shubara');
+wfLoadExtension('Shubara/AreWeLegalYet');
 wfLoadExtension('SpamBlacklist');
 wfLoadExtension('StopForumSpam');
 wfLoadExtension('SyntaxHighlight_GeSHi');
@@ -471,4 +472,9 @@ $wgDebugLogGroups['StopForumSpam'] = '/var/log/mediawiki/stopforumspam.log';
 if (str_contains($wgServer, 'localhost')) { // if running locally
     $wgShowDebug = true;
     $wgShowExceptionDetails = true;
+    $wgCacheDirectory = "/tmp";
+    $wgMainCacheType = CACHE_NONE;
+    $wgParserCacheType = CACHE_NONE; # optional
+    $wgMessageCacheType = CACHE_NONE; # optional
+    $wgSessionCacheType = CACHE_NONE; # optional
 }

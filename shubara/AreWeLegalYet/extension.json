@@ -1,0 +1,56 @@
+{
+	"name": "Shubara/AreWeLegalYet",
+	"author": "Voltangle",
+	"url": "https://github.com/voltangle/theeucwiki/tree/master/shubara/AreWeLegalYet",
+	"description": "Implements the Special:AreWeLegalYet page.",
+	"version": "0.1.0",
+	"license-name": "MIT",
+	"type": "specialpage",
+    "requires": {
+        "MediaWiki": ">= 1.43"
+    },
+    "AutoloadNamespaces": {
+        "MediaWiki\\Extension\\Shubara\\AreWeLegalYet\\": "src/"
+    },
+    "SpecialPages": {
+        "AreWeLegalYet": "MediaWiki\\Extension\\Shubara\\AreWeLegalYet\\Page"
+    },
+    "MessageDirs": {
+        "Shubara/AreWeLegalYet": [
+            "i18n"
+        ]
+    },
+    "ResourceModules": {
+		"ext.shubara.arewelegalyet": {
+            "localBasePath": "resources/ext.shubara.arewelegalyet",
+            "remoteExtPath": "Shubara/AreWeLegalYet/resources/ext.shubara.arewelegalyet",
+            "packageFiles": [
+                "map.js"
+            ],
+            "styles": [
+				"styles.css"
+			],
+            "dependencies": [
+                "oojs",
+                "mediawiki.util",
+                "ext.shubara.leaflet"
+            ]
+		},
+        "ext.shubara.leaflet": {
+            "localBasePath": "resources/ext.shubara.leaflet",
+            "remoteExtPath": "Shubara/AreWeLegalYet/resources/ext.shubara.leaflet",
+            "packageFiles": ["leaflet.js"],
+            "styles": ["leaflet.css"]
+        }
+    },
+    "APIModules": {
+        "getgeoborders": "MediaWiki\\Extension\\Shubara\\AreWeLegalYet\\BorderApi"
+    },
+    "config": {
+        "TileServerURL": {
+            "value": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            "description": "What tile server to use. By default OpenStreetMap.org."
+        }
+    },
+	"manifest_version": 2
+}
