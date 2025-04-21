@@ -471,4 +471,7 @@ $wgDebugLogGroups['StopForumSpam'] = '/var/log/mediawiki/stopforumspam.log';
 if (str_contains($wgServer, 'localhost')) { // if running locally
     $wgShowDebug = true;
     $wgShowExceptionDetails = true;
+
+    // experimental features
+    $wgCitizenEnableCommandPalette = true;
 }
