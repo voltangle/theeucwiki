@@ -359,3 +359,37 @@
     gap: 12px;
     justify-content: flex-start;
 }
+
+.citizen-page-container {
+    --bg-image-gradient: linear-gradient(to bottom,
+            color-mix(in srgb,black,transparent 50%) 0%,
+            color-mix(in srgb,var(--color-surface-0),transparent 50%)
+        20%);
+
+    background-image: var(--bg-image-gradient), url(/w/images/8/84/Site_background.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.skin-theme-clientpref-day .citizen-page-container {
+    --bg-image-gradient: linear-gradient(to bottom,
+    		color-mix(in srgb,white,transparent 50%) 0%,
+    		color-mix(in srgb,var(--color-surface-0),transparent 50%)
+    	20%);
+}
+
+.skin-theme-clientpref-night .citizen-page-container {
+	--bg-image-gradient: linear-gradient(to bottom,
+			color-mix(in srgb,black,transparent 50%) 0%,
+			color-mix(in srgb,var(--color-surface-0),transparent 50%)
+		20%);
+}
+
+@media (prefers-color-scheme: dark) {
+    .citizen-page-container {
+        --bg-image-gradient: linear-gradient(to bottom,
+        		color-mix(in srgb,black,transparent 50%) 0%,
+        		color-mix(in srgb,var(--color-surface-0),transparent 50%)
+        	20%);
+    }
+}
