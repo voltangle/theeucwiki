@@ -1,10 +1,6 @@
 /* FIXME: This file is too long. It has to be broken up and then delivered on-demand
  * as a resource module, only if the required tag/parser hook is used. */
 
-.ext-shubara-navcards {
-    min-width: 280px;
-    gap: 10px;
-}
 
 .ext-shubara-navcards-flex {
     display: flex;
@@ -381,4 +377,19 @@
         		color-mix(in srgb,var(--color-surface-0),transparent 50%)
         	20%);
     }
+}
+
+.ext-shubara-messagebox {
+    border-radius: 12px;
+    background: var(--color-surface-1);
+    border: 4px solid var(--color-surface-2);
+    padding-left: 10px;
+    margin-top: 4px;
+}
+
+.ext-shubara-messagebox p {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: flex-start;
 }
