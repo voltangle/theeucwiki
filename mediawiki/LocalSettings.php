@@ -154,6 +154,7 @@ $wgFileExtensions[] = 'svg';
 $wgFileExtensions[] = 'mp4';
 $wgFileExtensions[] = 'mov';
 $wgFileExtensions[] = 'mkv';
+$wgFileExtensions[] = 'pdf';
 $wgSVGNativeRendering = true;
 
 ####################### Extensions #########################
