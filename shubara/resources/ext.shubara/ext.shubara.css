@@ -1,6 +1,10 @@
 /* FIXME: This file is too long. It has to be broken up and then delivered on-demand
  * as a resource module, only if the required tag/parser hook is used. */
 
+.ext-shubara-navcards {
+    min-width: 280px;
+    gap: 10px;
+}
 
 .ext-shubara-navcards-flex {
     display: flex;
