@@ -67,9 +67,9 @@ class Imagechip {
             $nId = Utils::generateRandomString();
             $content .= Html::rawElement('div', ['id' => "ext-shubara-$nId", 'class' => " ext-shubara-imagechip-child"], $parsedContent);
             if ($contentDark != null) {
-                $style = ".skin-citizen-dark #ext-shubara-$nId { display: none; }";
+                $style = ".skin-theme-clientpref-night #ext-shubara-$nId { display: none; }";
                 $style .= "@media (prefers-color-scheme: dark) {
-                    .skin-citizen-auto #ext-shubara-$nId {display: none;}}";
+                    .skin-theme-clientpref-os #ext-shubara-$nId {display: none;}}";
                 Utils::embedStyle($style, $parser, $content);
             }
         }
@@ -78,9 +78,9 @@ class Imagechip {
             $nId = Utils::generateRandomString();
             $content .= Html::rawElement('div', ['id' => "ext-shubara-$nId", 'class' => " ext-shubara-imagechip-child"], $parsedContent);
             if ($contentLight != null) {
-                $style = ".skin-citizen-light #ext-shubara-$nId { display: none; }";
+                $style = ".skin-theme-clientpref-day #ext-shubara-$nId { display: none; }";
                 $style .= "@media (prefers-color-scheme: light) {
-                    .skin-citizen-auto #ext-shubara-$nId {display: none;}}";
+                    .skin-theme- clientpref-os #ext-shubara-$nId {display: none;}}";
                 Utils::embedStyle($style, $parser, $content);
             }
         }
