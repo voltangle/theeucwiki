@@ -80,7 +80,7 @@ class Imagechip {
             if ($contentLight != null) {
                 $style = ".skin-theme-clientpref-day #ext-shubara-$nId { display: none; }";
                 $style .= "@media (prefers-color-scheme: light) {
-                    .skin-theme- clientpref-os #ext-shubara-$nId {display: none;}}";
+                    .skin-theme-clientpref-os #ext-shubara-$nId {display: none;}}";
                 Utils::embedStyle($style, $parser, $content);
             }
         }
