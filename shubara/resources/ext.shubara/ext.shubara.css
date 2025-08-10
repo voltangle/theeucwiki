@@ -375,10 +375,19 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .citizen-page-container {
+    .skin-theme-clientpref-os .citizen-page-container {
         --bg-image-gradient: linear-gradient(to bottom,
-        		color-mix(in srgb,black,transparent 50%) 0%,
-        		color-mix(in srgb,var(--color-surface-0),transparent 50%)
-        	20%);
+            color-mix(in srgb,black,transparent 50%) 0%,
+            color-mix(in srgb,var(--color-surface-0),transparent 50%)
+        20%);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .skin-theme-clientpref-os .citizen-page-container {
+        --bg-image-gradient: linear-gradient(to bottom,
+       		color-mix(in srgb,white,transparent 50%) 0%,
+       		color-mix(in srgb,var(--color-surface-0),transparent 50%)
+       	20%);
     }
 }
